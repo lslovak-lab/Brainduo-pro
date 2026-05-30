@@ -368,7 +368,9 @@ body {
   justify-content: flex-start;
   padding-top: 80px;
   position: relative;
+  overflow-y: auto;
 }
+.bd-splash::-webkit-scrollbar { width: 0; }
 .bd-splash .bd-float {
   width: 90px; height: 90px;
   flex-shrink: 0;
