@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer theme {
+  :root {
+    --bd-ivory:        #EEF0DE;
+    --bd-ivory-tint:   #F6F7E9;
+    --bd-ivory-deep:   #E2E6CB;
+    --bd-sage:         #B7CB84;
+    --bd-sage-soft:    #D2DDA9;
+    --bd-sage-deep:    #8FA764;
+    --bd-orange:       #F58A3A;
+    --bd-orange-soft:  #FFB17A;
+    --bd-orange-deep:  #D86F1F;
+    --bd-yellow:       #EFC84A;
+    --bd-yellow-soft:  #F6DD80;
+    --bd-charcoal:     #4A4A4A;
+    --bd-charcoal-2:   #6E6E6E;
+    --bd-charcoal-3:   #9A9A9A;
+    --bd-ink:          #000000;
+    --bd-paper:        #FFFFFF;
+    --bd-paper-soft:   #FBFBF6;
+    --bd-on-dark:      #F7F8EE;
+  }
+}
+
+@variant light {
+  :root {
+    --bg-app:     var(--bd-ivory);
+    --fg-primary: var(--bd-ink);
+  }
+}
+
+@variant dark {
+  :root {
+    --bg-app:     #1a1a1c;
+    --fg-primary: var(--bd-on-dark);
+  }
+}

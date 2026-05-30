@@ -1,0 +1,159 @@
+/* ============================================================
+   BRAINDUO — Design Tokens
+   Premium cognitive-tech aesthetic. Editorial minimalism.
+   ============================================================ */
+
+/* — Typography — */
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap");
+
+:root {
+  /* ── Color · Brand palette ─────────────────────────────────── */
+  --bd-ivory:        #EEF0DE;   /* primary background — soft ivory */
+  --bd-ivory-tint:   #F6F7E9;   /* lighter ivory (cards, surfaces) */
+  --bd-ivory-deep:   #E2E6CB;   /* recessed ivory                  */
+
+  --bd-sage:         #B7CB84;   /* secondary surface — sage         */
+  --bd-sage-soft:    #D2DDA9;   /* sage tint                        */
+  --bd-sage-deep:    #8FA764;   /* darker sage (accents)            */
+
+  --bd-orange:       #F58A3A;   /* warm accent                       */
+  --bd-orange-soft:  #FFB17A;   /* glow inner                        */
+  --bd-orange-deep:  #D86F1F;   /* press / hover                     */
+
+  --bd-yellow:       #EFC84A;   /* highlight accent                  */
+  --bd-yellow-soft:  #F6DD80;   /* yellow glow                       */
+
+  --bd-charcoal:     #4A4A4A;   /* neutral dark                      */
+  --bd-charcoal-2:   #6E6E6E;   /* secondary text                    */
+  --bd-charcoal-3:   #9A9A9A;   /* tertiary / placeholder            */
+
+  --bd-ink:          #000000;   /* primary accent — pure black       */
+  --bd-paper:        #FFFFFF;   /* card paper                        */
+  --bd-paper-soft:   #FBFBF6;   /* tinted paper                      */
+
+  /* ── Semantic colors ───────────────────────────────────────── */
+  --bg-app:          var(--bd-ivory);
+  --bg-surface:      var(--bd-paper);
+  --bg-surface-2:    var(--bd-paper-soft);
+  --bg-sage:         var(--bd-sage);
+  --bg-elevated:     rgba(255,255,255,0.72);
+
+  --fg-primary:      var(--bd-ink);
+  --fg-secondary:    var(--bd-charcoal);
+  --fg-tertiary:     var(--bd-charcoal-2);
+  --fg-muted:        var(--bd-charcoal-3);
+  --fg-on-dark:      #F7F8EE;
+
+  --accent:          var(--bd-orange);
+  --accent-warm:     var(--bd-yellow);
+  --accent-cool:     var(--bd-sage-deep);
+
+  --border-hair:     rgba(0,0,0,0.08);
+  --border-soft:     rgba(0,0,0,0.14);
+  --border-strong:   rgba(0,0,0,0.32);
+
+  /* ── Gradients ─────────────────────────────────────────────── */
+  --grad-ivory-sage:    radial-gradient(140% 80% at 50% 110%, var(--bd-sage-soft) 0%, var(--bd-ivory) 55%, var(--bd-ivory-tint) 100%);
+  --grad-glow-warm:     radial-gradient(60% 70% at 50% 50%, var(--bd-orange-soft) 0%, rgba(245,138,58,0.22) 40%, rgba(245,138,58,0) 70%);
+  --grad-glow-yellow:   radial-gradient(60% 60% at 50% 50%, var(--bd-yellow-soft) 0%, rgba(239,200,74,0.18) 45%, rgba(239,200,74,0) 75%);
+  --grad-sage-surface:  linear-gradient(165deg, #D9E3B4 0%, #B7CB84 60%, #9DB66B 100%);
+  --grad-ink-surface:   linear-gradient(180deg, #1B1B1B 0%, #000 100%);
+
+  /* ── Shadows · elevation ───────────────────────────────────── */
+  --shadow-hair:     0 1px 0 rgba(0,0,0,0.04);
+  --shadow-soft:     0 6px 18px -8px rgba(35,40,20,0.18), 0 2px 6px -2px rgba(35,40,20,0.08);
+  --shadow-card:     0 18px 40px -22px rgba(35,40,20,0.32), 0 2px 8px -2px rgba(35,40,20,0.08);
+  --shadow-floating: 0 30px 60px -28px rgba(35,40,20,0.40), 0 6px 16px -8px rgba(35,40,20,0.12);
+  --shadow-glow-warm: 0 0 0 1px rgba(245,138,58,0.10), 0 10px 36px -8px rgba(245,138,58,0.45);
+  --shadow-press:    inset 0 2px 4px rgba(0,0,0,0.10);
+
+  /* ── Radii ─────────────────────────────────────────────────── */
+  --r-xs:   6px;
+  --r-sm:   10px;
+  --r-md:   16px;
+  --r-lg:   22px;
+  --r-xl:   28px;
+  --r-2xl:  36px;
+  --r-pill: 999px;
+
+  /* ── Spacing scale (8pt) ───────────────────────────────────── */
+  --s-1:  4px;
+  --s-2:  8px;
+  --s-3:  12px;
+  --s-4:  16px;
+  --s-5:  20px;
+  --s-6:  24px;
+  --s-7:  32px;
+  --s-8:  40px;
+  --s-9:  56px;
+  --s-10: 72px;
+
+  /* ── Motion ────────────────────────────────────────────────── */
+  --ease-organic:    cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-smooth:     cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-emphasis:   cubic-bezier(0.16, 1, 0.3, 1);
+  --t-fast:   140ms;
+  --t-base:   220ms;
+  --t-slow:   420ms;
+  --t-ambient: 1200ms;
+
+  /* ── Typography · families ─────────────────────────────────── */
+  --font-sans: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-display: "Open Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* ── Type scale ────────────────────────────────────────────── */
+  --t-hero:        clamp(36px, 5.6vw, 42px);
+  --t-display:     clamp(28px, 4.4vw, 34px);
+  --t-h1:          28px;
+  --t-h2:          24px;
+  --t-h3:          20px;
+  --t-h4:          18px;
+  --t-body-lg:     17px;
+  --t-body:        16px;
+  --t-body-sm:     14px;
+  --t-caption:     12px;
+  --t-micro:       11px;
+
+  --lh-tight:   1.08;
+  --lh-snug:    1.22;
+  --lh-normal:  1.45;
+  --lh-loose:   1.6;
+
+  --tracking-tight:   -0.012em;
+  --tracking-normal:   0;
+  --tracking-wide:     0.04em;
+  --tracking-wider:    0.14em;
+}
+
+/* ── Semantic text elements ───────────────────────────────────── */
+.bd-hero {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--t-hero);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--tracking-tight);
+  color: var(--fg-primary);
+}
+.bd-display {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--t-display);
+  line-height: var(--lh-snug);
+  letter-spacing: var(--tracking-tight);
+}
+.bd-h1 { font-family: var(--font-display); font-weight: 700; font-size: var(--t-h1); line-height: var(--lh-snug); letter-spacing: var(--tracking-tight); }
+.bd-h2 { font-family: var(--font-display); font-weight: 700; font-size: var(--t-h2); line-height: var(--lh-snug); letter-spacing: var(--tracking-tight); }
+.bd-h3 { font-family: var(--font-sans);    font-weight: 600; font-size: var(--t-h3); line-height: var(--lh-snug); }
+.bd-h4 { font-family: var(--font-sans);    font-weight: 600; font-size: var(--t-h4); line-height: var(--lh-snug); }
+.bd-body-lg { font-family: var(--font-sans); font-size: var(--t-body-lg); line-height: var(--lh-normal); color: var(--fg-secondary); }
+.bd-body    { font-family: var(--font-sans); font-size: var(--t-body);    line-height: var(--lh-normal); color: var(--fg-secondary); }
+.bd-body-sm { font-family: var(--font-sans); font-size: var(--t-body-sm); line-height: var(--lh-normal); color: var(--fg-tertiary); }
+.bd-caption { font-family: var(--font-sans); font-size: var(--t-caption); line-height: var(--lh-normal); color: var(--fg-tertiary); letter-spacing: var(--tracking-wide); }
+.bd-eyebrow {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: var(--t-micro);
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+  color: var(--fg-tertiary);
+}

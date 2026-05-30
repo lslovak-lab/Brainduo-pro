@@ -1,0 +1,1467 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BRAINDUO · Mobile UI Kit</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="app.css">
+</head>
+<body>
+
+<div class="bd-stage">
+
+  <!-- ============================================================
+       Phone bezel
+       ============================================================ -->
+  <div class="bd-phone">
+    <div class="bd-screen-wrap" id="screenWrap">
+
+      <!-- Status bar (rendered once, on every screen) -->
+      <div class="bd-statusbar">
+        <span class="time">9:41</span>
+        <span class="icons">
+          <svg viewBox="0 0 18 12" fill="none"><path d="M1 6h2v5H1zm4-2h2v7H5zm4-2h2v9H9zm4-2h2v11h-2z" fill="#000"/></svg>
+          <svg viewBox="0 0 16 12" fill="none"><path d="M8 11.5C4.5 8 1 8 1 5c0-1.5 1.5-3 3-3 1.5 0 3 1.5 3 3" stroke="#000" stroke-width="1.2"/></svg>
+          <svg width="24" height="11" viewBox="0 0 24 11"><rect x="0.5" y="0.5" width="20" height="10" rx="3" stroke="#000" fill="none"/><rect x="2" y="2" width="17" height="7" rx="1.5" fill="#000"/><path d="M21.5 4v3h.8a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1z" fill="#000"/></svg>
+        </span>
+      </div>
+
+      <!-- ============== 1 · Splash ============== -->
+      <section class="bd-screen active bd-splash" data-screen="splash">
+        <div class="bd-glow-bg"></div>
+        <div class="bd-float" style="margin-bottom:24px; position:relative; z-index:1;">
+          <svg width="120" height="120" viewBox="0 0 200 200" fill="none">
+            <g opacity="0.85" stroke="#000" stroke-width="1.2">
+              <path d="M100 100 C 75 70, 50 110, 30 90"/>
+              <path d="M100 100 C 75 130, 50 90, 30 110"/>
+              <path d="M100 100 C 125 70, 150 110, 170 90"/>
+              <path d="M100 100 C 125 130, 150 90, 170 110"/>
+              <path d="M100 100 C 95 65, 70 50, 60 30"/>
+              <path d="M100 100 C 105 135, 130 150, 140 170"/>
+              <path d="M100 100 C 130 65, 150 50, 170 35"/>
+              <path d="M100 100 C 70 135, 50 150, 30 170"/>
+            </g>
+            <g fill="#000">
+              <circle cx="100" cy="100" r="4"/>
+              <circle cx="30" cy="90" r="2.5"/><circle cx="30" cy="110" r="2.5"/>
+              <circle cx="170" cy="90" r="2.5"/><circle cx="170" cy="110" r="2.5"/>
+              <circle cx="60" cy="30" r="2"/><circle cx="140" cy="170" r="2"/>
+              <circle cx="170" cy="35" r="2"/><circle cx="30" cy="170" r="2"/>
+            </g>
+          </svg>
+        </div>
+        <h1 class="bd-wordmark">BRAINDUO</h1>
+        <p class="bd-body bd-mt-3" style="text-align:center; max-width:280px; position:relative; z-index:1;">
+          Майданчик для твоїх щоденних інтелектуальних перемог
+        </p>
+        <div style="margin-top:auto; padding:0 24px 56px; width:100%; position:relative; z-index:1;">
+          <button class="bd-btn bd-btn--primary bd-btn--block pulse" onclick="go('signup'); pulse(this);">Розпочати</button>
+          <button class="bd-btn bd-btn--ghost bd-btn--block bd-mt-3" onclick="go('home')">Пропустити</button>
+        </div>
+      </section>
+
+      <!-- ============== 2 · Sign Up / Log In ============== -->
+      <section class="bd-screen" data-screen="signup">
+        <div class="bd-topnav">
+          <button class="bd-iconbtn" onclick="go('splash')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+          <span class="bd-eyebrow">КРОК 1 · 3</span>
+          <span style="width:44px"></span>
+        </div>
+        <div class="bd-screen-body">
+          <div class="bd-display">Створи акаунт</div>
+          <p class="bd-body bd-mt-2">Увійди, щоб зберігати прогрес і синхронізувати між пристроями.</p>
+
+          <div class="bd-mt-6">
+            <div class="bd-field">
+              <span class="bd-label">EMAIL</span>
+              <input class="bd-input" type="email" placeholder="імʼя@приклад.com">
+            </div>
+            <div class="bd-field">
+              <span class="bd-label">ПАРОЛЬ</span>
+              <input class="bd-input" type="password" placeholder="••••••••">
+            </div>
+
+            <button class="bd-btn bd-btn--primary bd-btn--block bd-mt-4" onclick="go('goalpath'); pulse(this);">Продовжити</button>
+
+            <div class="bd-divider bd-mt-6">або</div>
+
+            <p class="bd-caption bd-mt-3" style="text-align:center">Увійти за допомогою</p>
+            <div class="bd-mt-3" style="display:flex; justify-content:center; gap:14px;">
+              <button class="bd-social" title="Apple"><svg viewBox="0 0 24 24" fill="#000"><path d="M16.4 13.1c0-2.4 2-3.6 2-3.6-1.1-1.6-2.8-1.8-3.4-1.9-1.4-.1-2.8.8-3.5.8-.7 0-1.9-.8-3.1-.8-1.6 0-3 .9-3.9 2.4-1.7 2.9-.4 7.2 1.2 9.5.8 1.2 1.7 2.4 2.9 2.4 1.2 0 1.6-.8 3-.8s1.8.8 3 .8c1.3 0 2.1-1.2 2.9-2.3.9-1.4 1.3-2.7 1.3-2.8-.1 0-2.4-1-2.4-3.7zM14.5 6.1c.6-.8 1.1-1.9 1-3-1 0-2.2.7-2.9 1.5-.6.7-1.2 1.8-1 2.9 1.1.1 2.2-.6 2.9-1.4z"/></svg></button>
+              <button class="bd-social" title="Google"><svg viewBox="0 0 24 24"><path fill="#4285F4" d="M22 12.2c0-.7-.1-1.4-.2-2H12v3.8h5.6c-.2 1.3-1 2.4-2.1 3.2v2.7h3.4c2-1.9 3.1-4.6 3.1-7.7z"/><path fill="#34A853" d="M12 22c2.8 0 5.2-.9 6.9-2.5l-3.4-2.7c-.9.6-2.1 1-3.5 1-2.7 0-5-1.8-5.8-4.3H2.8v2.7C4.5 19.7 8 22 12 22z"/><path fill="#FBBC04" d="M6.2 13.5c-.2-.6-.3-1.2-.3-1.9 0-.7.1-1.3.3-1.9V7H2.8C2.3 8.2 2 9.6 2 11.6s.3 3.4.8 4.6l3.4-2.7z"/><path fill="#EA4335" d="M12 6c1.5 0 2.9.5 4 1.5l3-3C17.2 2.9 14.8 2 12 2 8 2 4.5 4.3 2.8 7.7l3.4 2.7C7 7.8 9.3 6 12 6z"/></svg></button>
+              <button class="bd-social" title="Email"><svg viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></button>
+            </div>
+
+            <p class="bd-caption bd-mt-6" style="text-align:center; max-width:260px; margin-left:auto; margin-right:auto;">
+              Продовжуючи, ви приймаєте нашу <u>Політику конфіденційності</u>.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============== 3 · Goal Path picker ============== -->
+      <section class="bd-screen" data-screen="goalpath">
+        <div class="bd-topnav">
+          <button class="bd-iconbtn" onclick="go('signup')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+          <span class="bd-eyebrow">КРОК 2 · 3</span>
+          <span style="width:44px"></span>
+        </div>
+        <div class="bd-screen-body">
+          <h2 class="bd-display">Оберіть шлях навчання</h2>
+          <p class="bd-body bd-mt-2">Можна змінити пізніше в налаштуваннях.</p>
+
+          <div class="bd-path bd-mt-6">
+            <div class="bd-path-card" data-pick="auto" onclick="pickPath(this)">
+              <div class="vis"></div>
+              <span class="badge">Рекомендовано</span>
+              <div>
+                <div class="bd-h2 bd-mt-2">Визначити мій рівень</div>
+                <p class="bd-body-sm bd-mt-2" style="max-width:240px">Швидкий тест — і ШІ підлаштує програму під твої сильні сторони.</p>
+              </div>
+            </div>
+            <div class="bd-path-card active" data-pick="manual" onclick="pickPath(this)">
+              <div class="vis" style="background:radial-gradient(60% 60% at 50% 50%, rgba(239,200,74,.5), rgba(239,200,74,0) 70%)"></div>
+              <span class="badge">Самостійно</span>
+              <div>
+                <div class="bd-h2 bd-mt-2">Обирати теми самостійно</div>
+                <p class="bd-body-sm bd-mt-2" style="max-width:240px">Сам обирай напрямки тренування — повний контроль.</p>
+              </div>
+            </div>
+          </div>
+
+          <button class="bd-btn bd-btn--primary bd-btn--block bd-mt-7" onclick="go('goals'); pulse(this);">Продовжити</button>
+        </div>
+      </section>
+
+      <!-- ============== 4 · Goal Selection ============== -->
+      <section class="bd-screen" data-screen="goals">
+        <div class="bd-topnav">
+          <button class="bd-iconbtn" onclick="go('goalpath')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+          <span class="bd-eyebrow">КРОК 3 · 3</span>
+          <span style="width:44px"></span>
+        </div>
+        <div class="bd-screen-body">
+          <h2 class="bd-display">Оберіть цілі тренування</h2>
+          <p class="bd-body bd-mt-2">Обери одну або декілька — будемо комбінувати їх у щоденних квестах.</p>
+
+          <div class="bd-goal-grid bd-mt-6">
+            <div class="bd-goal selected" onclick="toggleGoal(this)">
+              <div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <div class="glyph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 5v2M12 17v2M5 12h2M17 12h2M7 7l1.4 1.4M15.6 15.6 17 17M7 17l1.4-1.4M15.6 8.4 17 7"/></svg></div>
+              <div><div class="title">Увага</div><div class="meta">Фокус 5–15 хв</div></div>
+            </div>
+            <div class="bd-goal selected" onclick="toggleGoal(this)">
+              <div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <div class="glyph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><path d="M2 12h4M18 12h4M12 2v4M12 18v4"/></svg></div>
+              <div><div class="title">Логіка</div><div class="meta">Аргументація</div></div>
+            </div>
+            <div class="bd-goal" onclick="toggleGoal(this)">
+              <div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <div class="glyph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12c0-5 4-9 9-9s9 4 9 9-4 9-9 9"/><path d="M12 8v4l3 2"/></svg></div>
+              <div><div class="title">Памʼять</div><div class="meta">Утримання</div></div>
+            </div>
+            <div class="bd-goal" onclick="toggleGoal(this)">
+              <div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <div class="glyph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h3l2-5 4 10 2-5h6"/></svg></div>
+              <div><div class="title">Концентрація</div><div class="meta">Тривалість</div></div>
+            </div>
+          </div>
+
+          <div class="bd-tutor bd-mt-6">
+            <div class="avatar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg></div>
+            <div class="text">ШІ не дає готових відповідей — він допомагає <strong>тобі думати</strong>.</div>
+          </div>
+
+          <button class="bd-btn bd-btn--primary bd-btn--block bd-mt-6" data-cta onclick="go('quiz'); pulse(this);">Розпочати тест рівня</button>
+        </div>
+      </section>
+
+      <!-- ============== 5 · Placement Quiz ============== -->
+      <section class="bd-screen" data-screen="quiz">
+        <div class="bd-topnav">
+          <button class="bd-iconbtn" onclick="go('goals')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+          <div style="flex:1; padding: 0 16px;"><div class="bd-progress"><div style="width:33%"></div></div></div>
+          <span class="bd-caption" style="min-width:32px; text-align:right;">1/3</span>
+        </div>
+        <div class="bd-screen-body">
+          <span class="bd-eyebrow">ТЕСТ · ЛОГІКА</span>
+          <div class="bd-quiz-question bd-mt-3">Скільки місяців у році мають 28 днів?</div>
+
+          <div class="bd-quiz-answers bd-mt-6" id="quizAnswers">
+            <button class="bd-quiz-answer" onclick="pickAnswer(this, false)"><span class="letter">А</span>Тільки лютий</button>
+            <button class="bd-quiz-answer" onclick="pickAnswer(this, true)"><span class="letter">Б</span>Усі 12</button>
+            <button class="bd-quiz-answer" onclick="pickAnswer(this, false)"><span class="letter">В</span>Чотири</button>
+            <button class="bd-quiz-answer" onclick="pickAnswer(this, false)"><span class="letter">Г</span>Жоден</button>
+          </div>
+
+          <div class="bd-tutor bd-mt-5" id="tutorHint" style="display:none;">
+            <div class="avatar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8v4M12 16h.01"/><circle cx="12" cy="12" r="10"/></svg></div>
+            <div class="text"><strong>Підказка AI-тьютора.</strong> Перевір тлумачення слова «мають»: воно означає «мають принаймні», а не «мають рівно».</div>
+          </div>
+
+          <button class="bd-btn bd-btn--ghost bd-btn--block bd-mt-5" onclick="document.getElementById('tutorHint').style.display='flex'">Підказка AI-тьютора</button>
+          <button class="bd-btn bd-btn--primary bd-btn--block bd-mt-3 is-pending" data-cta onclick="go('quizResult'); pulse(this);">Відповісти</button>
+        </div>
+      </section>
+
+      <!-- ============== 6 · Quiz Result ============== -->
+      <section class="bd-screen" data-screen="quizResult">
+        <div class="bd-glow-bg"></div>
+        <div class="bd-screen-body" style="position:relative; z-index:1;">
+          <span class="bd-eyebrow">РЕЗУЛЬТАТ</span>
+          <h2 class="bd-display bd-mt-2">Ти молодець!</h2>
+          <p class="bd-body bd-mt-2">Чудовий результат — ти успішно подолав цей етап.</p>
+
+          <div class="bd-mt-7">
+            <div class="bd-ring">
+              <svg viewBox="0 0 200 200">
+                <circle cx="100" cy="100" r="86" stroke="rgba(0,0,0,.08)" stroke-width="14" fill="none"/>
+                <circle id="ringFill" cx="100" cy="100" r="86" stroke="url(#g1)" stroke-width="14" fill="none" stroke-linecap="round" stroke-dasharray="540" stroke-dashoffset="540"/>
+                <defs><linearGradient id="g1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#F58A3A"/><stop offset="100%" stop-color="#EFC84A"/></linearGradient></defs>
+              </svg>
+              <div class="center"><div class="pct">85%</div><div class="lab">точність</div></div>
+            </div>
+          </div>
+
+          <div class="bd-grid-3 bd-mt-6">
+            <div class="bd-stat"><span class="num">8</span><span class="lab">з 10</span></div>
+            <div class="bd-stat"><span class="num">2:14</span><span class="lab">час</span></div>
+            <div class="bd-stat"><span class="num">+40</span><span class="lab">бонуси</span></div>
+          </div>
+
+          <button class="bd-btn bd-btn--primary bd-btn--block bd-mt-6" onclick="go('home'); pulse(this);">Перейти до головної</button>
+          <button class="bd-btn bd-btn--ghost bd-btn--block bd-mt-3" onclick="go('mistakes')">Переглянути усі помилки</button>
+        </div>
+      </section>
+
+      <!-- ============== 7 · Home ============== -->
+      <section class="bd-screen" data-screen="home">
+        <div class="bd-screen-body" style="padding-top:56px;">
+          <div class="bd-row-between">
+            <div>
+              <span class="bd-eyebrow">ВІВТОРОК · 24 ТРАВНЯ</span>
+              <h2 class="bd-display bd-mt-2">Привіт, Олю!</h2>
+            </div>
+            <button class="bd-iconbtn" onclick="go('profile')" style="background:rgba(0,0,0,.04);">
+              <span class="bd-avatar" style="width:36px; height:36px; border-width:2px;"></span>
+            </button>
+          </div>
+
+          <!-- Streak hero -->
+          <div class="bd-card bd-card--glow bd-mt-5" onclick="go('streak')" style="cursor:pointer">
+            <div class="bd-row-between">
+              <div>
+                <span class="bd-eyebrow">СТРІК</span>
+                <div class="bd-mt-2" style="display:flex; align-items:baseline; gap:8px;">
+                  <span style="font:800 48px/1 var(--font-display); letter-spacing:-.025em; color:#000;">138</span>
+                  <span class="bd-body-sm">днів поспіль</span>
+                </div>
+                <p class="bd-body-sm bd-mt-2">Твій стрік чекає на продовження!</p>
+              </div>
+              <svg viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><path d="m9 18 6-6-6-6"/></svg>
+            </div>
+          </div>
+
+          <!-- Daily quest CTA -->
+          <button class="bd-cat-row alt2 bd-mt-3" style="width:100%; border:none; text-align:left;" onclick="go('tfquest')">
+            <span class="icon-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></span>
+            <span class="body">
+              <span class="title">Щоденний квест</span>
+              <span class="meta">3 завдання · ~7 хв</span>
+            </span>
+            <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="m9 18 6-6-6-6"/></svg></span>
+          </button>
+
+          <!-- Categories -->
+          <h3 class="bd-h2 bd-mt-6">Категорії</h3>
+          <div class="bd-stack-3 bd-mt-3">
+            <div class="bd-cat-row" onclick="go('mcquest')">
+              <span class="icon-tile"><svg viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12c2-3 5-5 9-5s7 2 9 5c-2 3-5 5-9 5s-7-2-9-5z"/><circle cx="12" cy="12" r="2"/></svg></span>
+              <div class="body">
+                <div class="title">Челенджі з друзями</div>
+                <div class="meta">Останній перегляд: 20 годин тому</div>
+              </div>
+              <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="m9 18 6-6-6-6"/></svg></span>
+            </div>
+            <div class="bd-cat-row alt" onclick="go('sentence')">
+              <span class="icon-tile"><svg viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M7 9h10M7 13h10M7 17h6"/></svg></span>
+              <div class="body">
+                <div class="title">Категорії завдань</div>
+                <div class="meta">Останній перегляд: 20 годин тому</div>
+              </div>
+              <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="m9 18 6-6-6-6"/></svg></span>
+            </div>
+            <div class="bd-cat-row" onclick="go('mcquest')">
+              <span class="icon-tile"><svg viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4.5 5-6 8-6s6.5 1.5 8 6"/></svg></span>
+              <div class="body">
+                <div class="title">Персональні завдання</div>
+                <div class="meta">Останній перегляд: 20 годин тому</div>
+              </div>
+              <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="m9 18 6-6-6-6"/></svg></span>
+            </div>
+          </div>
+
+          <!-- Leaderboard -->
+          <div class="bd-row-between bd-mt-6">
+            <h3 class="bd-h2">Лідери</h3>
+            <span class="bd-caption">тиждень</span>
+          </div>
+          <div class="bd-card bd-mt-3">
+            <div class="bd-leader gold"><span class="rank">1</span><span class="av"></span><span class="name">Юля</span><span class="pts">2 847</span></div>
+            <div class="bd-leader"><span class="rank">2</span><span class="av" style="background:linear-gradient(135deg,#FFB17A,#F58A3A);"></span><span class="name">Іра</span><span class="pts">2 612</span></div>
+            <div class="bd-leader"><span class="rank">3</span><span class="av" style="background:linear-gradient(135deg,#F6DD80,#EFC84A);"></span><span class="name">Надя</span><span class="pts">2 401</span></div>
+            <div class="bd-leader" style="border-top:1px solid rgba(0,0,0,.06); margin-top:6px; padding-top:14px;"><span class="rank" style="color:#000">12</span><span class="av"></span><span class="name">Ти</span><span class="pts">1 480</span></div>
+          </div>
+        </div>
+
+        <!-- Tab bar -->
+        <nav class="bd-tabbar">
+          <button class="bd-tab active" onclick="setTab(this,'home')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5"/><path d="M5 10v9h14v-9"/></svg>
+            Головна<span class="dot"></span>
+          </button>
+          <button class="bd-tab" onclick="setTab(this,'tfquest')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+            Квести<span class="dot"></span>
+          </button>
+          <button class="bd-tab" onclick="setTab(this,'streak')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 2.5 5.5L20 9l-4 4 1 6-5-3-5 3 1-6-4-4 5.5-.5z"/></svg>
+            Стрік<span class="dot"></span>
+          </button>
+          <button class="bd-tab" onclick="setTab(this,'profile')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4.5 5-6 8-6s6.5 1.5 8 6"/></svg>
+            Профіль<span class="dot"></span>
+          </button>
+        </nav>
+      </section>
+
+      <!-- ============== 8 · Streak ============== -->
+      <section class="bd-screen" data-screen="streak">
+        <div class="bd-topnav">
+          <button class="bd-iconbtn" onclick="go('home')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+          <span class="bd-eyebrow">СТРІК</span>
+          <button class="bd-iconbtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.65 1.65 0 0 0-1.8-.3 1.65 1.65 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.65 1.65 0 0 0-1-1.5 1.65 1.65 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.65 1.65 0 0 0 .3-1.8 1.65 1.65 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.65 1.65 0 0 0 1.5-1 1.65 1.65 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.65 1.65 0 0 0 1.8.3H9a1.65 1.65 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.65 1.65 0 0 0 1 1.5 1.65 1.65 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.65 1.65 0 0 0-.3 1.8V9a1.65 1.65 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.65 1.65 0 0 0-1.5 1z"/></svg></button>
+        </div>
+        <div class="bd-screen-body" style="padding-top:24px;">
+          <div class="bd-streak-big">138</div>
+          <p class="bd-body" style="text-align:center; margin-top:8px;">днів поспіль · твій найдовший стрік</p>
+
+          <!-- Month grid -->
+          <div class="bd-card bd-mt-6">
+            <div class="bd-row-between">
+              <span class="bd-eyebrow">КВІТЕНЬ 2026</span>
+              <span class="bd-caption">28 днів входу</span>
+            </div>
+            <div class="bd-cal bd-mt-3">
+              <span class="h">П</span><span class="h">В</span><span class="h">С</span><span class="h">Ч</span><span class="h">П</span><span class="h">С</span><span class="h">Н</span>
+              <span class="d muted">31</span><span class="d done">1</span><span class="d done">2</span><span class="d done">3</span><span class="d done">4</span><span class="d done">5</span><span class="d done">6</span>
+              <span class="d done">7</span><span class="d done">8</span><span class="d done">9</span><span class="d done">10</span><span class="d done">11</span><span class="d done">12</span><span class="d done">13</span>
+              <span class="d done">14</span><span class="d done">15</span><span class="d done">16</span><span class="d done">17</span><span class="d done">18</span><span class="d done">19</span><span class="d done">20</span>
+              <span class="d done">21</span><span class="d done">22</span><span class="d done">23</span><span class="d today">24</span><span class="d muted">25</span><span class="d muted">26</span><span class="d muted">27</span>
+              <span class="d muted">28</span><span class="d muted">29</span><span class="d muted">30</span><span class="d muted">1</span><span class="d muted">2</span><span class="d muted">3</span><span class="d muted">4</span>
+            </div>
+          </div>
+
+          <div class="bd-card bd-card--sage bd-mt-3">
+            <span class="bd-eyebrow" style="color:rgba(0,0,0,.55)">ЦІЛЬ СЕРІЇ ДНІВ</span>
+            <div class="bd-row-between bd-mt-2">
+              <div>
+                <div class="bd-h2">150 днів</div>
+                <p class="bd-body-sm" style="color:rgba(0,0,0,.6); margin-top:4px;">Лишилось 12 днів</p>
+              </div>
+              <div style="font:800 28px/1 var(--font-display); letter-spacing:-.018em;">92%</div>
+            </div>
+            <div class="bd-progress bd-mt-3" style="background:rgba(0,0,0,.12)"><div style="width:92%"></div></div>
+          </div>
+
+          <button class="bd-btn bd-btn--primary bd-btn--block bd-mt-6" onclick="go('tfquest'); pulse(this);">Продовжити стрік</button>
+        </div>
+        <nav class="bd-tabbar">
+          <button class="bd-tab" onclick="setTab(this,'home')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5"/><path d="M5 10v9h14v-9"/></svg>Головна<span class="dot"></span></button>
+          <button class="bd-tab" onclick="setTab(this,'tfquest')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>Квести<span class="dot"></span></button>
+          <button class="bd-tab active" onclick="setTab(this,'streak')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 2.5 5.5L20 9l-4 4 1 6-5-3-5 3 1-6-4-4 5.5-.5z"/></svg>Стрік<span class="dot"></span></button>
+          <button class="bd-tab" onclick="setTab(this,'profile')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4.5 5-6 8-6s6.5 1.5 8 6"/></svg>Профіль<span class="dot"></span></button>
+        </nav>
+      </section>
+
+      <!-- ============== 9 · Profile ============== -->
+      <section class="bd-screen" data-screen="profile">
+        <div class="bd-topnav">
+          <button class="bd-iconbtn" onclick="go('home')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+          <span class="bd-eyebrow">ПРОФІЛЬ</span>
+          <button class="bd-iconbtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.65 1.65 0 0 0-1.8-.3 1.65 1.65 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.65 1.65 0 0 0-1-1.5 1.65 1.65 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.65 1.65 0 0 0 .3-1.8 1.65 1.65 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.65 1.65 0 0 0 1.5-1 1.65 1.65 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.65 1.65 0 0 0 1.8.3H9a1.65 1.65 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.65 1.65 0 0 0 1 1.5 1.65 1.65 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.65 1.65 0 0 0-.3 1.8V9a1.65 1.65 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.65 1.65 0 0 0-1.5 1z"/></svg></button>
+        </div>
+        <div class="bd-screen-body" style="padding-top:24px;">
+          <div style="display:flex; flex-direction:column; align-items:center;">
+            <div class="bd-avatar"></div>
+            <h2 class="bd-h1 bd-mt-3">Олена Кравчук</h2>
+            <p class="bd-caption">@olya · приєдналась у січні 2026</p>
+          </div>
+
+          <div class="bd-row bd-mt-5" style="justify-content:center; gap:24px;">
+            <div style="text-align:center"><div style="font:800 22px/1 var(--font-display); letter-spacing:-.012em;">128</div><div class="bd-caption" style="text-transform:uppercase; letter-spacing:.14em; font-weight:600;">Читачі</div></div>
+            <div style="width:1px; background:rgba(0,0,0,.08)"></div>
+            <div style="text-align:center"><div style="font:800 22px/1 var(--font-display); letter-spacing:-.012em;">42</div><div class="bd-caption" style="text-transform:uppercase; letter-spacing:.14em; font-weight:600;">Друзі</div></div>
+          </div>
+
+          <button class="bd-btn bd-btn--primary bd-btn--block bd-mt-5">Додати друга +</button>
+
+          <div class="bd-grid-3 bd-mt-5">
+            <div class="bd-stat"><span class="num">138</span><span class="lab">днів входу</span></div>
+            <div class="bd-stat"><span class="num">12</span><span class="lab">рівень</span></div>
+            <div class="bd-stat"><span class="num">2.4K</span><span class="lab">бонуси</span></div>
+          </div>
+
+          <h3 class="bd-h2 bd-mt-6">Загальний прогрес</h3>
+          <div class="bd-card bd-mt-3">
+            <div class="bd-row-between">
+              <span style="font:800 28px/1 var(--font-display); letter-spacing:-.018em;">10%</span>
+              <span class="bd-body-sm">20 тестів пройдено</span>
+            </div>
+            <div class="bd-progress bd-mt-3"><div style="width:10%"></div></div>
+          </div>
+
+          <h3 class="bd-h2 bd-mt-6">Навички</h3>
+          <div class="bd-card bd-mt-3">
+            <div class="bd-skill"><span class="lbl">Логіка</span><div class="bar"><div style="width:78%"></div></div><span class="pct">78%</span></div>
+            <div class="bd-skill"><span class="lbl">Памʼять</span><div class="bar"><div style="width:62%"></div></div><span class="pct">62%</span></div>
+            <div class="bd-skill"><span class="lbl">Концентрація</span><div class="bar"><div style="width:54%"></div></div><span class="pct">54%</span></div>
+            <div class="bd-skill"><span class="lbl">Увага</span><div class="bar"><div style="width:81%"></div></div><span class="pct">81%</span></div>
+          </div>
+        </div>
+        <nav class="bd-tabbar">
+          <button class="bd-tab" onclick="setTab(this,'home')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5"/><path d="M5 10v9h14v-9"/></svg>Головна<span class="dot"></span></button>
+          <button class="bd-tab" onclick="setTab(this,'tfquest')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>Квести<span class="dot"></span></button>
+          <button class="bd-tab" onclick="setTab(this,'streak')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 2.5 5.5L20 9l-4 4 1 6-5-3-5 3 1-6-4-4 5.5-.5z"/></svg>Стрік<span class="dot"></span></button>
+          <button class="bd-tab active" onclick="setTab(this,'profile')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4.5 5-6 8-6s6.5 1.5 8 6"/></svg>Профіль<span class="dot"></span></button>
+        </nav>
+      </section>
+
+      <!-- ============== 10 · True/False quest ============== -->
+      <section class="bd-screen" data-screen="tfquest">
+        <div class="bd-topnav">
+          <button class="bd-iconbtn" onclick="go('home')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+          <div style="flex:1; padding:0 16px;"><div class="bd-progress"><div style="width:33%"></div></div></div>
+          <span class="bd-caption" style="min-width:32px; text-align:right;">1/3</span>
+        </div>
+        <div class="bd-screen-body">
+          <span class="bd-eyebrow">КВЕСТ · ПАМʼЯТЬ</span>
+          <h2 class="bd-display bd-mt-3">Обери, чи це правда.</h2>
+
+          <div class="bd-tf-card bd-mt-5">
+            <span class="bd-eyebrow" style="color:rgba(0,0,0,.55)">ТВЕРДЖЕННЯ</span>
+            <p class="bd-h2 bd-mt-2" style="line-height:1.3">Наш мозок продовжує активно працювати навіть під час сну.</p>
+            <div class="bd-tf-options">
+              <button class="bd-btn bd-btn--option" onclick="pickTF(this); pulse(this);">Правда</button>
+              <button class="bd-btn bd-btn--option" onclick="pickTF(this); pulse(this);">Хиба</button>
+            </div>
+          </div>
+
+          <div class="bd-tutor bd-mt-5">
+            <div class="avatar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8v4M12 16h.01"/><circle cx="12" cy="12" r="10"/></svg></div>
+            <div class="text"><strong>Підказка AI-тьютора.</strong> Подумай про фази сну та консолідацію памʼяті.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============== 11 · Multiple-choice quest ============== -->
+      <section class="bd-screen" data-screen="mcquest">
+        <div class="bd-topnav">
+          <button class="bd-iconbtn" onclick="go('tfquest')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+          <div style="flex:1; padding:0 16px;"><div class="bd-progress"><div style="width:66%"></div></div></div>
+          <span class="bd-caption" style="min-width:32px; text-align:right;">2/3</span>
+        </div>
+        <div class="bd-screen-body">
+          <span class="bd-eyebrow">КВЕСТ · ЛОГІКА</span>
+          <h2 class="bd-display bd-mt-3">Які числа діляться на 5 без залишку?</h2>
+          <p class="bd-body bd-mt-2">Можна обрати декілька варіантів.</p>
+
+          <div class="bd-quiz-answers bd-mt-5">
+            <button class="bd-quiz-answer" onclick="toggleSel(this)"><span class="letter">А</span>15</button>
+            <button class="bd-quiz-answer" onclick="toggleSel(this)"><span class="letter">Б</span>22</button>
+            <button class="bd-quiz-answer selected" onclick="toggleSel(this)"><span class="letter">В</span>40</button>
+            <button class="bd-quiz-answer" onclick="toggleSel(this)"><span class="letter">Г</span>33</button>
+            <button class="bd-quiz-answer selected" onclick="toggleSel(this)"><span class="letter">Д</span>125</button>
+          </div>
+
+          <button class="bd-btn bd-btn--primary bd-btn--block bd-mt-5" data-cta onclick="go('sentence'); pulse(this);">Далі</button>
+        </div>
+      </section>
+
+      <!-- ============== 12 · Sentence reconstruction ============== -->
+      <section class="bd-screen" data-screen="sentence">
+        <div class="bd-topnav">
+          <button class="bd-iconbtn" onclick="go('mcquest')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+          <div style="flex:1; padding:0 16px;"><div class="bd-progress"><div style="width:100%"></div></div></div>
+          <span class="bd-caption" style="min-width:32px; text-align:right;">3/3</span>
+        </div>
+        <div class="bd-screen-body">
+          <span class="bd-eyebrow">КВЕСТ · ПАМʼЯТЬ</span>
+          <h2 class="bd-display bd-mt-3">Відтвори речення</h2>
+          <p class="bd-body bd-mt-2">Запамʼятай послідовність слів та відтвори речення.</p>
+
+          <span class="bd-label bd-mt-5" style="display:block">ВІДПОВІДЬ</span>
+          <div class="bd-tokens bd-mt-2" id="answerSlot"></div>
+
+          <span class="bd-label bd-mt-4" style="display:block">СЛОВА</span>
+          <div class="bd-tokens bd-mt-2" id="bankSlot" style="background:transparent; border:none; padding:0;">
+            <button class="bd-token bank" onclick="moveToken(this,'answerSlot')">На</button>
+            <button class="bd-token bank" onclick="moveToken(this,'answerSlot')">вулиці</button>
+            <button class="bd-token bank" onclick="moveToken(this,'answerSlot')">холодний</button>
+            <button class="bd-token bank" onclick="moveToken(this,'answerSlot')">вітер</button>
+            <button class="bd-token bank" onclick="moveToken(this,'answerSlot')">дощ</button>
+          </div>
+
+          <button class="bd-btn bd-btn--primary bd-btn--block bd-mt-6 is-pending" data-cta onclick="go('questResult'); pulse(this);">Перевірити</button>
+        </div>
+      </section>
+
+      <!-- ============== 13 · Quest result (partial) ============== -->
+      <section class="bd-screen" data-screen="questResult">
+        <div class="bd-glow-bg" style="background:radial-gradient(60% 40% at 50% 40%, rgba(245,138,58,.45), rgba(245,138,58,0) 70%);"></div>
+        <div class="bd-topnav">
+          <button class="bd-iconbtn" onclick="go('home')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+          <span class="bd-eyebrow">РЕЗУЛЬТАТ</span>
+          <span style="width:44px"></span>
+        </div>
+        <div class="bd-screen-body" style="position:relative; z-index:1;">
+          <h2 class="bd-display">Ви пройшли тест майже правильно</h2>
+          <p class="bd-body bd-mt-2">Аналізуй ще раз, для кращого результату.</p>
+
+          <div class="bd-mt-6">
+            <div class="bd-ring">
+              <svg viewBox="0 0 200 200">
+                <circle cx="100" cy="100" r="86" stroke="rgba(0,0,0,.08)" stroke-width="14" fill="none"/>
+                <circle cx="100" cy="100" r="86" stroke="#F58A3A" stroke-width="14" fill="none" stroke-linecap="round" stroke-dasharray="540" stroke-dashoffset="146"/>
+              </svg>
+              <div class="center"><div class="pct">73%</div><div class="lab">точність</div></div>
+            </div>
+          </div>
+
+          <div class="bd-grid-3 bd-mt-6">
+            <div class="bd-stat"><span class="num">2</span><span class="lab">помилки</span></div>
+            <div class="bd-stat"><span class="num">3:42</span><span class="lab">час</span></div>
+            <div class="bd-stat"><span class="num">+24</span><span class="lab">бонуси</span></div>
+          </div>
+
+          <button class="bd-btn bd-btn--primary bd-btn--block bd-mt-6" onclick="go('mistakes'); pulse(this);">Переглянути усі помилки</button>
+          <button class="bd-btn bd-btn--ghost bd-btn--block bd-mt-3" onclick="go('home')">До головної</button>
+        </div>
+      </section>
+
+      <!-- ============== 14 · Mistake detail ============== -->
+      <section class="bd-screen" data-screen="mistakes">
+        <div class="bd-topnav">
+          <button class="bd-iconbtn" onclick="go('questResult')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+          <span class="bd-eyebrow">ВАШІ ПОМИЛКИ</span>
+          <span style="width:44px"></span>
+        </div>
+        <div class="bd-screen-body">
+          <div class="bd-card">
+            <span class="bd-eyebrow">ПИТАННЯ 1</span>
+            <h3 class="bd-h2 bd-mt-2">Скільки місяців у році мають 28 днів?</h3>
+
+            <div class="bd-mt-4 bd-stack-2">
+              <div class="bd-row" style="align-items:center; padding:12px 14px; border-radius:12px; background:#FBE4D5; border:1px solid var(--bd-orange-deep);">
+                <span class="bd-eyebrow" style="color:var(--bd-orange-deep)">ВАША ВІДПОВІДЬ</span>
+                <span style="margin-left:auto; font:600 14px/1 var(--font-sans); color:#000;">Усі 12</span>
+              </div>
+              <div class="bd-row" style="align-items:center; padding:12px 14px; border-radius:12px; background:#E6F1C9; border:1px solid #8FA764;">
+                <span class="bd-eyebrow" style="color:#5C7A2E">ПРАВИЛЬНА</span>
+                <span style="margin-left:auto; font:600 14px/1 var(--font-sans); color:#000;">Тільки лютий</span>
+              </div>
+            </div>
+
+            <span class="bd-eyebrow bd-mt-4" style="display:block">ПОЯСНЕННЯ</span>
+            <p class="bd-body bd-mt-2" style="font-size:15px">Усі 12 місяців мають хоча б 28 днів, але <strong>рівно 28 днів</strong> (у звичайний рік) має лише лютий.</p>
+          </div>
+
+          <button class="bd-btn bd-btn--primary bd-btn--block bd-mt-6" onclick="go('home'); pulse(this);">До головної</button>
+        </div>
+      </section>
+
+      <!-- ============== 14a · Home Challenges (24) ============== -->
+      <section class="bd-screen" data-screen="challenges">
+        <div class="bd-topnav">
+          <button class="bd-iconbtn" onclick="go('home')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+          <span class="bd-eyebrow">ЧЕЛЕНДЖІ</span>
+          <button class="bd-iconbtn" onclick="go('calendar')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="3"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></button>
+        </div>
+        <div class="bd-screen-body" style="padding-bottom:140px;">
+          <h2 class="bd-display">Челенджі</h2>
+          <p class="bd-body bd-mt-2">Виклики триватимуть від 5 до 30 хвилин — обирай під свій настрій.</p>
+
+          <div class="bd-segment bd-mt-5" style="display:flex; width:100%;">
+            <button class="active" onclick="setSeg(this)">Сьогодні</button>
+            <button onclick="setSeg(this)">Тиждень</button>
+            <button onclick="setSeg(this)">Усі</button>
+          </div>
+
+          <div class="bd-section-head bd-mt-5">АКТИВНІ · 3</div>
+          <div class="bd-stack-3">
+            <div class="bd-challenge warm" onclick="go('tfquest')">
+              <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></span>
+              <div class="body">
+                <div class="title">Щоденний фокус</div>
+                <div class="meta"><span>7 хв</span><span class="dot"></span><span>3 завдання</span><span class="dot"></span><span>+24 бонуси</span></div>
+              </div>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" style="color:var(--fg-muted)"><path d="m9 18 6-6-6-6"/></svg>
+            </div>
+            <div class="bd-challenge" onclick="go('mcquest')">
+              <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h3l2-5 4 10 2-5h6"/></svg></span>
+              <div class="body">
+                <div class="title">Пастки аргументації</div>
+                <div class="meta"><span>12 хв</span><span class="dot"></span><span>Логіка</span><span class="dot"></span><span>+50 бонусів</span></div>
+              </div>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" style="color:var(--fg-muted)"><path d="m9 18 6-6-6-6"/></svg>
+            </div>
+            <div class="bd-challenge dark" onclick="go('sentence')">
+              <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M7 9h10M7 13h6"/></svg></span>
+              <div class="body">
+                <div class="title">Памʼять у словах</div>
+                <div class="meta"><span>5 хв</span><span class="dot"></span><span>Памʼять</span><span class="dot"></span><span>+18 бонусів</span></div>
+              </div>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" style="color:var(--fg-muted)"><path d="m9 18 6-6-6-6"/></svg>
+            </div>
+          </div>
+
+          <div class="bd-section-head bd-mt-6">ПРИЙДЕ ЗАВТРА</div>
+          <div class="bd-stack-3">
+            <div class="bd-challenge" style="opacity:.65; pointer-events:none">
+              <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></span>
+              <div class="body">
+                <div class="title">Парний челендж · з Юлею</div>
+                <div class="meta"><span>10 хв</span><span class="dot"></span><span>Розблокування завтра о 9:00</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <nav class="bd-tabbar">
+          <button class="bd-tab" onclick="setTab(this,'home')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5"/><path d="M5 10v9h14v-9"/></svg>Головна<span class="dot"></span></button>
+          <button class="bd-tab active" onclick="setTab(this,'challenges')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>Квести<span class="dot"></span></button>
+          <button class="bd-tab" onclick="setTab(this,'streak')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 2.5 5.5L20 9l-4 4 1 6-5-3-5 3 1-6-4-4 5.5-.5z"/></svg>Стрік<span class="dot"></span></button>
+          <button class="bd-tab" onclick="setTab(this,'profile')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4.5 5-6 8-6s6.5 1.5 8 6"/></svg>Профіль<span class="dot"></span></button>
+        </nav>
+      </section>
+
+      <!-- ============== 14b · Challenges Calendar (25) ============== -->
+      <section class="bd-screen" data-screen="calendar">
+        <div class="bd-topnav">
+          <button class="bd-iconbtn" onclick="go('challenges')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+          <span class="bd-eyebrow">КАЛЕНДАР ЧЕЛЕНДЖІВ</span>
+          <span style="width:44px"></span>
+        </div>
+        <div class="bd-screen-body" style="padding-bottom:140px;">
+          <div class="bd-row-between">
+            <h2 class="bd-h1">Травень 2026</h2>
+            <div class="bd-row" style="gap:6px">
+              <button class="bd-iconbtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="m15 18-6-6 6-6"/></svg></button>
+              <button class="bd-iconbtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="m9 18 6-6-6-6"/></svg></button>
+            </div>
+          </div>
+
+          <div class="bd-cal bd-mt-4" style="grid-template-rows:none;">
+            <span class="h">П</span><span class="h">В</span><span class="h">С</span><span class="h">Ч</span><span class="h">П</span><span class="h">С</span><span class="h">Н</span>
+          </div>
+          <div class="bd-cal-compact bd-mt-2">
+            <div class="d empty"><span class="num">28</span></div>
+            <div class="d empty"><span class="num">29</span></div>
+            <div class="d empty"><span class="num">30</span></div>
+            <div class="d"><span class="num">1</span><span class="dot"></span></div>
+            <div class="d"><span class="num">2</span><span class="dot"></span></div>
+            <div class="d"><span class="num">3</span></div>
+            <div class="d"><span class="num">4</span><span class="dot"></span></div>
+            <div class="d"><span class="num">5</span><span class="dot"></span></div>
+            <div class="d"><span class="num">6</span><span class="dot"></span></div>
+            <div class="d"><span class="num">7</span></div>
+            <div class="d"><span class="num">8</span><span class="dot"></span></div>
+            <div class="d"><span class="num">9</span><span class="dot"></span></div>
+            <div class="d"><span class="num">10</span><span class="dot"></span></div>
+            <div class="d"><span class="num">11</span><span class="dot"></span></div>
+            <div class="d"><span class="num">12</span><span class="dot"></span></div>
+            <div class="d"><span class="num">13</span><span class="dot"></span></div>
+            <div class="d"><span class="num">14</span><span class="dot"></span></div>
+            <div class="d"><span class="num">15</span><span class="dot"></span></div>
+            <div class="d"><span class="num">16</span></div>
+            <div class="d"><span class="num">17</span><span class="dot"></span></div>
+            <div class="d"><span class="num">18</span><span class="dot"></span></div>
+            <div class="d"><span class="num">19</span><span class="dot"></span></div>
+            <div class="d"><span class="num">20</span><span class="dot"></span></div>
+            <div class="d"><span class="num">21</span><span class="dot"></span></div>
+            <div class="d"><span class="num">22</span><span class="dot"></span></div>
+            <div class="d"><span class="num">23</span><span class="dot"></span></div>
+            <div class="d today"><span class="num">24</span><span class="dot"></span></div>
+            <div class="d"><span class="num">25</span></div>
+            <div class="d"><span class="num">26</span></div>
+            <div class="d"><span class="num">27</span></div>
+            <div class="d empty"><span class="num">28</span></div>
+            <div class="d empty"><span class="num">29</span></div>
+            <div class="d empty"><span class="num">30</span></div>
+            <div class="d empty"><span class="num">31</span></div>
+          </div>
+
+          <div class="bd-section-head bd-mt-6">24 ТРАВНЯ · СЬОГОДНІ</div>
+          <div class="bd-stack-3">
+            <div class="bd-challenge warm" onclick="go('tfquest')">
+              <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></span>
+              <div class="body">
+                <div class="title">Щоденний фокус</div>
+                <div class="meta"><span>~7 хв</span><span class="dot"></span><span>3 завдання</span></div>
+              </div>
+            </div>
+            <div class="bd-challenge" onclick="go('voiceQuest')">
+              <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v4"/></svg></span>
+              <div class="body">
+                <div class="title">Голосова відповідь</div>
+                <div class="meta"><span>~3 хв</span><span class="dot"></span><span>Памʼять</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============== 14c · Type Answer (5.3) ============== -->
+      <section class="bd-screen" data-screen="typeQuest">
+        <div class="bd-topnav">
+          <button class="bd-iconbtn" onclick="go('challenges')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+          <div style="flex:1; padding:0 16px;"><div class="bd-progress"><div style="width:50%"></div></div></div>
+          <span class="bd-caption" style="min-width:32px; text-align:right;">2/4</span>
+        </div>
+        <div class="bd-screen-body">
+          <span class="bd-eyebrow">КВЕСТ · ЛОГІКА</span>
+          <h2 class="bd-display bd-mt-3">Введи відповідь</h2>
+          <p class="bd-body bd-mt-2">Як називається явище, коли мозок шукає підтвердження вже існуючих переконань?</p>
+
+          <div class="bd-typeanswer bd-mt-5">
+            <input type="text" placeholder="Твоя відповідь…" value="" id="typeInput" oninput="this.value.length ? armCta('typeQuest') : disarmCta('typeQuest')">
+            <div class="hint">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+              <span>Одне слово · українською · з малої літери</span>
+            </div>
+          </div>
+
+          <div class="bd-tutor bd-mt-5">
+            <div class="avatar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83"/></svg></div>
+            <div class="text"><strong>Підказка.</strong> Це когнітивне упередження — ми бачимо те, що хочемо побачити.</div>
+          </div>
+
+          <button class="bd-btn bd-btn--primary bd-btn--block bd-mt-5" data-cta onclick="go('voiceQuest'); pulse(this);">Перевірити</button>
+        </div>
+      </section>
+
+      <!-- ============== 14d · Voice Note (5.4) ============== -->
+      <section class="bd-screen" data-screen="voiceQuest">
+        <div class="bd-topnav">
+          <button class="bd-iconbtn" onclick="go('typeQuest')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+          <div style="flex:1; padding:0 16px;"><div class="bd-progress"><div style="width:75%"></div></div></div>
+          <span class="bd-caption" style="min-width:32px; text-align:right;">3/4</span>
+        </div>
+        <div class="bd-screen-body">
+          <span class="bd-eyebrow">КВЕСТ · МОВЛЕННЯ</span>
+          <h2 class="bd-display bd-mt-3">Поясни своїми словами</h2>
+          <p class="bd-body bd-mt-2">У чому різниця між кореляцією та причинно-наслідковим звʼязком? Запиши голосову відповідь 30 секунд.</p>
+
+          <div class="bd-voice-card bd-mt-5">
+            <span class="bd-eyebrow" style="color:rgba(247,248,238,.55)">ЗАПИС</span>
+            <div class="bd-voice-mic rec" id="voiceMic" onclick="toggleVoiceRec(this)">
+              <svg viewBox="0 0 24 24" fill="currentColor"><rect x="9" y="3" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v4" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+            </div>
+            <div class="bd-voice-wave"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+            <div style="font:600 22px/1 var(--font-display); letter-spacing:-.018em; color:#F7F8EE;" id="voiceTimer">0:18</div>
+            <div style="font:400 13px/1 var(--font-sans); color:rgba(247,248,238,.55); margin-top:6px;">залишилось 0:12</div>
+          </div>
+
+          <div class="bd-row bd-mt-5" style="justify-content:center; gap:12px;">
+            <button class="bd-iconbtn" style="background:#fff; border:1px solid rgba(0,0,0,.06);" title="Видалити"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M6 6l1 14a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-14"/></svg></button>
+            <button class="bd-iconbtn" style="background:#fff; border:1px solid rgba(0,0,0,.06);" title="Слухати"><svg viewBox="0 0 24 24" fill="#000" stroke="none"><polygon points="6 4 20 12 6 20 6 4"/></svg></button>
+          </div>
+
+          <button class="bd-btn bd-btn--primary bd-btn--block bd-mt-5" data-cta onclick="go('pollQuest'); pulse(this);">Завершити запис</button>
+        </div>
+      </section>
+
+      <!-- ============== 14e · Poll (5.6) ============== -->
+      <section class="bd-screen" data-screen="pollQuest">
+        <div class="bd-topnav">
+          <button class="bd-iconbtn" onclick="go('voiceQuest')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+          <div style="flex:1; padding:0 16px;"><div class="bd-progress"><div style="width:100%"></div></div></div>
+          <span class="bd-caption" style="min-width:32px; text-align:right;">4/4</span>
+        </div>
+        <div class="bd-screen-body">
+          <span class="bd-eyebrow">ОПИТУВАННЯ · 1 247 ВІДПОВІДЕЙ</span>
+          <h2 class="bd-display bd-mt-3">Який тип задач тобі дається найважче?</h2>
+          <p class="bd-body bd-mt-2">Допоможи нам зрозуміти спільноту — обери одне.</p>
+
+          <div class="bd-stack-3 bd-mt-5">
+            <div class="bd-poll-row" onclick="pickPoll(this)">
+              <div class="fill" style="width:42%"></div>
+              <div class="content"><span>Логічні парадокси</span><span class="pct">42%</span></div>
+            </div>
+            <div class="bd-poll-row your" onclick="pickPoll(this)">
+              <div class="fill" style="width:28%"></div>
+              <div class="content"><span>Аргументація · твій вибір</span><span class="pct">28%</span></div>
+            </div>
+            <div class="bd-poll-row" onclick="pickPoll(this)">
+              <div class="fill" style="width:18%"></div>
+              <div class="content"><span>Памʼять</span><span class="pct">18%</span></div>
+            </div>
+            <div class="bd-poll-row" onclick="pickPoll(this)">
+              <div class="fill" style="width:12%"></div>
+              <div class="content"><span>Концентрація</span><span class="pct">12%</span></div>
+            </div>
+          </div>
+
+          <p class="bd-caption bd-mt-5" style="text-align:center">Ти йдеш в одному ряду з 28% користувачів.</p>
+
+          <button class="bd-btn bd-btn--primary bd-btn--block bd-mt-5" data-cta onclick="go('questResult'); pulse(this);">Завершити квест</button>
+        </div>
+      </section>
+
+      <!-- ============== 14f · Review Summary (5.9) ============== -->
+      <section class="bd-screen" data-screen="reviewSummary">
+        <div class="bd-topnav">
+          <button class="bd-iconbtn" onclick="go('questResult')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+          <span class="bd-eyebrow">ОГЛЯД ВІДПОВІДЕЙ</span>
+          <span style="width:44px"></span>
+        </div>
+        <div class="bd-screen-body">
+          <h2 class="bd-display">Підсумок квесту</h2>
+          <p class="bd-body bd-mt-2">4 з 6 правильних. Перейди по кожній, щоб переглянути пояснення.</p>
+
+          <div class="bd-grid-3 bd-mt-5">
+            <div class="bd-insight"><span class="lab">ПРАВИЛЬНІ</span><div class="v"><span class="big">4</span><span class="sm">/6</span></div><span class="trend up">+2 vs минулий</span></div>
+            <div class="bd-insight"><span class="lab">ЧАС</span><div class="v"><span class="big">3:42</span></div><span class="trend down">-0:18 повільніше</span></div>
+            <div class="bd-insight"><span class="lab">XP</span><div class="v"><span class="big">+24</span></div><span class="trend up">бонус</span></div>
+          </div>
+
+          <div class="bd-section-head bd-mt-6">ВСІ 6 ПИТАНЬ</div>
+          <div class="bd-stack-2">
+            <div class="bd-setting-row" onclick="go('mistakes')">
+              <span class="ico" style="background:#E6F1C9; color:#5C7A2E"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+              <div class="body"><div class="title">1 · Памʼять — твердження</div><div class="meta">Правильна відповідь</div></div>
+              <span class="chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="m9 18 6-6-6-6"/></svg></span>
+            </div>
+            <div class="bd-setting-row" onclick="go('mistakes')">
+              <span class="ico" style="background:#FBE4D5; color:var(--bd-orange-deep)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg></span>
+              <div class="body"><div class="title">2 · Логіка — місяці</div><div class="meta">«Усі 12» · правильно: «Тільки лютий»</div></div>
+              <span class="chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="m9 18 6-6-6-6"/></svg></span>
+            </div>
+            <div class="bd-setting-row" onclick="go('mistakes')">
+              <span class="ico" style="background:#E6F1C9; color:#5C7A2E"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+              <div class="body"><div class="title">3 · Логіка — поділ на 5</div><div class="meta">Правильна відповідь</div></div>
+              <span class="chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="m9 18 6-6-6-6"/></svg></span>
+            </div>
+            <div class="bd-setting-row" onclick="go('mistakes')">
+              <span class="ico" style="background:#FBE4D5; color:var(--bd-orange-deep)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg></span>
+              <div class="body"><div class="title">4 · Памʼять — речення</div><div class="meta">Порядок слів неточний</div></div>
+              <span class="chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="m9 18 6-6-6-6"/></svg></span>
+            </div>
+            <div class="bd-setting-row" onclick="go('mistakes')">
+              <span class="ico" style="background:#E6F1C9; color:#5C7A2E"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+              <div class="body"><div class="title">5 · Логіка — упередження</div><div class="meta">Правильна відповідь</div></div>
+              <span class="chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="m9 18 6-6-6-6"/></svg></span>
+            </div>
+            <div class="bd-setting-row" onclick="go('mistakes')">
+              <span class="ico" style="background:#E6F1C9; color:#5C7A2E"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+              <div class="body"><div class="title">6 · Спільнота — опитування</div><div class="meta">Зараховано</div></div>
+              <span class="chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="m9 18 6-6-6-6"/></svg></span>
+            </div>
+          </div>
+
+          <button class="bd-btn bd-btn--primary bd-btn--block bd-mt-6" onclick="go('home'); pulse(this);">До головної</button>
+        </div>
+      </section>
+
+      <!-- ============== 14g · 5-Days-Straight celebration (44) ============== -->
+      <section class="bd-screen" data-screen="fiveDays">
+        <div class="bd-celeb"></div>
+        <div class="bd-celeb-glow"></div>
+        <div class="bd-confetti" id="confetti1"></div>
+        <div class="bd-topnav" style="z-index:3;">
+          <button class="bd-iconbtn" onclick="go('home')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+          <span class="bd-eyebrow">МІЛСТОУН</span>
+          <span style="width:44px"></span>
+        </div>
+        <div class="bd-screen-body" style="text-align:center; position:relative; z-index:2; padding-top:24px;">
+          <div class="bd-trophy bd-float bd-mt-5">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0V4z"/><path d="M17 4h3v2a4 4 0 0 1-4 4M7 4H4v2a4 4 0 0 0 4 4"/></svg>
+          </div>
+          <span class="bd-eyebrow bd-mt-5" style="display:block">5 ДНІВ ПОСПІЛЬ</span>
+          <h2 class="bd-display bd-mt-3">Памʼять любить ритм.</h2>
+          <p class="bd-body bd-mt-3" style="max-width:280px; margin:0 auto;">Ти увійшов(-ла) у режим. Дослідження кажуть: щоденні короткі сесії дають більше, ніж рідкі довгі.</p>
+
+          <div class="bd-grid-3 bd-mt-6">
+            <div class="bd-stat"><span class="num">5</span><span class="lab">днів</span></div>
+            <div class="bd-stat"><span class="num">+120</span><span class="lab">бонуси</span></div>
+            <div class="bd-stat"><span class="num">2</span><span class="lab">бейджі</span></div>
+          </div>
+
+          <button class="bd-btn bd-btn--primary bd-btn--block bd-mt-6" onclick="go('shareBadge'); pulse(this);">Поділитись</button>
+          <button class="bd-btn bd-btn--ghost bd-btn--block bd-mt-3" onclick="go('home')">Продовжити</button>
+        </div>
+      </section>
+
+      <!-- ============== 14h · Rank-Up celebration (46) ============== -->
+      <section class="bd-screen" data-screen="rankUp">
+        <div class="bd-celeb"></div>
+        <div class="bd-celeb-glow" style="background:radial-gradient(50% 40% at 50% 35%, rgba(245,138,58,.7), rgba(245,138,58,.2) 40%, rgba(245,138,58,0) 70%);"></div>
+        <div class="bd-confetti" id="confetti2"></div>
+        <div class="bd-topnav" style="z-index:3;">
+          <button class="bd-iconbtn" onclick="go('home')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+          <span class="bd-eyebrow">РЕЙТИНГ</span>
+          <span style="width:44px"></span>
+        </div>
+        <div class="bd-screen-body" style="text-align:center; position:relative; z-index:2; padding-top:32px;">
+          <div style="display:flex; align-items:center; justify-content:center; gap:6px; margin-top:24px;">
+            <span style="font:800 96px/1 var(--font-display); letter-spacing:-.04em; color:#000;">#12</span>
+            <svg viewBox="0 0 24 24" fill="#F58A3A" width="48" height="48"><path d="m12 4 8 10h-5v6h-6v-6H4z"/></svg>
+          </div>
+          <p class="bd-body" style="margin-top:8px;">з <strong>#18</strong> минулого тижня</p>
+
+          <h2 class="bd-display bd-mt-5">Ти піднявся(-лась) на 6 позицій!</h2>
+          <p class="bd-body bd-mt-3" style="max-width:280px; margin:0 auto;">Ще 4 позиції — і ти у Топ-10 тижня. Один сильний день — і це твоє.</p>
+
+          <div class="bd-card bd-mt-6" style="text-align:left;">
+            <div class="bd-row-between">
+              <div>
+                <span class="bd-eyebrow">НАЙБЛИЖЧИЙ СУПЕРНИК</span>
+                <div class="bd-h3 bd-mt-2">Олексій · #11</div>
+              </div>
+              <div style="font:700 14px/1 var(--font-sans); color:var(--fg-tertiary); font-variant-numeric:tabular-nums;">+85 балів</div>
+            </div>
+          </div>
+
+          <button class="bd-btn bd-btn--primary bd-btn--block bd-mt-5" onclick="go('challenges'); pulse(this);">Розпочати квест</button>
+          <button class="bd-btn bd-btn--ghost bd-btn--block bd-mt-3" onclick="go('leaderboardFull')">Переглянути рейтинг</button>
+        </div>
+      </section>
+
+      <!-- ============== 14i · Leaderboard Full / Podium (7.1) ============== -->
+      <section class="bd-screen" data-screen="leaderboardFull">
+        <div class="bd-topnav">
+          <button class="bd-iconbtn" onclick="go('home')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+          <span class="bd-eyebrow">РЕЙТИНГ</span>
+          <button class="bd-iconbtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.65 1.65 0 0 0-1.8-.3 1.65 1.65 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.65 1.65 0 0 0-1-1.5 1.65 1.65 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.65 1.65 0 0 0 .3-1.8 1.65 1.65 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.65 1.65 0 0 0 1.5-1 1.65 1.65 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.65 1.65 0 0 0 1.8.3H9a1.65 1.65 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.65 1.65 0 0 0 1 1.5 1.65 1.65 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.65 1.65 0 0 0-.3 1.8V9a1.65 1.65 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.65 1.65 0 0 0-1.5 1z"/></svg></button>
+        </div>
+        <div class="bd-screen-body" style="padding-bottom:140px;">
+          <div style="display:flex; justify-content:center;">
+            <div class="bd-segment" style="display:flex;">
+              <button class="active" onclick="setSeg(this); go('leaderboardFull')">Тиждень</button>
+              <button onclick="setSeg(this); go('leaderboardAllTime')">Весь час</button>
+            </div>
+          </div>
+
+          <!-- Podium -->
+          <div class="bd-podium bd-mt-5">
+            <div class="col silver">
+              <span class="av"></span>
+              <span class="name">Іра</span><span class="pts">2 612</span>
+              <div class="step">2</div>
+            </div>
+            <div class="col gold">
+              <span class="crown"><svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M3 8l4 4 5-8 5 8 4-4-2 10H5z"/></svg></span>
+              <span class="av"></span>
+              <span class="name">Юля</span><span class="pts">2 847</span>
+              <div class="step">1</div>
+            </div>
+            <div class="col bronze">
+              <span class="av"></span>
+              <span class="name">Надя</span><span class="pts">2 401</span>
+              <div class="step">3</div>
+            </div>
+          </div>
+
+          <p class="bd-caption" style="text-align:center; margin-top:8px;">Ти кращий(-а), ніж 60% гравців на цьому тижні.</p>
+
+          <!-- 4–10 -->
+          <div class="bd-stack-2 bd-mt-5">
+            <div class="bd-lb-row"><span class="rk">4</span><span class="av" style="background:linear-gradient(135deg,#FFB17A,#F58A3A);"></span><span class="nm">Андрій</span><span class="pt">2 180</span><span class="delta up">+2</span></div>
+            <div class="bd-lb-row"><span class="rk">5</span><span class="av"></span><span class="nm">Соломія</span><span class="pt">1 980</span><span class="delta down">-1</span></div>
+            <div class="bd-lb-row"><span class="rk">6</span><span class="av" style="background:linear-gradient(135deg,#F6DD80,#EFC84A);"></span><span class="nm">Олексій</span><span class="pt">1 845</span><span class="delta up">+1</span></div>
+            <div class="bd-lb-row"><span class="rk">7</span><span class="av"></span><span class="nm">Богдан</span><span class="pt">1 720</span><span class="delta">—</span></div>
+            <div class="bd-lb-row"><span class="rk">8</span><span class="av"></span><span class="nm">Ярина</span><span class="pt">1 612</span><span class="delta down">-2</span></div>
+            <div class="bd-lb-row"><span class="rk">9</span><span class="av"></span><span class="nm">Максим</span><span class="pt">1 540</span><span class="delta up">+4</span></div>
+            <div class="bd-lb-row"><span class="rk">10</span><span class="av"></span><span class="nm">Софія</span><span class="pt">1 502</span><span class="delta">—</span></div>
+            <div class="bd-lb-row you"><span class="rk" style="color:#000;">12</span><span class="av" style="background:linear-gradient(135deg,#F58A3A,#D86F1F);"></span><span class="nm">Ти · Олена</span><span class="pt">1 480</span><span class="delta up">+6</span></div>
+          </div>
+        </div>
+        <nav class="bd-tabbar">
+          <button class="bd-tab" onclick="setTab(this,'home')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5"/><path d="M5 10v9h14v-9"/></svg>Головна<span class="dot"></span></button>
+          <button class="bd-tab" onclick="setTab(this,'challenges')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>Квести<span class="dot"></span></button>
+          <button class="bd-tab" onclick="setTab(this,'streak')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 2.5 5.5L20 9l-4 4 1 6-5-3-5 3 1-6-4-4 5.5-.5z"/></svg>Стрік<span class="dot"></span></button>
+          <button class="bd-tab" onclick="setTab(this,'profile')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4.5 5-6 8-6s6.5 1.5 8 6"/></svg>Профіль<span class="dot"></span></button>
+        </nav>
+      </section>
+
+      <!-- ============== 14j · Leaderboard All-Time (7.2) ============== -->
+      <section class="bd-screen" data-screen="leaderboardAllTime">
+        <div class="bd-topnav">
+          <button class="bd-iconbtn" onclick="go('leaderboardFull')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+          <span class="bd-eyebrow">ВЕСЬ ЧАС</span>
+          <span style="width:44px"></span>
+        </div>
+        <div class="bd-screen-body" style="padding-bottom:140px;">
+          <div style="display:flex; justify-content:center;">
+            <div class="bd-segment" style="display:flex;">
+              <button onclick="go('leaderboardFull')">Тиждень</button>
+              <button class="active">Весь час</button>
+            </div>
+          </div>
+
+          <div class="bd-card bd-card--sage bd-mt-5">
+            <span class="bd-eyebrow" style="color:rgba(0,0,0,.55)">ТВІЙ ЗАГАЛЬНИЙ РЕЙТИНГ</span>
+            <div class="bd-row-between bd-mt-2">
+              <div>
+                <span style="font:800 42px/1 var(--font-display); letter-spacing:-.025em;">#347</span>
+                <p class="bd-body-sm" style="color:rgba(0,0,0,.55); margin-top:6px;">з 12 480 гравців</p>
+              </div>
+              <span style="font:700 20px/1 var(--font-display);">38 920</span>
+            </div>
+          </div>
+
+          <div class="bd-section-head bd-mt-6">ЛЕГЕНДИ · ТОП 10</div>
+          <div class="bd-stack-2">
+            <div class="bd-lb-row" style="background:linear-gradient(165deg, #F6DD80, #EFC84A); border:none;"><span class="rk" style="color:#000;">1</span><span class="av" style="background:linear-gradient(135deg,#F6DD80,#D9A92F);"></span><span class="nm" style="color:#000;">Назар Мельник</span><span class="pt" style="color:#000;">214 850</span></div>
+            <div class="bd-lb-row"><span class="rk">2</span><span class="av"></span><span class="nm">Анастасія Литвин</span><span class="pt">198 240</span></div>
+            <div class="bd-lb-row"><span class="rk">3</span><span class="av" style="background:linear-gradient(135deg,#FFB17A,#F58A3A);"></span><span class="nm">Дмитро Шевчук</span><span class="pt">186 410</span></div>
+            <div class="bd-lb-row"><span class="rk">4</span><span class="av"></span><span class="nm">Юлія Гриценко</span><span class="pt">172 008</span></div>
+            <div class="bd-lb-row"><span class="rk">5</span><span class="av"></span><span class="nm">Тарас Білик</span><span class="pt">158 940</span></div>
+            <div class="bd-lb-row"><span class="rk">6</span><span class="av"></span><span class="nm">Ірина Гаврилюк</span><span class="pt">145 220</span></div>
+            <div class="bd-lb-row"><span class="rk">7</span><span class="av"></span><span class="nm">Олег Стасюк</span><span class="pt">132 105</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============== 14k · Profile Stats (6.1) ============== -->
+      <section class="bd-screen" data-screen="profileStats">
+        <div class="bd-topnav">
+          <button class="bd-iconbtn" onclick="go('profile')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+          <span class="bd-eyebrow">СТАТИСТИКА</span>
+          <button class="bd-iconbtn" onclick="go('settings')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.65 1.65 0 0 0-1.8-.3 1.65 1.65 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.65 1.65 0 0 0-1-1.5 1.65 1.65 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.65 1.65 0 0 0 .3-1.8 1.65 1.65 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.65 1.65 0 0 0 1.5-1 1.65 1.65 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.65 1.65 0 0 0 1.8.3H9a1.65 1.65 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.65 1.65 0 0 0 1 1.5 1.65 1.65 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.65 1.65 0 0 0-.3 1.8V9a1.65 1.65 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.65 1.65 0 0 0-1.5 1z"/></svg></button>
+        </div>
+        <div class="bd-screen-body" style="padding-bottom:140px;">
+          <div class="bd-segment" style="display:flex; width:100%;">
+            <button onclick="go('profile')">Деталі</button>
+            <button class="active">Статистика</button>
+            <button onclick="go('profileBadges')">Бейджі</button>
+          </div>
+
+          <div class="bd-grid-2 bd-mt-5">
+            <div class="bd-insight"><span class="lab">КВЕСТІВ</span><div class="v"><span class="big">147</span></div><span class="trend up">+12 цього тижня</span></div>
+            <div class="bd-insight"><span class="lab">ТОЧНІСТЬ</span><div class="v"><span class="big">78%</span></div><span class="trend up">+4%</span></div>
+            <div class="bd-insight"><span class="lab">ТРИВАЛІСТЬ</span><div class="v"><span class="big">28</span><span class="sm">год</span></div><span class="trend up">+2:14</span></div>
+            <div class="bd-insight"><span class="lab">ГОДИНА ПІКУ</span><div class="v"><span class="big">20:00</span></div><span class="trend">найкращі сесії</span></div>
+          </div>
+
+          <div class="bd-section-head bd-mt-6">АКТИВНІСТЬ · ТИЖДЕНЬ</div>
+          <div class="bd-card">
+            <div class="bd-chart">
+              <div class="bar" style="height:42%"></div>
+              <div class="bar" style="height:64%"></div>
+              <div class="bar" style="height:58%"></div>
+              <div class="bar peak" style="height:88%"></div>
+              <div class="bar" style="height:72%"></div>
+              <div class="bar" style="height:34%"></div>
+              <div class="bar" style="height:46%"></div>
+            </div>
+            <div class="bd-chart-labels bd-mt-2"><span>ПН</span><span>ВТ</span><span>СР</span><span>ЧТ</span><span>ПТ</span><span>СБ</span><span>НД</span></div>
+          </div>
+
+          <div class="bd-section-head bd-mt-6">НАВИЧКИ · ДЕТАЛІЗАЦІЯ</div>
+          <div class="bd-card">
+            <div class="bd-skill"><span class="lbl">Логіка</span><div class="bar"><div style="width:78%"></div></div><span class="pct">78%</span></div>
+            <div class="bd-skill"><span class="lbl">Памʼять</span><div class="bar"><div style="width:62%"></div></div><span class="pct">62%</span></div>
+            <div class="bd-skill"><span class="lbl">Концентрація</span><div class="bar"><div style="width:54%"></div></div><span class="pct">54%</span></div>
+            <div class="bd-skill"><span class="lbl">Увага</span><div class="bar"><div style="width:81%"></div></div><span class="pct">81%</span></div>
+            <div class="bd-skill"><span class="lbl">Мовлення</span><div class="bar"><div style="width:40%"></div></div><span class="pct">40%</span></div>
+          </div>
+
+          <button class="bd-btn bd-btn--ghost bd-btn--block bd-mt-6" onclick="go('insights')">Детальна аналітика</button>
+        </div>
+        <nav class="bd-tabbar">
+          <button class="bd-tab" onclick="setTab(this,'home')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5"/><path d="M5 10v9h14v-9"/></svg>Головна<span class="dot"></span></button>
+          <button class="bd-tab" onclick="setTab(this,'challenges')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>Квести<span class="dot"></span></button>
+          <button class="bd-tab" onclick="setTab(this,'streak')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 2.5 5.5L20 9l-4 4 1 6-5-3-5 3 1-6-4-4 5.5-.5z"/></svg>Стрік<span class="dot"></span></button>
+          <button class="bd-tab active" onclick="setTab(this,'profile')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4.5 5-6 8-6s6.5 1.5 8 6"/></svg>Профіль<span class="dot"></span></button>
+        </nav>
+      </section>
+
+      <!-- ============== 14l · Profile Badges (6.) ============== -->
+      <section class="bd-screen" data-screen="profileBadges">
+        <div class="bd-topnav">
+          <button class="bd-iconbtn" onclick="go('profile')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+          <span class="bd-eyebrow">БЕЙДЖІ · 14 / 32</span>
+          <span style="width:44px"></span>
+        </div>
+        <div class="bd-screen-body" style="padding-bottom:140px;">
+          <div class="bd-segment" style="display:flex; width:100%;">
+            <button onclick="go('profile')">Деталі</button>
+            <button onclick="go('profileStats')">Статистика</button>
+            <button class="active">Бейджі</button>
+          </div>
+
+          <div class="bd-section-head bd-mt-5">ОТРИМАНІ · 14</div>
+          <div class="bd-badge-grid">
+            <div class="bd-badge earned" onclick="go('badgeDetail')">
+              <span class="medal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 2.5 5.5L20 9l-4 4 1 6-5-3-5 3 1-6-4-4 5.5-.5z"/></svg></span>
+              <span class="nm">Перший крок</span>
+              <span class="mt">5 днів</span>
+            </div>
+            <div class="bd-badge earned">
+              <span class="medal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+              <span class="nm">Точно в час</span>
+              <span class="mt">10 квестів</span>
+            </div>
+            <div class="bd-badge earned">
+              <span class="medal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v4M16 2v4M3 10h18M5 6h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z"/></svg></span>
+              <span class="nm">100 днів</span>
+              <span class="mt">стрік</span>
+            </div>
+            <div class="bd-badge earned">
+              <span class="medal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M8 14l-2 8 6-3 6 3-2-8"/></svg></span>
+              <span class="nm">Логік</span>
+              <span class="mt">50 правильних</span>
+            </div>
+            <div class="bd-badge earned">
+              <span class="medal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12c0-5 4-9 9-9s9 4 9 9-4 9-9 9"/><path d="M12 8v4l3 2"/></svg></span>
+              <span class="nm">Памʼять+</span>
+              <span class="mt">7 серій</span>
+            </div>
+            <div class="bd-badge earned">
+              <span class="medal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M5 12l3-3M5 12l3 3"/></svg></span>
+              <span class="nm">Швидкість</span>
+              <span class="mt">під 60с</span>
+            </div>
+          </div>
+
+          <div class="bd-section-head bd-mt-6">ЗАБЛОКОВАНІ · 18</div>
+          <div class="bd-badge-grid">
+            <div class="bd-badge locked">
+              <span class="medal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span>
+              <span class="nm">Марафонець</span>
+              <span class="mt">365 днів</span>
+            </div>
+            <div class="bd-badge locked">
+              <span class="medal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span>
+              <span class="nm">Першість</span>
+              <span class="mt">#1 тижня</span>
+            </div>
+            <div class="bd-badge locked">
+              <span class="medal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span>
+              <span class="nm">Соціальний</span>
+              <span class="mt">50 друзів</span>
+            </div>
+          </div>
+        </div>
+        <nav class="bd-tabbar">
+          <button class="bd-tab" onclick="setTab(this,'home')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5"/><path d="M5 10v9h14v-9"/></svg>Головна<span class="dot"></span></button>
+          <button class="bd-tab" onclick="setTab(this,'challenges')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>Квести<span class="dot"></span></button>
+          <button class="bd-tab" onclick="setTab(this,'streak')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 2.5 5.5L20 9l-4 4 1 6-5-3-5 3 1-6-4-4 5.5-.5z"/></svg>Стрік<span class="dot"></span></button>
+          <button class="bd-tab active" onclick="setTab(this,'profile')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4.5 5-6 8-6s6.5 1.5 8 6"/></svg>Профіль<span class="dot"></span></button>
+        </nav>
+      </section>
+
+      <!-- ============== 14m · Badge Detail (113) ============== -->
+      <section class="bd-screen" data-screen="badgeDetail">
+        <div class="bd-topnav">
+          <button class="bd-iconbtn" onclick="go('profileBadges')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+          <span class="bd-eyebrow">БЕЙДЖ</span>
+          <button class="bd-iconbtn" onclick="go('shareBadge')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8M16 6l-4-4-4 4M12 2v13"/></svg></button>
+        </div>
+        <div class="bd-screen-body" style="text-align:center;">
+          <div style="display:flex; justify-content:center; padding:24px 0;">
+            <div class="bd-trophy bd-float" style="background:linear-gradient(165deg, #D9E3B4, #B7CB84, #8FA764);">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" width="64" height="64"><path d="m12 3 2.5 5.5L20 9l-4 4 1 6-5-3-5 3 1-6-4-4 5.5-.5z"/></svg>
+            </div>
+          </div>
+
+          <h2 class="bd-display">Перший крок</h2>
+          <p class="bd-body bd-mt-2" style="max-width:280px; margin:0 auto;">Ти увійшов(-ла) у застосунок 5 днів поспіль. Маленька, але важлива звичка.</p>
+
+          <div class="bd-grid-3 bd-mt-5">
+            <div class="bd-stat"><span class="num">2.4%</span><span class="lab">користувачів</span></div>
+            <div class="bd-stat"><span class="num">+40</span><span class="lab">XP</span></div>
+            <div class="bd-stat"><span class="num">Бронза</span><span class="lab">тир</span></div>
+          </div>
+
+          <div class="bd-card bd-mt-5" style="text-align:left;">
+            <span class="bd-eyebrow">УМОВА</span>
+            <p class="bd-body bd-mt-2">Зайти у застосунок щодня протягом 5 днів. Виконано <strong>24 травня 2026</strong>.</p>
+          </div>
+
+          <button class="bd-btn bd-btn--primary bd-btn--block bd-mt-6" onclick="go('shareBadge'); pulse(this);">Поділитись бейджем</button>
+          <button class="bd-btn bd-btn--ghost bd-btn--block bd-mt-3" onclick="go('profileBadges')">Усі бейджі</button>
+        </div>
+      </section>
+
+      <!-- ============== 14n · Share Badge (45) ============== -->
+      <section class="bd-screen" data-screen="shareBadge">
+        <div class="bd-topnav">
+          <button class="bd-iconbtn" onclick="go('badgeDetail')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+          <span class="bd-eyebrow">ПОДІЛИТИСЬ</span>
+          <span style="width:44px"></span>
+        </div>
+        <div class="bd-screen-body">
+          <div class="bd-share-card">
+            <div style="position:relative; z-index:1;">
+              <span class="bd-eyebrow" style="color:rgba(0,0,0,.55)">BRAINDUO · БЕЙДЖ</span>
+              <div style="display:flex; justify-content:center; margin:18px 0 8px;">
+                <div class="bd-trophy" style="background:linear-gradient(165deg, #F6DD80, #EFC84A, #D9A92F); width:100px; height:100px;">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" width="48" height="48"><path d="m12 3 2.5 5.5L20 9l-4 4 1 6-5-3-5 3 1-6-4-4 5.5-.5z"/></svg>
+                </div>
+              </div>
+              <div class="bd-h1" style="margin-top:6px;">Перший крок</div>
+              <p class="bd-body" style="color:rgba(0,0,0,.6); margin-top:8px;">Олена · 5 днів поспіль</p>
+              <div style="font:700 28px/1 var(--font-display); letter-spacing:-.018em; margin-top:14px; color:#000;">brainduo.app</div>
+            </div>
+          </div>
+
+          <div class="bd-section-head bd-mt-5">ПОДІЛИТИСЬ ЧЕРЕЗ</div>
+          <div class="bd-share-row">
+            <button class="bd-share-btn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.9V15h-2.5v-3h2.5V9.8c0-2.5 1.5-3.8 3.7-3.8 1.1 0 2.2.2 2.2.2v2.4h-1.2c-1.2 0-1.6.8-1.6 1.6V12H17l-.5 3h-2.6v6.9A10 10 0 0 0 22 12z"/></svg></button>
+            <button class="bd-share-btn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7zm5 3.5a4.5 4.5 0 1 1 0 9 4.5 4.5 0 0 1 0-9zm0 2a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM17.5 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/></svg></button>
+            <button class="bd-share-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m22 4-10 10-3-3"/></svg></button>
+            <button class="bd-share-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+            <button class="bd-share-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8M9 19.4A1.65 1.65 0 0 0 8 21M3 12h2"/></svg></button>
+          </div>
+
+          <button class="bd-btn bd-btn--primary bd-btn--block bd-mt-6" onclick="go('badgeDetail'); pulse(this);">Готово</button>
+        </div>
+      </section>
+
+      <!-- ============== 14o · My Progress / Insights (111) ============== -->
+      <section class="bd-screen" data-screen="insights">
+        <div class="bd-topnav">
+          <button class="bd-iconbtn" onclick="go('profileStats')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+          <span class="bd-eyebrow">МІЙ ПРОГРЕС · ІНСАЙТИ</span>
+          <span style="width:44px"></span>
+        </div>
+        <div class="bd-screen-body" style="padding-bottom:140px;">
+          <h2 class="bd-display">Що говорять дані.</h2>
+          <p class="bd-body bd-mt-2">Аналітика твоїх 30 останніх сесій.</p>
+
+          <div class="bd-card bd-card--sage bd-mt-5">
+            <span class="bd-eyebrow" style="color:rgba(0,0,0,.55)">ГОЛОВНА ТЕНДЕНЦІЯ</span>
+            <h3 class="bd-h2 bd-mt-2">Логіка зросла на 18% за 30 днів.</h3>
+            <p class="bd-body-sm" style="color:rgba(0,0,0,.6); margin-top:8px;">Ти стабільно проходиш задачі на пастки аргументації — найповільніший прогрес у памʼяті, варто додати по 5 хв уранці.</p>
+          </div>
+
+          <div class="bd-section-head bd-mt-6">30 ДНІВ · АКТИВНІСТЬ</div>
+          <div class="bd-card">
+            <div class="bd-chart">
+              <div class="bar" style="height:30%"></div><div class="bar" style="height:48%"></div><div class="bar" style="height:42%"></div><div class="bar" style="height:62%"></div>
+              <div class="bar peak" style="height:88%"></div><div class="bar" style="height:54%"></div><div class="bar" style="height:38%"></div>
+              <div class="bar" style="height:46%"></div><div class="bar" style="height:60%"></div><div class="bar" style="height:72%"></div>
+              <div class="bar peak" style="height:84%"></div><div class="bar" style="height:64%"></div>
+            </div>
+            <div class="bd-chart-labels bd-mt-2"><span>Т1</span><span>Т2</span><span>Т3</span><span>Т4</span></div>
+          </div>
+
+          <div class="bd-grid-2 bd-mt-4">
+            <div class="bd-insight"><span class="lab">СЕРЕДНЯ СЕСІЯ</span><div class="v"><span class="big">8:24</span></div><span class="trend up">+1:12</span></div>
+            <div class="bd-insight"><span class="lab">РЕТЕНШН</span><div class="v"><span class="big">96%</span></div><span class="trend up">+2%</span></div>
+            <div class="bd-insight"><span class="lab">ПЕРШ. СПРОБА</span><div class="v"><span class="big">82%</span></div><span class="trend up">+5%</span></div>
+            <div class="bd-insight"><span class="lab">ЕНЕРГІЯ</span><div class="v"><span class="big">висока</span></div><span class="trend">вечір</span></div>
+          </div>
+
+          <div class="bd-section-head bd-mt-6">РЕКОМЕНДАЦІЇ ШІ</div>
+          <div class="bd-card">
+            <div class="bd-tutor" style="background:transparent; border:none; padding:0;">
+              <div class="avatar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9 12l2 2 4-4"/></svg></div>
+              <div class="text"><strong>Збільш памʼять на 15%.</strong> Додай ранкову 5-хвилинну сесію памʼяті — твої вечірні сесії стануть точнішими.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============== 14p · Settings (8) ============== -->
+      <section class="bd-screen" data-screen="settings">
+        <div class="bd-topnav">
+          <button class="bd-iconbtn" onclick="go('profile')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+          <span class="bd-eyebrow">НАЛАШТУВАННЯ</span>
+          <span style="width:44px"></span>
+        </div>
+        <div class="bd-screen-body">
+          <h2 class="bd-display">Налаштування</h2>
+
+          <div class="bd-section-head bd-mt-5">ПРОФІЛЬ</div>
+          <div class="bd-stack-2">
+            <button class="bd-setting-row">
+              <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4.5 5-6 8-6s6.5 1.5 8 6"/></svg></span>
+              <div class="body"><div class="title">Редагувати профіль</div><div class="meta">Імʼя, аватар, біо</div></div>
+              <span class="chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="m9 18 6-6-6-6"/></svg></span>
+            </button>
+            <button class="bd-setting-row">
+              <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></span>
+              <div class="body"><div class="title">Email</div><div class="meta">olena@brainduo.app</div></div>
+              <span class="chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="m9 18 6-6-6-6"/></svg></span>
+            </button>
+            <button class="bd-setting-row">
+              <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
+              <div class="body"><div class="title">Пароль</div><div class="meta">останнє оновлення — рік тому</div></div>
+              <span class="chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="m9 18 6-6-6-6"/></svg></span>
+            </button>
+          </div>
+
+          <div class="bd-section-head bd-mt-5">ТРЕНУВАННЯ</div>
+          <div class="bd-stack-2">
+            <button class="bd-setting-row">
+              <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h3l2-5 4 10 2-5h6"/></svg></span>
+              <div class="body"><div class="title">Складність</div><div class="meta">Середня · класична</div></div>
+              <span class="chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="m9 18 6-6-6-6"/></svg></span>
+            </button>
+            <div class="bd-setting-row" style="cursor:default;">
+              <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></span>
+              <div class="body"><div class="title">Нагадування</div><div class="meta">щодня о 20:00</div></div>
+              <button class="bd-switch on" onclick="this.classList.toggle('on')"></button>
+            </div>
+            <div class="bd-setting-row" style="cursor:default;">
+              <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4"/></svg></span>
+              <div class="body"><div class="title">AI-тьютор</div><div class="meta">підказки під час квестів</div></div>
+              <button class="bd-switch on" onclick="this.classList.toggle('on')"></button>
+            </div>
+            <div class="bd-setting-row" style="cursor:default;">
+              <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/></svg></span>
+              <div class="body"><div class="title">Фокус-режим</div><div class="meta">приховати рейтинги під час квестів</div></div>
+              <button class="bd-switch" onclick="this.classList.toggle('on')"></button>
+            </div>
+          </div>
+
+          <div class="bd-section-head bd-mt-5">ІНШЕ</div>
+          <div class="bd-stack-2">
+            <button class="bd-setting-row" onclick="go('faq')">
+              <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3M12 17h.01"/></svg></span>
+              <div class="body"><div class="title">FAQ</div><div class="meta">Найпоширеніші питання</div></div>
+              <span class="chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="m9 18 6-6-6-6"/></svg></span>
+            </button>
+            <button class="bd-setting-row" onclick="go('invite')">
+              <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="4"/><path d="M2 21c1.5-4.5 4-6 6-6s4.5 1.5 6 6M17 11l2 2 4-4M17 21v-3"/></svg></span>
+              <div class="body"><div class="title">Запросити друзів</div><div class="meta">отримай +200 бонусів за кожного</div></div>
+              <span class="chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="m9 18 6-6-6-6"/></svg></span>
+            </button>
+            <button class="bd-setting-row">
+              <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 5v6c0 5 3.5 9.5 8 11 4.5-1.5 8-6 8-11V5z"/></svg></span>
+              <div class="body"><div class="title">Конфіденційність</div><div class="meta">дані, експорт, видалення</div></div>
+              <span class="chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="m9 18 6-6-6-6"/></svg></span>
+            </button>
+            <button class="bd-setting-row">
+              <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20"/></svg></span>
+              <div class="body"><div class="title">Мова</div><div class="meta">Українська</div></div>
+              <span class="chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="m9 18 6-6-6-6"/></svg></span>
+            </button>
+          </div>
+
+          <button class="bd-btn bd-btn--ghost bd-btn--block bd-mt-6" style="color:var(--bd-orange-deep); border-color:rgba(216,111,31,.32);">Вийти</button>
+          <p class="bd-caption bd-mt-3" style="text-align:center;">BRAINDUO · v1.4.2 · усе на місці.</p>
+        </div>
+      </section>
+
+      <!-- ============== 14q · FAQ (8.1) ============== -->
+      <section class="bd-screen" data-screen="faq">
+        <div class="bd-topnav">
+          <button class="bd-iconbtn" onclick="go('settings')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+          <span class="bd-eyebrow">FAQ</span>
+          <span style="width:44px"></span>
+        </div>
+        <div class="bd-screen-body">
+          <h2 class="bd-display">Поширені питання</h2>
+          <p class="bd-body bd-mt-2">Якщо не знайшов(-ла) — напиши нам у підтримку.</p>
+
+          <div class="bd-search bd-mt-5">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+            <input placeholder="Шукати квести, категорії, друзів…">
+          </div>
+
+          <div class="bd-section-head bd-mt-5">ОСНОВИ</div>
+          <div class="bd-stack-2">
+            <div class="bd-faq open" onclick="this.classList.toggle('open')">
+              <div class="q"><span>Як працює BRAINDUO?</span><span class="chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="m9 18 6-6-6-6"/></svg></span></div>
+              <div class="answer">Щодня ти проходиш короткий квест із кількох питань — система зчитує твої сильні та слабкі сторони і підлаштовує наступну сесію. ШІ-тьютор підказує — він не дає готових відповідей.</div>
+            </div>
+            <div class="bd-faq" onclick="this.classList.toggle('open')">
+              <div class="q"><span>Як зайти або зареєструватись?</span><span class="chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="m9 18 6-6-6-6"/></svg></span></div>
+              <div class="answer">Apple, Google або email — ми не зберігаємо паролі від інших сервісів. Прогрес синхронізується через iCloud або Google Drive.</div>
+            </div>
+          </div>
+
+          <div class="bd-section-head bd-mt-5">КВЕСТИ</div>
+          <div class="bd-stack-2">
+            <div class="bd-faq" onclick="this.classList.toggle('open')">
+              <div class="q"><span>Скільки часу займає щоденний квест?</span><span class="chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="m9 18 6-6-6-6"/></svg></span></div>
+              <div class="answer">5–10 хвилин. Дослідження кажуть: щоденні короткі сесії дають більше, ніж довгі рідкі.</div>
+            </div>
+            <div class="bd-faq" onclick="this.classList.toggle('open')">
+              <div class="q"><span>Чи можу я грати разом із друзями?</span><span class="chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="m9 18 6-6-6-6"/></svg></span></div>
+              <div class="answer">Так — челенджі з друзями розблоковуються на 7-й день стріку. Запрошуй друзів через посилання у профілі.</div>
+            </div>
+            <div class="bd-faq" onclick="this.classList.toggle('open')">
+              <div class="q"><span>Що буде, якщо я пропущу день?</span><span class="chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="m9 18 6-6-6-6"/></svg></span></div>
+              <div class="answer">У тебе є один «заморожений день» на тиждень — стрік збережеться. Більше — стрік обнуляється.</div>
+            </div>
+          </div>
+
+          <div class="bd-section-head bd-mt-5">ПІДТРИМКА</div>
+          <button class="bd-setting-row">
+            <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.4 8.4 0 0 1 3.8-.9h.5a8.5 8.5 0 0 1 8 8z"/></svg></span>
+            <div class="body"><div class="title">Звʼязатись з командою</div><div class="meta">support@brainduo.app · відповідаємо за 24 год</div></div>
+            <span class="chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="m9 18 6-6-6-6"/></svg></span>
+          </button>
+        </div>
+      </section>
+
+      <!-- ============== 14r · Invite Friends (8.3) ============== -->
+      <section class="bd-screen" data-screen="invite">
+        <div class="bd-topnav">
+          <button class="bd-iconbtn" onclick="go('settings')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+          <span class="bd-eyebrow">ЗАПРОСИТИ ДРУЗІВ</span>
+          <span style="width:44px"></span>
+        </div>
+        <div class="bd-screen-body">
+          <div class="bd-card bd-card--sage bd-card--glow" style="text-align:center; padding:28px 20px;">
+            <div style="display:flex; justify-content:center;">
+              <div style="width:80px; height:80px; border-radius:50%; background:rgba(0,0,0,.10); display:inline-flex; align-items:center; justify-content:center;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="38" height="38"><circle cx="8" cy="8" r="4"/><path d="M2 21c1.5-4.5 4-6 6-6s4.5 1.5 6 6M17 11l2 2 4-4"/></svg>
+              </div>
+            </div>
+            <h2 class="bd-h1 bd-mt-3">+200 бонусів за кожного друга</h2>
+            <p class="bd-body bd-mt-2" style="color:rgba(0,0,0,.6); max-width:280px; margin:0 auto;">Друг отримує тиждень преміум-функцій. Ти — бонуси та новий тип квесту: парний челендж.</p>
+          </div>
+
+          <div class="bd-section-head bd-mt-5">ТВОЄ ПОСИЛАННЯ</div>
+          <div class="bd-card" style="display:flex; align-items:center; gap:12px; padding:14px 16px;">
+            <span style="font:600 14px/1.2 var(--font-sans); color:#000; flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">brainduo.app/i/olena-A4K7</span>
+            <button class="bd-btn bd-btn--secondary" style="height:36px; padding:0 16px; font-size:13px;">Копіювати</button>
+          </div>
+
+          <div class="bd-section-head bd-mt-5">ПОДІЛИТИСЬ ЧЕРЕЗ</div>
+          <div class="bd-share-row" style="justify-content:flex-start; flex-wrap:wrap;">
+            <button class="bd-share-btn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.9V15h-2.5v-3h2.5V9.8c0-2.5 1.5-3.8 3.7-3.8 1.1 0 2.2.2 2.2.2v2.4h-1.2c-1.2 0-1.6.8-1.6 1.6V12H17l-.5 3h-2.6v6.9A10 10 0 0 0 22 12z"/></svg></button>
+            <button class="bd-share-btn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm5 5.5a4.5 4.5 0 1 1 0 9 4.5 4.5 0 0 1 0-9zm0 2a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5z"/></svg></button>
+            <button class="bd-share-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.4 8.4 0 0 1 3.8-.9h.5a8.5 8.5 0 0 1 8 8z"/></svg></button>
+            <button class="bd-share-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></button>
+            <button class="bd-share-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></button>
+          </div>
+
+          <div class="bd-section-head bd-mt-6">УЖЕ З ТОБОЮ · 3</div>
+          <div class="bd-stack-2">
+            <div class="bd-lb-row"><span class="av"></span><span class="nm">Юля Кравченко</span><span class="delta up">+200</span></div>
+            <div class="bd-lb-row"><span class="av" style="background:linear-gradient(135deg,#FFB17A,#F58A3A);"></span><span class="nm">Іра Литвин</span><span class="delta up">+200</span></div>
+            <div class="bd-lb-row"><span class="av" style="background:linear-gradient(135deg,#F6DD80,#EFC84A);"></span><span class="nm">Надя Шевчук</span><span class="delta up">+200</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Home bar (rendered on every screen via z-index 200) -->
+      <div class="bd-homebar"></div>
+    </div>
+  </div>
+
+  <!-- Screen jump toolbar (debug / nav helper) -->
+  <div class="bd-toolbar" id="toolbar"></div>
+
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: [
+    './app/**/*.{js,jsx,ts,tsx}',
+    './components/**/*.{js,jsx,ts,tsx}',
+    './lib/**/*.{js,jsx,ts,tsx}',
+  ],
+  presets: [require('nativewind/preset')],
+  theme: {
+    extend: {
+      colors: {
+        'bd-ivory':       '#EEF0DE',
+        'bd-ivory-tint':  '#F6F7E9',
+        'bd-ivory-deep':  '#E2E6CB',
+        'bd-sage':        '#B7CB84',
+        'bd-sage-soft':   '#D2DDA9',
+        'bd-sage-deep':   '#8FA764',
+        'bd-sage-1':      '#D9E3B4',
+        'bd-sage-2':      '#9DB66B',
+        'bd-orange':      '#F58A3A',
+        'bd-orange-soft': '#FFB17A',
+        'bd-orange-deep': '#D86F1F',
+        'bd-yellow':      '#EFC84A',
+        'bd-yellow-soft': '#F6DD80',
+        'bd-charcoal':    '#4A4A4A',
+        'bd-charcoal-2':  '#6E6E6E',
+        'bd-charcoal-3':  '#9A9A9A',
+        'bd-ink':         '#000000',
+        'bd-paper':       '#FFFFFF',
+        'bd-paper-soft':  '#FBFBF6',
+        'bd-on-dark':     '#F7F8EE',
+      },
+      fontFamily: {
+        'sans':        'OpenSans_400Regular',
+        'sans-600':    'OpenSans_600SemiBold',
+        'sans-700':    'OpenSans_700Bold',
+        'sans-800':    'OpenSans_800ExtraBold',
+      },
+      borderRadius: {
+        'xs':   6,
+        'sm':   10,
+        'md':   16,
+        'lg':   22,
+        'xl':   28,
+        '2xl':  36,
+        'pill': 999,
+      },
+      spacing: {
+        '4.5': 18,
+        '13':  52,
+        '15':  60,
+        '18':  72,
+      },
+    },
+  },
+  plugins: [],
+};
