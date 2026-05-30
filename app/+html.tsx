@@ -72,18 +72,36 @@ const FRAME_CSS = `
 
   /* ── Mobile: full-screen, no frame ── */
   @media (max-width: 480px) {
-    body {
-      background: #000;
-      display: block;
+    /* position:fixed on body prevents iOS rubber-band scroll shifting the layout */
+    html {
+      height: 100%;
       overflow: hidden;
     }
 
+    body {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #000;
+      overflow: hidden;
+      display: block;
+    }
+
+    /*
+     * Pin root to all 4 edges — immune to iOS Safari address-bar
+     * show/hide. This is more reliable than height:100dvh.
+     */
     #root {
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      bottom: 0 !important;
       width: 100% !important;
-      width: 100dvw !important;
       height: 100% !important;
-      height: 100dvh !important;
-      min-height: 100dvh !important;
+      min-height: unset !important;
       max-height: none !important;
       border-radius: 0 !important;
       box-shadow: none !important;
