@@ -54,7 +54,7 @@ const CORRECT_SENTENCE = ['На', 'вулиці', 'холодний', 'віте�
 export default function QuestScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const router  = useRouter();
-  const { colors } = useTheme();
+  const { colors, isDark } = useTheme();
 
   const startStep = (STEP_ORDER.includes(id as QuestStep) ? id : 'tf') as QuestStep;
 
@@ -217,8 +217,18 @@ export default function QuestScreen() {
           <View style={{ flex: 1 }}>
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 24 }}>
               <View
-                style={[s.tfCard, { height: 507, width: '100%', backgroundColor: '#F6F6F6', borderWidth: 1, borderColor: colors.borderDefault }]}
+                style={[s.tfCard, { height: 507, width: '100%', borderWidth: 1, borderColor: isDark ? 'rgba(255,255,255,0.12)' : colors.borderDefault, backgroundColor: isDark ? 'transparent' : '#F6F6F6' }]}
               >
+                {isDark && (
+                  <>
+                    <BlurView intensity={40} tint="dark" style={StyleSheet.absoluteFillObject} />
+                    <LinearGradient
+                      colors={['rgba(255,255,255,0.10)', 'rgba(255,255,255,0.04)']}
+                      start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}
+                      style={StyleSheet.absoluteFillObject}
+                    />
+                  </>
+                )}
                 <SoundIcon />
                 <Text style={[Typography.eyebrow, { color: colors.charcoal3, textAlign: 'center' }]}>ТВЕРДЖЕННЯ</Text>
                 <View style={{ flex: 1, justifyContent: 'center' }}>
@@ -250,18 +260,20 @@ export default function QuestScreen() {
               />
             </View>
             <View style={s.footer}>
-              <Pressable style={[s.glassBtn, { borderColor: 'rgba(255,255,255,0.70)' }]} onPress={() => setShowTutorTF(true)}>
-                <BlurView intensity={55} tint="light" style={StyleSheet.absoluteFillObject} />
+              <Pressable style={[s.glassBtn, { borderColor: isDark ? 'rgba(255,255,255,0.18)' : 'rgba(255,255,255,0.70)' }]} onPress={() => setShowTutorTF(true)}>
+                <BlurView intensity={55} tint={isDark ? 'dark' : 'light'} style={StyleSheet.absoluteFillObject} />
                 <LinearGradient
                   colors={['rgba(245,138,58,0.18)', 'rgba(245,138,58,0.06)']}
                   start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}
                   style={StyleSheet.absoluteFillObject}
                 />
-                <LinearGradient
-                  colors={['rgba(255,255,255,0.55)', 'rgba(255,255,255,0)']}
-                  start={{ x: 0.5, y: 0 }} end={{ x: 0.5, y: 1 }}
-                  style={StyleSheet.absoluteFillObject}
-                />
+                {!isDark && (
+                  <LinearGradient
+                    colors={['rgba(255,255,255,0.55)', 'rgba(255,255,255,0)']}
+                    start={{ x: 0.5, y: 0 }} end={{ x: 0.5, y: 1 }}
+                    style={StyleSheet.absoluteFillObject}
+                  />
+                )}
                 <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
                   <Ionicons name="bulb-outline" size={18} color={colors.orange} />
                   <Text style={[s.glassBtnText, { color: colors.ink }]}>Підказка AI-тьютора</Text>
@@ -282,7 +294,17 @@ export default function QuestScreen() {
         {questStep === 'mc' && (
           <View style={{ flex: 1 }}>
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 24 }}>
-              <View style={[s.mcCard, { width: '100%', height: 507, backgroundColor: '#F6F6F6', borderWidth: 1, borderColor: colors.borderDefault }]}>
+              <View style={[s.mcCard, { width: '100%', height: 507, borderWidth: 1, borderColor: isDark ? 'rgba(255,255,255,0.12)' : colors.borderDefault, backgroundColor: isDark ? 'transparent' : '#F6F6F6' }]}>
+                {isDark && (
+                  <>
+                    <BlurView intensity={40} tint="dark" style={StyleSheet.absoluteFillObject} />
+                    <LinearGradient
+                      colors={['rgba(255,255,255,0.10)', 'rgba(255,255,255,0.04)']}
+                      start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}
+                      style={StyleSheet.absoluteFillObject}
+                    />
+                  </>
+                )}
                 <SoundIcon />
                 <Text style={[s.mcQuestion, { color: colors.ink }]}>
                   Які числа діляться на 5 без залишку?
@@ -321,8 +343,20 @@ export default function QuestScreen() {
                 {/* ── Card 2: Answer task (always underneath) ── */}
                 <View style={[s.sentenceCard, {
                   ...StyleSheet.absoluteFillObject,
-                  backgroundColor: '#F6F6F6', borderWidth: 1, borderColor: colors.borderDefault,
+                  borderWidth: 1,
+                  borderColor: isDark ? 'rgba(255,255,255,0.12)' : colors.borderDefault,
+                  backgroundColor: isDark ? 'transparent' : '#F6F6F6',
                 }]}>
+                  {isDark && (
+                    <>
+                      <BlurView intensity={40} tint="dark" style={StyleSheet.absoluteFillObject} />
+                      <LinearGradient
+                        colors={['rgba(255,255,255,0.10)', 'rgba(255,255,255,0.04)']}
+                        start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}
+                        style={StyleSheet.absoluteFillObject}
+                      />
+                    </>
+                  )}
                   <SoundIcon />
                   <Text style={[s.sentenceLabel, { color: colors.charcoal3 }]}>Відтвори речення</Text>
 
@@ -373,7 +407,9 @@ export default function QuestScreen() {
                     s.sentenceCard,
                     {
                       ...StyleSheet.absoluteFillObject,
-                      backgroundColor: '#F6F6F6', borderWidth: 1, borderColor: colors.borderDefault,
+                      borderWidth: 1,
+                      borderColor: isDark ? 'rgba(255,255,255,0.12)' : colors.borderDefault,
+                      backgroundColor: isDark ? 'transparent' : '#F6F6F6',
                       transform: [
                         { perspective: 1200 },
                         { translateY: cardFallY },
@@ -382,6 +418,16 @@ export default function QuestScreen() {
                       opacity: cardFallOpacity,
                     },
                   ]}>
+                    {isDark && (
+                      <>
+                        <BlurView intensity={40} tint="dark" style={StyleSheet.absoluteFillObject} />
+                        <LinearGradient
+                          colors={['rgba(255,255,255,0.10)', 'rgba(255,255,255,0.04)']}
+                          start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}
+                          style={StyleSheet.absoluteFillObject}
+                        />
+                      </>
+                    )}
                     <SoundIcon />
                     <Text style={[s.sentenceMemTitle, { color: colors.ink }]}>
                       {`Запам'ятай послідовність слів та відтвори речення.`}
@@ -571,7 +617,7 @@ function McAnswer({
   feedback: McFeedback;
   onPress: () => void;
 }) {
-  const { colors } = useTheme();
+  const { colors, isDark } = useTheme();
   const shake = useRef(new Animated.Value(0)).current;
   const scale = useRef(new Animated.Value(1)).current;
 
@@ -615,6 +661,7 @@ function McAnswer({
     feedback === 'correct-selected' ? `${colors.sageDeep}18` :
     feedback === 'correct-missed'   ? `${colors.sageDeep}0D` :
     feedback === 'wrong-selected'   ? `${colors.orangeDeep}18` :
+    isDark                          ? 'rgba(255,255,255,0.06)' :
     '#F6F6F6';
 
   const rowBorderColor =
@@ -661,7 +708,7 @@ function AnswerToken({
   isCorrect: boolean;
   isWrong: boolean;
 }) {
-  const { colors } = useTheme();
+  const { colors, isDark } = useTheme();
   const scale   = useRef(new Animated.Value(0.6)).current;
   const opacity = useRef(new Animated.Value(0)).current;
 
@@ -673,7 +720,7 @@ function AnswerToken({
   }, []);
 
   const borderColor = isCorrect ? '#22C55E' : isWrong ? '#EF4444' : colors.ink;
-  const bgColor     = isCorrect ? 'rgba(34,197,94,0.14)' : isWrong ? 'rgba(239,68,68,0.14)' : '#F6F6F6';
+  const bgColor     = isCorrect ? 'rgba(34,197,94,0.14)' : isWrong ? 'rgba(239,68,68,0.14)' : isDark ? 'rgba(255,255,255,0.08)' : '#F6F6F6';
 
   return (
     <Animated.View style={{ transform: [{ scale }], opacity }}>
@@ -689,7 +736,7 @@ function AnswerToken({
 // ── BankToken ─────────────────────────────────────────────────────────────────
 
 function BankToken({ word, onPress }: { word: string; onPress: () => void }) {
-  const { colors } = useTheme();
+  const { colors, isDark } = useTheme();
   const scale = useRef(new Animated.Value(1)).current;
 
   const onIn  = () => Animated.timing(scale, { toValue: 0.93, duration: 80, useNativeDriver: true }).start();
@@ -698,7 +745,7 @@ function BankToken({ word, onPress }: { word: string; onPress: () => void }) {
   return (
     <Animated.View style={{ transform: [{ scale }] }}>
       <Pressable onPress={onPress} onPressIn={onIn} onPressOut={onOut}
-        style={[s.sentenceToken, { borderColor: colors.ink, backgroundColor: '#F6F6F6' }]}>
+        style={[s.sentenceToken, { borderColor: colors.ink, backgroundColor: isDark ? 'rgba(255,255,255,0.08)' : '#F6F6F6' }]}>
         <Text style={[s.sentenceTokenText, { color: colors.ink }]}>{word}</Text>
       </Pressable>
     </Animated.View>
@@ -722,6 +769,7 @@ const s = StyleSheet.create({
   footer:  { paddingHorizontal: 24, paddingBottom: 24, gap: 10 },
   tfCard: {
     padding: 26, borderRadius: 24, marginTop: 20,
+    overflow: 'hidden',
     ...Shadows.card,
   },
   tfOptions: { flexDirection: 'row', gap: 10, marginTop: 22 },
@@ -788,6 +836,7 @@ const s = StyleSheet.create({
     padding: 26,
     paddingTop: 72,
     borderRadius: 24,
+    overflow: 'hidden',
     ...Shadows.card,
   },
   mcHintBtn: {
@@ -828,6 +877,7 @@ const s = StyleSheet.create({
   sentenceCard: {
     borderRadius: 24,
     padding: 26,
+    overflow: 'hidden',
     ...Shadows.card,
   },
   sentenceLabel: {

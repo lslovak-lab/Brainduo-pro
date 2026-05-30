@@ -35,7 +35,7 @@ export function Button({
   style,
   ...rest
 }: ButtonProps) {
-  const { colors } = useTheme();
+  const { colors, isDark } = useTheme();
   const scale = useRef(new Animated.Value(1)).current;
 
   const onPressIn = () => {
@@ -51,7 +51,7 @@ export function Button({
   const getContainerStyle = (): any[] => {
     if (pending) return [s.base, { backgroundColor: '#B0B0B0' }, fullWidth && s.block];
     switch (variant) {
-      case 'primary':   return [s.base, { backgroundColor: colors.ink }, Shadows.button, fullWidth && s.block];
+      case 'primary':   return [s.base, { backgroundColor: isDark ? '#1C1A2E' : colors.ink }, Shadows.button, fullWidth && s.block];
       case 'secondary': return [s.base, { backgroundColor: colors.charcoal }, fullWidth && s.block];
       case 'ghost':     return [s.base, s.ghost, { borderColor: `${colors.ink}55` }, fullWidth && s.block];
       case 'option':    return [s.base, { backgroundColor: colors.bgMuted, borderWidth: 1, borderColor: colors.bgOverlay },
