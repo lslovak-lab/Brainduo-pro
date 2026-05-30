@@ -101,10 +101,10 @@ export default function QuestResultScreen() {
 
         <ScrollView style={s.scroll} contentContainerStyle={s.content} showsVerticalScrollIndicator={false}>
           <Animated.View style={{ opacity: fadeAnim, transform: [{ scale: scaleAnim }] }}>
-            <Text style={Typography.display}>
+            <Text style={[Typography.display, { textAlign: 'center' }]}>
               {ACCURACY >= 80 ? 'Відмінна робота!' : ACCURACY >= 60 ? 'Майже ідеально!' : 'Є куди рости!'}
             </Text>
-            <Text style={[Typography.body, { marginTop: 6 }]}>
+            <Text style={[Typography.body, { marginTop: 6, textAlign: 'center' }]}>
               {ACCURACY >= 80 ? 'Ти чудово впоралась із завданням.' : 'Проаналізуй помилки та спробуй ще раз.'}
             </Text>
           </Animated.View>
