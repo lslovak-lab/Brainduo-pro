@@ -364,8 +364,17 @@ body {
 .bd-splash {
   background: var(--bd-ivory);
   display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 80px;
   position: relative;
+}
+.bd-splash .bd-float {
+  width: 90px; height: 90px;
+  flex-shrink: 0;
+}
+.bd-splash .bd-float svg {
+  width: 90px; height: 90px;
 }
 .bd-wordmark { font: 700 38px/1 var(--font-display); letter-spacing: -.018em; color: #000; position: relative; z-index: 1; }
 .bd-wordmark-sm { font: 700 28px/1 var(--font-display); letter-spacing: -.012em; color: #000; }
@@ -1146,5 +1155,34 @@ body {
 .bd-cal-compact .d.today { background: #000; }
 .bd-cal-compact .d.today .num { color: #F7F8EE; }
 .bd-cal-compact .d.today .dot { background: var(--bd-orange); }
+
+/* ============================================================
+   Mobile viewport — prototype fills the real device screen
+   ============================================================ */
+@media (max-width: 480px) {
+  /* Hide the desktop stage chrome */
+  .bd-stage { padding: 0; background: var(--bd-ivory); }
+  #toolbar  { display: none !important; }
+
+  /* Let the phone fill the viewport */
+  .bd-phone {
+    width: 100vw;
+    height: 100dvh;
+    border-radius: 0;
+    padding: 0;
+    box-shadow: none;
+  }
+  .bd-phone::before { display: none; } /* dynamic island — no room on real phone */
+  .bd-screen-wrap   { border-radius: 0; }
+  .bd-homebar       { display: none; }
+
+  /* Splash: tighter top gap, smaller image, text stays clear of buttons */
+  .bd-splash { padding-top: 60px; }
+  .bd-splash .bd-float        { width: 72px; height: 72px; margin-bottom: 14px !important; }
+  .bd-splash .bd-float svg    { width: 72px; height: 72px; }
+  .bd-wordmark                { font-size: 32px; }
+  .bd-splash > p              { font-size: 15px; max-width: 240px; margin-top: 8px !important; }
+  .bd-splash > div:last-child { padding-bottom: 36px; } /* button tray */
+}
 .bd-cal-compact .d.empty { background: transparent; border-color: rgba(0,0,0,.04); }
 .bd-cal-compact .d.empty .num { color: var(--fg-muted); }
