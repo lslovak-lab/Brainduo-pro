@@ -215,6 +215,11 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'ArrowLeft' && i > 0) go(order[i - 1]);
 });
 
+/* ─── Mark screens that contain a floating tab bar ──────── */
+document.querySelectorAll('.bd-screen').forEach(s => {
+  if (s.querySelector(':scope > .bd-tabbar')) s.classList.add('has-tabbar');
+});
+
 /* ─── Hide-on-scroll tab bar ─────────────────────────────── */
 (() => {
   const MIN_DELTA     = 4;   // px — ignore micro-movements

@@ -1182,7 +1182,33 @@ body {
   .bd-splash .bd-float svg    { width: 72px; height: 72px; }
   .bd-wordmark                { font-size: 32px; }
   .bd-splash > p              { font-size: 15px; max-width: 240px; margin-top: 8px !important; }
-  .bd-splash > div:last-child { padding-bottom: 36px; } /* button tray */
+  .bd-splash > div:last-child { padding-bottom: max(env(safe-area-inset-bottom, 0px), 28px); }
+
+  /* ── Top nav: remove the fake-status-bar clearance; use device safe area ── */
+  .bd-topnav {
+    padding-top: max(env(safe-area-inset-top, 0px), 12px) !important;
+  }
+
+  /* ── Screen body: fix padding on real devices ─────────────────────────── */
+  /* Top: topnav is already above in flex flow — no extra clearance needed   */
+  /* Bottom: tighten to safe area; .has-tabbar overrides below               */
+  .bd-screen-body {
+    padding-top: 16px !important;
+    padding-bottom: max(calc(env(safe-area-inset-bottom, 0px) + 20px), 32px) !important;
+  }
+
+  /* Screens that have a floating tab bar need enough room for it (≈94px)    */
+  .bd-screen.has-tabbar .bd-screen-body {
+    padding-bottom: calc(94px + max(env(safe-area-inset-bottom, 0px), 10px)) !important;
+  }
+
+  /* Give every block CTA button a clear breathing gap above it              */
+  .bd-screen-body .bd-btn--block {
+    margin-top: 20px;
+  }
+  .bd-screen-body .bd-btn--block + .bd-btn--block {
+    margin-top: 10px;
+  }
 }
 .bd-cal-compact .d.empty { background: transparent; border-color: rgba(0,0,0,.04); }
 .bd-cal-compact .d.empty .num { color: var(--fg-muted); }
