@@ -11,6 +11,7 @@ const FRAME_CSS = `
     padding: 0;
   }
 
+  /* ── Desktop: phone mockup ── */
   body {
     background: radial-gradient(ellipse at 50% 40%, #1a1f2e 0%, #0d0f18 60%, #080a12 100%);
     display: flex;
@@ -30,7 +31,6 @@ const FRAME_CSS = `
     overflow: hidden !important;
     flex-shrink: 0 !important;
 
-    /* Metal bezel: inner highlight → mid silver → deep edge → outer shadow */
     box-shadow:
       inset 0 0 0 1px rgba(255,255,255,0.18),
       0 0 0 1.5px #4a4a52,
@@ -49,7 +49,6 @@ const FRAME_CSS = `
     background: #000;
     border-radius: 20px;
     pointer-events: none;
-    /* positioned by JS */
     display: none;
   }
 
@@ -66,24 +65,33 @@ const FRAME_CSS = `
       inset -1px 0 0 rgba(0,0,0,0.4);
   }
 
-  #btn-power {
-    width: 3.5px;
-    height: 82px;
-  }
+  #btn-power  { width: 3.5px; height: 82px; }
+  #btn-vol-up { width: 3.5px; height: 46px; }
+  #btn-vol-down { width: 3.5px; height: 46px; }
+  #btn-silent { width: 3.5px; height: 32px; }
 
-  #btn-vol-up {
-    width: 3.5px;
-    height: 46px;
-  }
+  /* ── Mobile: full-screen, no frame ── */
+  @media (max-width: 480px) {
+    body {
+      background: #000;
+      display: block;
+      overflow: hidden;
+    }
 
-  #btn-vol-down {
-    width: 3.5px;
-    height: 46px;
-  }
+    #root {
+      width: 100% !important;
+      width: 100dvw !important;
+      height: 100% !important;
+      height: 100dvh !important;
+      min-height: 100dvh !important;
+      max-height: none !important;
+      border-radius: 0 !important;
+      box-shadow: none !important;
+      flex-shrink: unset !important;
+    }
 
-  #btn-silent {
-    width: 3.5px;
-    height: 32px;
+    /* hide decorative phone chrome on real devices */
+    #di, .phone-btn { display: none !important; }
   }
 `;
 
