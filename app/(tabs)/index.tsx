@@ -4,6 +4,7 @@ import { useTheme } from '@/lib/ThemeContext';
 import { Ionicons } from '@expo/vector-icons';
 import { useFocusEffect, useRouter } from 'expo-router';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { useScrollTabBar } from '@/lib/useScrollTabBar';
 import {
   Animated,
   Pressable,
@@ -69,6 +70,7 @@ export default function HomeScreen() {
   const { colors } = useTheme();
   const { width } = useWindowDimensions();
   const topPad = width <= 480 ? 10 : 59;
+  const onTabScroll = useScrollTabBar();
   const [selectedId, setSelectedId]     = useState<string | null>(null);
   const [displayXP, setDisplayXP]       = useState(0);
   const [displayStreak, setDisplayStreak] = useState(0);
@@ -128,6 +130,8 @@ export default function HomeScreen() {
         style={s.scroll}
         contentContainerStyle={[s.content, { paddingTop: topPad }]}
         showsVerticalScrollIndicator={false}
+        onScroll={onTabScroll}
+        scrollEventThrottle={16}
       >
         {/* ── Header ─────────────────────────────────────────────────────── */}
         <Animated.View style={[s.header, { opacity: headerFade }]}>

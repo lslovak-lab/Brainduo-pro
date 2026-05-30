@@ -3,6 +3,7 @@ import { useTheme } from '@/lib/ThemeContext';
 import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import React, { useRef, useState } from 'react';
+import { useScrollTabBar } from '@/lib/useScrollTabBar';
 import {
   Animated,
   Pressable, StyleSheet,
@@ -101,6 +102,7 @@ export default function LeaderboardScreen() {
   const { colors } = useTheme();
   const { width } = useWindowDimensions();
   const topPad = width <= 480 ? 10 : 59;
+  const onTabScroll = useScrollTabBar();
   const [period, setPeriod] = useState<Period>('week');
   const fadeAnim = useRef(new Animated.Value(1)).current;
 
@@ -134,6 +136,8 @@ export default function LeaderboardScreen() {
         style={{ flex: 1, opacity: fadeAnim }}
         contentContainerStyle={s.content}
         showsVerticalScrollIndicator={false}
+        onScroll={onTabScroll}
+        scrollEventThrottle={16}
       >
         <PodiumSection leaders={top3} gold={GOLD} />
 

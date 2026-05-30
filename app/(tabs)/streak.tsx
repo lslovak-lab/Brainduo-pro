@@ -6,7 +6,8 @@ import { useTheme } from '@/lib/ThemeContext';
 import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useRouter } from 'expo-router';
-import React, { useEffect, useState } from 'react';
+import { useTabBarCtx } from '@/lib/TabBarContext';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import {
   Animated,
   Pressable,
@@ -40,8 +41,17 @@ export default function StreakScreen() {
   const topPad = width <= 480 ? 10 : 59;
 
   const [displayCount, setDisplayCount] = useState(0);
-  const scrollY      = React.useRef(new Animated.Value(0)).current;
+  const { notifyScroll } = useTabBarCtx();
+  const prevScrollY   = useRef(0);
+  const scrollY       = useRef(new Animated.Value(0)).current;
   const shadowOpacity = scrollY.interpolate({ inputRange: [0, 24], outputRange: [0, 1], extrapolate: 'clamp' });
+
+  const handleScroll = useCallback((e: any) => {
+    const y = e.nativeEvent.contentOffset.y;
+    scrollY.setValue(y);
+    notifyScroll(y - prevScrollY.current, y);
+    prevScrollY.current = y;
+  }, [scrollY, notifyScroll]);
 
   useEffect(() => {
     const countVal = new Animated.Value(0);
@@ -92,7 +102,7 @@ export default function StreakScreen() {
         style={s.scroll}
         contentContainerStyle={s.content}
         showsVerticalScrollIndicator={false}
-        onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: scrollY } } }], { useNativeDriver: false })}
+        onScroll={handleScroll}
         scrollEventThrottle={16}
       >
         {/* Flame hero */}

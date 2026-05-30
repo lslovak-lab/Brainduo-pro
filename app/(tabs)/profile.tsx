@@ -8,6 +8,7 @@ import { BlurView } from 'expo-blur';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useRouter } from 'expo-router';
 import React, { useEffect, useRef } from 'react';
+import { useScrollTabBar } from '@/lib/useScrollTabBar';
 import {
   Alert,
   Animated,
@@ -48,6 +49,7 @@ export default function ProfileScreen() {
   const { colors, gradients } = useTheme();
   const { width } = useWindowDimensions();
   const topPad = width <= 480 ? 10 : 59;
+  const onTabScroll = useScrollTabBar();
 
   const SKILLS = [
     { label: 'Увага',        pct: 81, accent: colors.orange   },
@@ -69,6 +71,8 @@ export default function ProfileScreen() {
         style={s.scroll}
         contentContainerStyle={s.content}
         showsVerticalScrollIndicator={false}
+        onScroll={onTabScroll}
+        scrollEventThrottle={16}
       >
         {/* ── Identity ─────────────────────────────────────────────────────── */}
         <View style={s.identity}>

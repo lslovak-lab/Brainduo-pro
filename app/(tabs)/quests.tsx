@@ -4,6 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useRouter } from 'expo-router';
 import React, { useEffect, useRef } from 'react';
+import { useScrollTabBar } from '@/lib/useScrollTabBar';
 import {
   Animated,
   Pressable,
@@ -93,6 +94,7 @@ export default function LevelsScreen() {
   const { colors } = useTheme();
   const { width } = useWindowDimensions();
   const topPad = width <= 480 ? 10 : 59;
+  const onTabScroll = useScrollTabBar();
 
   const dotFill = (segIdx: number): string => {
     const state = LEVELS[segIdx].state;
@@ -119,6 +121,8 @@ export default function LevelsScreen() {
         style={s.scroll}
         contentContainerStyle={s.content}
         showsVerticalScrollIndicator={false}
+        onScroll={onTabScroll}
+        scrollEventThrottle={16}
       >
         <View style={[s.canvas, { height: PATH_H }]}>
           {ALL_DOTS.map((dots, si) =>

@@ -19,6 +19,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { TabBarProvider } from '@/lib/TabBarContext';
 import { ThemeProvider, useTheme } from '@/lib/ThemeContext';
 
 SplashScreen.preventAutoHideAsync();
@@ -56,6 +57,7 @@ export default function RootLayout() {
   return (
     <SafeAreaProvider>
       <ThemeProvider>
+      <TabBarProvider>
         <Stack screenOptions={{ headerShown: false, animation: 'fade' }}>
           <Stack.Screen name="index" options={{ headerShown: false }} />
           <Stack.Screen name="(auth)" options={{ headerShown: false }} />
@@ -90,6 +92,7 @@ export default function RootLayout() {
           />
         </Stack>
         <ThemedStatusBar />
+      </TabBarProvider>
       </ThemeProvider>
     </SafeAreaProvider>
   );

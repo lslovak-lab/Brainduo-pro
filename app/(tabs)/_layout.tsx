@@ -1,3 +1,4 @@
+import { useTabBarCtx } from '@/lib/TabBarContext';
 import { Shadows } from '@/lib/theme';
 import { useTheme } from '@/lib/ThemeContext';
 import { BlurView } from 'expo-blur';
@@ -116,11 +117,18 @@ function TabItem({
 
 function CustomTabBar({ state, navigation }: any) {
   const { colors, isDark } = useTheme();
+  const { tabBarTranslate, showTabBar } = useTabBarCtx();
   const insets    = useSafeAreaInsets();
   const bottomPad = Math.max(insets.bottom, 8);
 
+  // Always show tab bar when switching tabs
+  useEffect(() => { showTabBar(); }, [state.index]);
+
   return (
-    <View style={[s.tabBarContainer, { paddingBottom: bottomPad }]} pointerEvents="box-none">
+    <Animated.View
+      style={[s.tabBarContainer, { paddingBottom: bottomPad, transform: [{ translateY: tabBarTranslate }] }]}
+      pointerEvents="box-none"
+    >
       <View style={[s.tabBarOuter, { borderColor: colors.borderSubtle }]}>
         <BlurView intensity={60} tint={isDark ? 'dark' : 'light'} style={StyleSheet.absoluteFillObject} />
         <View style={[StyleSheet.absoluteFillObject, { backgroundColor: isDark ? 'rgba(0,0,0,0.30)' : 'rgba(255,255,255,0.55)' }]} />
@@ -148,7 +156,7 @@ function CustomTabBar({ state, navigation }: any) {
           );
         })}
       </View>
-    </View>
+    </Animated.View>
   );
 }
 
