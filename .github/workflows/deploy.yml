@@ -39,6 +39,12 @@ jobs:
 
       - uses: actions/configure-pages@v4
 
+      - name: Add prototype to dist
+        run: |
+          cp colors_and_type.css dist/
+          mkdir -p dist/ui_kits/brainduo-mobile
+          cp -r ui_kits/brainduo-mobile/. dist/ui_kits/brainduo-mobile/
+
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
