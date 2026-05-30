@@ -17,6 +17,7 @@ import {
   ScrollView,
   StyleSheet,
   Text, TextInput,
+  useWindowDimensions,
   View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -264,10 +265,12 @@ function SignUpStep({
   password: string; setPassword: (v: string) => void;
 }) {
   const { colors } = useTheme();
+  const { width } = useWindowDimensions();
+  const topPad = width <= 480 ? 10 : 71;
   return (
     <SafeAreaView style={[s.screen, { backgroundColor: colors.ivory }]} edges={['top', 'bottom']}>
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={{ flex: 1 }}>
-        <View style={[s.topnav, { paddingTop: 71 }]}>
+        <View style={[s.topnav, { paddingTop: topPad }]}>
           <IconBtn onPress={onBack} icon="chevron-back" />
           <StepPips total={3} current={0} />
           <View style={{ width: 44 }} />
@@ -335,9 +338,11 @@ function GoalPathStep({
   setPathChoice: (v: 'auto' | 'manual') => void;
 }) {
   const { colors } = useTheme();
+  const { width } = useWindowDimensions();
+  const topPad = width <= 480 ? 10 : 71;
   return (
     <SafeAreaView style={[s.screen, { backgroundColor: colors.ivory }]} edges={['top', 'bottom']}>
-      <View style={[s.topnav, { paddingTop: 71 }]}>
+      <View style={[s.topnav, { paddingTop: topPad }]}>
         <IconBtn onPress={onBack} icon="chevron-back" />
         <StepPips total={3} current={1} />
         <View style={{ width: 44 }} />
@@ -387,6 +392,8 @@ function GoalsStep({
   goals: Set<GoalKey>; toggleGoal: (k: GoalKey) => void;
 }) {
   const { colors } = useTheme();
+  const { width } = useWindowDimensions();
+  const topPad = width <= 480 ? 10 : 71;
 
   const GOALS: { key: GoalKey; title: string; meta: string; icon: string; accent: string }[] = [
     { key: 'focus',         title: 'Увага',        meta: 'Фокус · 5–15 хв', icon: 'eye-outline',             accent: colors.orange    },
@@ -399,7 +406,7 @@ function GoalsStep({
 
   return (
     <SafeAreaView style={[s.screen, { backgroundColor: colors.ivory }]} edges={['top', 'bottom']}>
-      <View style={[s.topnav, { paddingTop: 71 }]}>
+      <View style={[s.topnav, { paddingTop: topPad }]}>
         <IconBtn onPress={onBack} icon="chevron-back" />
         <StepPips total={3} current={2} />
         <View style={{ width: 44 }} />
@@ -450,6 +457,8 @@ function QuizStep({
   showHint: boolean; setShowHint: (v: boolean) => void;
 }) {
   const { colors } = useTheme();
+  const { width } = useWindowDimensions();
+  const topPad = width <= 480 ? 10 : 59;
   const hintAnim   = useRef(new Animated.Value(0)).current;
   const [checked, setChecked] = useState(false);
 
@@ -466,7 +475,7 @@ function QuizStep({
 
   return (
     <SafeAreaView style={[s.screen, { backgroundColor: colors.ivory }]} edges={['top', 'bottom']}>
-      <View style={[s.topnav, { marginTop: 59 }]}>
+      <View style={[s.topnav, { marginTop: topPad }]}>
         <IconBtn onPress={onBack} icon="chevron-back" />
         <View style={{ flex: 1, paddingHorizontal: 14 }}>
           <ProgressBar value={0.33} height={8} />
@@ -525,6 +534,8 @@ function QuizStep({
 
 function QuizResultStep({ onHome }: { onHome: () => void }) {
   const { colors } = useTheme();
+  const { width } = useWindowDimensions();
+  const topPad = width <= 480 ? 10 : 79;
   const [showConfetti, setShowConfetti] = useState(true);
   const flashAnim = useRef(new Animated.Value(0)).current;
   const glowAnim  = useRef(new Animated.Value(0)).current;
@@ -571,7 +582,7 @@ function QuizResultStep({ onHome }: { onHome: () => void }) {
 
       <View style={[s.glowBg, { backgroundColor: colors.yellowSoft }]} pointerEvents="none" />
       <SafeAreaView style={{ flex: 1 }} edges={['top', 'bottom']}>
-        <View style={{ paddingHorizontal: 24, paddingTop: 79 }}>
+        <View style={{ paddingHorizontal: 24, paddingTop: topPad }}>
           <Text style={Typography.eyebrow}>РЕЗУЛЬТАТ</Text>
         </View>
 
@@ -620,10 +631,12 @@ function TopicChoiceStep({
   topicChoice: string | null; setTopicChoice: (v: string) => void;
 }) {
   const { colors } = useTheme();
+  const { width } = useWindowDimensions();
+  const topPad = width <= 480 ? 10 : 71;
 
   return (
     <SafeAreaView style={[s.screen, { backgroundColor: colors.ivory }]} edges={['top', 'bottom']}>
-      <View style={[s.topnav, { paddingTop: 71 }]}>
+      <View style={[s.topnav, { paddingTop: topPad }]}>
         <IconBtn onPress={onBack} icon="chevron-back" />
         <View style={{ flex: 1 }} />
         <View style={{ width: 44 }} />
