@@ -58,6 +58,8 @@ function go(name) {
     el.classList.add('active');
     const body = el.querySelector('.bd-screen-body');
     if (body) body.scrollTop = 0;
+    const tabbar = el.querySelector('.bd-tabbar');
+    if (tabbar) tabbar.classList.remove('is-hidden');
     if (name === 'quizResult') animateRing();
     if (name === 'fiveDays')   spawnConfetti('confetti1');
     if (name === 'rankUp')     spawnConfetti('confetti2');
@@ -212,3 +214,44 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'ArrowRight' && i < order.length - 1) go(order[i + 1]);
   if (e.key === 'ArrowLeft' && i > 0) go(order[i - 1]);
 });
+
+/* ─── Hide-on-scroll tab bar ─────────────────────────────── */
+(() => {
+  const MIN_DELTA     = 4;   // px — ignore micro-movements
+  const TOP_THRESHOLD = 20;  // px — always show when near top
+
+  document.querySelectorAll('.bd-screen').forEach(screen => {
+    const body   = screen.querySelector('.bd-screen-body');
+    const tabbar = screen.querySelector('.bd-tabbar');
+    if (!body || !tabbar) return;
+
+    let prevY    = 0;
+    let lastDir  = 'up';
+    let ticking  = false;
+
+    body.addEventListener('scroll', () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        const y  = body.scrollTop;
+        const dy = y - prevY;
+
+        if (y < TOP_THRESHOLD) {
+          if (lastDir !== 'up') {
+            lastDir = 'up';
+            tabbar.classList.remove('is-hidden');
+          }
+        } else if (Math.abs(dy) >= MIN_DELTA) {
+          const dir = dy > 0 ? 'down' : 'up';
+          if (dir !== lastDir) {
+            lastDir = dir;
+            tabbar.classList.toggle('is-hidden', dir === 'down');
+          }
+        }
+
+        prevY   = y;
+        ticking = false;
+      });
+    }, { passive: true });
+  });
+})();
