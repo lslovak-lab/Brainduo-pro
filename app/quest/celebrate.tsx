@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { View, Text, Pressable, StyleSheet, Animated } from 'react-native';
+import { View, Text, Pressable, StyleSheet, Animated, useWindowDimensions } from 'react-native';
 import { useRouter, useLocalSearchParams } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -12,6 +12,8 @@ import { useTheme } from '@/lib/ThemeContext';
 export default function CelebrationScreen() {
   const router = useRouter();
   const { colors } = useTheme();
+  const { width } = useWindowDimensions();
+  const topPad = width <= 480 ? 10 : 59;
   const { streak = '5' } = useLocalSearchParams<{ streak?: string }>();
   const streakNum = parseInt(streak as string, 10) || 5;
 
@@ -72,7 +74,7 @@ export default function CelebrationScreen() {
       />
 
       <SafeAreaView style={{ flex: 1 }}>
-        <View style={s.topnav}>
+        <View style={[s.topnav, { paddingTop: topPad }]}>
           <Pressable style={[s.closeBtn, { backgroundColor: colors.bgMuted }]} onPress={() => router.replace('/(tabs)')}>
             <Ionicons name="close" size={22} color={colors.ink} />
           </Pressable>

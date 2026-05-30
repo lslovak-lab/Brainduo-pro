@@ -7,6 +7,7 @@ import {
   Animated,
   Pressable, StyleSheet,
   Text,
+  useWindowDimensions,
   View
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -98,6 +99,8 @@ function fmtPts(n: number): string {
 
 export default function LeaderboardScreen() {
   const { colors } = useTheme();
+  const { width } = useWindowDimensions();
+  const topPad = width <= 480 ? 10 : 59;
   const [period, setPeriod] = useState<Period>('week');
   const fadeAnim = useRef(new Animated.Value(1)).current;
 
@@ -121,7 +124,7 @@ export default function LeaderboardScreen() {
   return (
     <SafeAreaView style={[s.screen, { backgroundColor: colors.ivory }]} edges={['top']}>
       {/* Header */}
-      <View style={s.header}>
+      <View style={[s.header, { paddingTop: topPad }]}>
         <View style={{ flex: 1 }}>
           <Text style={[s.title, { color: colors.ink, textAlign: 'center' }]}>Рейтинг</Text>
         </View>

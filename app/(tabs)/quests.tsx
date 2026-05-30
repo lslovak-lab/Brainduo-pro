@@ -10,6 +10,7 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  useWindowDimensions,
   View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -90,6 +91,8 @@ const ALL_DOTS = [
 export default function LevelsScreen() {
   const router = useRouter();
   const { colors } = useTheme();
+  const { width } = useWindowDimensions();
+  const topPad = width <= 480 ? 10 : 59;
 
   const dotFill = (segIdx: number): string => {
     const state = LEVELS[segIdx].state;
@@ -100,7 +103,7 @@ export default function LevelsScreen() {
 
   return (
     <SafeAreaView style={[s.screen, { backgroundColor: colors.ivory }]} edges={['top']}>
-      <View style={s.header}>
+      <View style={[s.header, { paddingTop: topPad }]}>
         <View style={[s.pill, { borderColor: `${colors.yellow}55`, backgroundColor: `${colors.yellow}14` }]}>
           <Ionicons name="flash" size={14} color={colors.yellow} />
           <Text style={[s.pillText, { color: colors.ink }]}>{STARS}</Text>

@@ -10,6 +10,7 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  useWindowDimensions,
   View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -66,6 +67,8 @@ const CARDS: CategoryCard[] = [
 export default function HomeScreen() {
   const router = useRouter();
   const { colors } = useTheme();
+  const { width } = useWindowDimensions();
+  const topPad = width <= 480 ? 10 : 59;
   const [selectedId, setSelectedId]     = useState<string | null>(null);
   const [displayXP, setDisplayXP]       = useState(0);
   const [displayStreak, setDisplayStreak] = useState(0);
@@ -123,7 +126,7 @@ export default function HomeScreen() {
     <SafeAreaView style={[s.screen, { backgroundColor: colors.ivory }]} edges={['top']}>
       <ScrollView
         style={s.scroll}
-        contentContainerStyle={s.content}
+        contentContainerStyle={[s.content, { paddingTop: topPad }]}
         showsVerticalScrollIndicator={false}
       >
         {/* ── Header ─────────────────────────────────────────────────────── */}

@@ -15,6 +15,7 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  useWindowDimensions,
   View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -45,6 +46,8 @@ const earnedCount = BADGES.filter(b => b.earned).length;
 export default function ProfileScreen() {
   const router = useRouter();
   const { colors, gradients } = useTheme();
+  const { width } = useWindowDimensions();
+  const topPad = width <= 480 ? 10 : 59;
 
   const SKILLS = [
     { label: 'Увага',        pct: 81, accent: colors.orange   },
@@ -55,7 +58,7 @@ export default function ProfileScreen() {
 
   return (
     <SafeAreaView style={[s.screen, { backgroundColor: colors.ivory }]} edges={['top']}>
-      <View style={s.topRow}>
+      <View style={[s.topRow, { paddingTop: topPad }]}>
         <Text style={[Typography.eyebrow, { color: colors.charcoal3 }]}>ПРОФІЛЬ</Text>
         <Pressable style={[s.iconBtn, { backgroundColor: colors.bgOverlay }]} onPress={() => router.push('/settings')}>
           <Ionicons name="settings-outline" size={20} color={colors.ink} />

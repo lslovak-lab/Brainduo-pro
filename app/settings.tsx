@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import {
   View, Text, ScrollView, Pressable, StyleSheet, Switch,
-  Alert, Animated, Share, Linking, ActionSheetIOS, Platform,
+  Alert, Animated, Share, Linking, ActionSheetIOS, Platform, useWindowDimensions,
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -186,6 +186,8 @@ function AccordionItem({ question, answer }: { question: string; answer: string 
 export default function SettingsScreen() {
   const router = useRouter();
   const { colors, isDark, toggleTheme } = useTheme();
+  const { width } = useWindowDimensions();
+  const topPad = width <= 480 ? 10 : 59;
 
   const [toggles, setToggles] = useState({
     pushEnabled:    true,
@@ -236,7 +238,7 @@ export default function SettingsScreen() {
 
   return (
     <SafeAreaView style={[s.screen, { backgroundColor: colors.ivory }]} edges={['top', 'bottom']}>
-      <View style={s.topnav}>
+      <View style={[s.topnav, { paddingTop: topPad }]}>
         <Pressable style={s.iconBtn} onPress={() => router.back()}>
           <Ionicons name="chevron-back" size={22} color={colors.ink} />
         </Pressable>

@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { View, Text, Pressable, StyleSheet, Animated } from 'react-native';
+import { View, Text, Pressable, StyleSheet, Animated, useWindowDimensions } from 'react-native';
 import { useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -16,6 +16,8 @@ const BARS = 18;
 export default function VoiceQuestScreen() {
   const router = useRouter();
   const { colors, gradients } = useTheme();
+  const { width } = useWindowDimensions();
+  const topPad = width <= 480 ? 10 : 59;
   const [recState, setRecState]   = useState<RecordState>('idle');
   const [bars, setBars]           = useState<number[]>(Array(BARS).fill(0.12));
   const [seconds, setSeconds]     = useState(0);
@@ -79,7 +81,7 @@ export default function VoiceQuestScreen() {
 
   return (
     <SafeAreaView style={[s.screen, { backgroundColor: colors.ivory }]} edges={['top', 'bottom']}>
-      <View style={s.topnav}>
+      <View style={[s.topnav, { paddingTop: topPad }]}>
         <Pressable onPress={() => router.back()} style={s.iconBtn}>
           <Ionicons name="chevron-back" size={22} color={colors.ink} />
         </Pressable>

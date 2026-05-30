@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { View, Text, ScrollView, Pressable, StyleSheet, Animated } from 'react-native';
+import { View, Text, ScrollView, Pressable, StyleSheet, Animated, useWindowDimensions } from 'react-native';
 import { useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -36,6 +36,8 @@ const MISTAKES: Mistake[] = [
 export default function MistakesScreen() {
   const router = useRouter();
   const { colors, isDark } = useTheme();
+  const { width } = useWindowDimensions();
+  const topPad = width <= 480 ? 10 : 59;
   const [idx, setIdx] = useState(0);
   const fadeAnim = useRef(new Animated.Value(1)).current;
 
@@ -51,7 +53,7 @@ export default function MistakesScreen() {
 
   return (
     <SafeAreaView style={[s.screen, { backgroundColor: colors.ivory }]} edges={['top', 'bottom']}>
-      <View style={s.topnav}>
+      <View style={[s.topnav, { paddingTop: topPad }]}>
         <Pressable style={s.iconBtn} onPress={() => router.back()}>
           <Ionicons name="chevron-back" size={22} color={colors.ink} />
         </Pressable>

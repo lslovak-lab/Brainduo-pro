@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { View, Text, ScrollView, Pressable, StyleSheet, Animated, Easing } from 'react-native';
+import { View, Text, ScrollView, Pressable, StyleSheet, Animated, Easing, useWindowDimensions } from 'react-native';
 import { useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -20,6 +20,8 @@ const TARGET   = CIRC - (ACCURACY / 100) * CIRC;
 export default function QuestResultScreen() {
   const router = useRouter();
   const { colors } = useTheme();
+  const { width } = useWindowDimensions();
+  const topPad = width <= 480 ? 10 : 59;
 
   const [displayAcc,   setDisplayAcc]   = useState(0);
   const [displayBonus, setDisplayBonus] = useState(0);
@@ -89,7 +91,7 @@ export default function QuestResultScreen() {
       />
 
       <SafeAreaView style={{ flex: 1 }}>
-        <View style={s.topnav}>
+        <View style={[s.topnav, { paddingTop: topPad }]}>
           <Pressable style={s.iconBtn} onPress={() => router.replace('/(tabs)')}>
             <Ionicons name="close" size={22} color={colors.ink} />
           </Pressable>

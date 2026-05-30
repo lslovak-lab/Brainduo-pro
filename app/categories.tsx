@@ -9,6 +9,7 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  useWindowDimensions,
   View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -30,6 +31,8 @@ interface QuestItem {
 export default function CategoriesScreen() {
   const router = useRouter();
   const { colors } = useTheme();
+  const { width } = useWindowDimensions();
+  const topPad = width <= 480 ? 10 : 59;
   const [selected, setSelected] = useState<ChipKey>('Увага');
 
   const CHIPS: { label: ChipKey; color: string }[] = [
@@ -49,7 +52,7 @@ export default function CategoriesScreen() {
   return (
     <SafeAreaView style={[s.screen, { backgroundColor: colors.ivory }]} edges={['top']}>
       {/* Header */}
-      <View style={s.topnav}>
+      <View style={[s.topnav, { paddingTop: topPad }]}>
         <Pressable style={s.iconBtn} onPress={() => router.back()}>
           <Ionicons name="chevron-back" size={22} color={colors.ink} />
         </Pressable>

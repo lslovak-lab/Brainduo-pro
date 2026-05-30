@@ -13,6 +13,7 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  useWindowDimensions,
   View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -35,6 +36,8 @@ const APRIL_DAYS: { num: string; state: DayState }[] = [
 export default function StreakScreen() {
   const router = useRouter();
   const { colors, gradients } = useTheme();
+  const { width } = useWindowDimensions();
+  const topPad = width <= 480 ? 10 : 59;
 
   const [displayCount, setDisplayCount] = useState(0);
   const scrollY      = React.useRef(new Animated.Value(0)).current;
@@ -76,7 +79,7 @@ export default function StreakScreen() {
 
   return (
     <SafeAreaView style={[s.screen, { backgroundColor: colors.ivory }]} edges={['top']}>
-      <Animated.View style={[s.topnav, { shadowColor: '#000', shadowOffset: { width: 0, height: 4 }, shadowRadius: 12, shadowOpacity: shadowOpacity as any, elevation: 4 }]}>
+      <Animated.View style={[s.topnav, { paddingTop: topPad, shadowColor: '#000', shadowOffset: { width: 0, height: 4 }, shadowRadius: 12, shadowOpacity: shadowOpacity as any, elevation: 4 }]}>
         <Pressable style={s.iconBtn} onPress={() => router.push('/(tabs)')}>
           <Ionicons name="chevron-back" size={22} color={colors.ink} />
         </Pressable>

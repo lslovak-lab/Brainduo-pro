@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { View, Text, Pressable, StyleSheet, Animated } from 'react-native';
+import { View, Text, Pressable, StyleSheet, Animated, useWindowDimensions } from 'react-native';
 import { useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -63,6 +63,8 @@ const pb = StyleSheet.create({
 export default function PollQuestScreen() {
   const router = useRouter();
   const { colors, gradients } = useTheme();
+  const { width } = useWindowDimensions();
+  const topPad = width <= 480 ? 10 : 59;
   const [voted, setVoted]       = useState(false);
   const [selected, setSelected] = useState<number | null>(null);
   const fadeAnim = useRef(new Animated.Value(0)).current;
@@ -81,7 +83,7 @@ export default function PollQuestScreen() {
 
   return (
     <SafeAreaView style={[s.screen, { backgroundColor: colors.ivory }]} edges={['top', 'bottom']}>
-      <View style={s.topnav}>
+      <View style={[s.topnav, { paddingTop: topPad }]}>
         <Pressable onPress={() => router.back()} style={s.iconBtn}>
           <Ionicons name="chevron-back" size={22} color={colors.ink} />
         </Pressable>

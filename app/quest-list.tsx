@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import {
-  View, Text, ScrollView, Pressable, StyleSheet, Animated, Modal,
+  View, Text, ScrollView, Pressable, StyleSheet, Animated, Modal, useWindowDimensions,
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -80,6 +80,8 @@ const SEG_OPTIONS = [
 
 export default function QuestListScreen() {
   const router   = useRouter();
+  const { width } = useWindowDimensions();
+  const topPad = width <= 480 ? 10 : 59;
   const { colors } = useTheme();
   const [seg, setSeg]         = useState<Segment>('today');
   const [calModal, setCalModal] = useState(false);
@@ -93,7 +95,7 @@ export default function QuestListScreen() {
   return (
     <SafeAreaView style={[s.screen, { backgroundColor: colors.ivory }]} edges={['top']}>
       {/* Header */}
-      <View style={s.header}>
+      <View style={[s.header, { paddingTop: topPad }]}>
         <Pressable style={[s.iconBtn, { backgroundColor: colors.bgMuted }]} onPress={() => router.back()}>
           <Ionicons name="chevron-back" size={22} color={colors.ink} />
         </Pressable>

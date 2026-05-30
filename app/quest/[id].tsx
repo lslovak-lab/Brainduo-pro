@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import {
-  View, Text, Pressable, StyleSheet, Animated, Easing,
+  View, Text, Pressable, StyleSheet, Animated, Easing, useWindowDimensions,
 } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -440,8 +440,10 @@ function QuestHeader({
   stepLabel: string;
 }) {
   const { colors } = useTheme();
+  const { width } = useWindowDimensions();
+  const topPad = width <= 480 ? 10 : 59;
   return (
-    <View style={s.topnav}>
+    <View style={[s.topnav, { paddingTop: topPad }]}>
       <Pressable onPress={onClose} style={s.iconBtn}>
         <Ionicons name={showClose ? 'close' : 'chevron-back'} size={22} color={colors.ink} />
       </Pressable>
