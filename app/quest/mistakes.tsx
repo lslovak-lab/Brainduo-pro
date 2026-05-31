@@ -3,6 +3,7 @@ import { View, Text, ScrollView, Pressable, StyleSheet, Animated, useWindowDimen
 import { useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
+import { BlurView } from 'expo-blur';
 import { Ionicons } from '@expo/vector-icons';
 import { Button } from '@/components/Button';
 import { Typography, Radius, Shadows } from '@/lib/theme';
@@ -93,10 +94,13 @@ export default function MistakesScreen() {
 
           {/* Answers comparison */}
           <View style={{ gap: 10, marginTop: 20 }}>
-            <View style={[s.answerRow, {
-              backgroundColor: isDark ? `${colors.orangeDeep}44` : '#FBE4D5',
-              borderColor: `${colors.orangeDeep}60`,
-            }]}>
+            <View style={[s.answerRow, { borderColor: `${colors.orangeDeep}60`, backgroundColor: 'transparent' }]}>
+              <BlurView intensity={isDark ? 40 : 55} tint={isDark ? 'dark' : 'light'} style={StyleSheet.absoluteFillObject} />
+              <LinearGradient
+                colors={isDark ? [`${colors.orangeDeep}55`, `${colors.orangeDeep}22`] : ['rgba(251,228,213,0.80)', 'rgba(251,228,213,0.45)']}
+                start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}
+                style={StyleSheet.absoluteFillObject}
+              />
               <View style={s.answerIconWrap}>
                 <Ionicons name="close-circle" size={20} color={colors.orangeDeep} />
               </View>
@@ -106,10 +110,13 @@ export default function MistakesScreen() {
               </View>
             </View>
 
-            <View style={[s.answerRow, {
-              backgroundColor: isDark ? `${colors.sageDeep}44` : '#E6F1C9',
-              borderColor: `${colors.sageDeep}60`,
-            }]}>
+            <View style={[s.answerRow, { borderColor: `${colors.sageDeep}60`, backgroundColor: 'transparent' }]}>
+              <BlurView intensity={isDark ? 40 : 55} tint={isDark ? 'dark' : 'light'} style={StyleSheet.absoluteFillObject} />
+              <LinearGradient
+                colors={isDark ? [`${colors.sageDeep}55`, `${colors.sageDeep}22`] : ['rgba(230,241,201,0.80)', 'rgba(230,241,201,0.45)']}
+                start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}
+                style={StyleSheet.absoluteFillObject}
+              />
               <View style={s.answerIconWrap}>
                 <Ionicons name="checkmark-circle" size={20} color={colors.sageDeep} />
               </View>
@@ -206,6 +213,7 @@ const s = StyleSheet.create({
     padding: 14, paddingHorizontal: 16,
     borderRadius: Radius.md,
     borderWidth: 1,
+    overflow: 'hidden',
     ...Shadows.soft,
   },
   answerIconWrap: { marginTop: 2 },

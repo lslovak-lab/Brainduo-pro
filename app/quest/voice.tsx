@@ -3,6 +3,7 @@ import { View, Text, Pressable, StyleSheet, Animated, useWindowDimensions } from
 import { useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
+import { BlurView } from 'expo-blur';
 import { Ionicons } from '@expo/vector-icons';
 import { Button } from '@/components/Button';
 import { ProgressBar } from '@/components/ProgressBar';
@@ -15,7 +16,7 @@ const BARS = 18;
 
 export default function VoiceQuestScreen() {
   const router = useRouter();
-  const { colors, gradients } = useTheme();
+  const { colors, gradients, isDark } = useTheme();
   const { width } = useWindowDimensions();
   const topPad = width <= 480 ? 10 : 59;
   const [recState, setRecState]   = useState<RecordState>('idle');
@@ -92,8 +93,7 @@ export default function VoiceQuestScreen() {
       </View>
 
       <Animated.View style={[s.body, { opacity: fadeAnim }]}>
-        <Text style={Typography.eyebrow}>КВЕСТ · ГОЛОС</Text>
-        <Text style={[Typography.display, { marginTop: 10 }]}>Поясни власними словами</Text>
+        <Text style={[Typography.display, { marginTop: 10, textAlign: 'center' }]}>Поясни власними словами</Text>
 
         <LinearGradient
           colors={gradients.sage}
@@ -101,7 +101,7 @@ export default function VoiceQuestScreen() {
           style={s.questionCard}
         >
           <Text style={Typography.eyebrow}>ПИТАННЯ</Text>
-          <Text style={[Typography.h3, { marginTop: 8, lineHeight: 26 }]}>
+          <Text style={[Typography.h3, { marginTop: 8, lineHeight: 26, textAlign: 'center' }]}>
             Чому якісний сон важливий для збереження нових знань?
           </Text>
         </LinearGradient>
@@ -179,12 +179,25 @@ export default function VoiceQuestScreen() {
         <View style={s.bottom}>
           {recState === 'recorded' ? (
             <>
-              <Button
-                variant="ghost"
-                label="Записати ще раз"
-                fullWidth
+              <Pressable
+                style={[s.glassBtn, { borderColor: isDark ? 'rgba(255,255,255,0.18)' : 'rgba(255,255,255,0.70)' }]}
                 onPress={() => { setSeconds(0); setRecState('idle'); }}
-              />
+              >
+                <BlurView intensity={55} tint={isDark ? 'dark' : 'light'} style={StyleSheet.absoluteFillObject} />
+                <LinearGradient
+                  colors={['rgba(245,138,58,0.18)', 'rgba(245,138,58,0.06)']}
+                  start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}
+                  style={StyleSheet.absoluteFillObject}
+                />
+                {!isDark && (
+                  <LinearGradient
+                    colors={['rgba(255,255,255,0.55)', 'rgba(255,255,255,0)']}
+                    start={{ x: 0.5, y: 0 }} end={{ x: 0.5, y: 1 }}
+                    style={StyleSheet.absoluteFillObject}
+                  />
+                )}
+                <Text style={[s.glassBtnText, { color: colors.ink }]}>Записати ще раз</Text>
+              </Pressable>
               <View style={{ marginTop: 10 }}>
                 <Button
                   variant="primary"
@@ -251,4 +264,17 @@ const s = StyleSheet.create({
     ...Shadows.button,
   },
   bottom: { marginTop: 'auto' as any, paddingBottom: 16 },
+  glassBtn: {
+    height: 56, borderRadius: 999,
+    alignItems: 'center', justifyContent: 'center',
+    overflow: 'hidden',
+    borderWidth: 1.5,
+    shadowColor: '#232814',
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.22, shadowRadius: 14, elevation: 7,
+  },
+  glassBtnText: {
+    fontFamily: 'Montserrat_700Bold',
+    fontSize: 16, lineHeight: 20, letterSpacing: 0.1,
+  },
 });

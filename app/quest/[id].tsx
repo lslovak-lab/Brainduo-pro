@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import {
-  View, Text, Pressable, StyleSheet, Animated, Easing, useWindowDimensions,
+  View, Text, Pressable, StyleSheet, Animated, Easing, useWindowDimensions, Image,
 } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -14,7 +14,15 @@ import { Typography, Radius, Shadows } from '@/lib/theme';
 import { useTheme } from '@/lib/ThemeContext';
 
 function SoundIcon() {
-  const { colors } = useTheme();
+  const { colors, isDark } = useTheme();
+  if (isDark) {
+    return (
+      <Image
+        source={require('@/assets/sound.png')}
+        style={{ position: 'absolute', top: 10, right: 10, zIndex: 1, width: 44, height: 44 }}
+      />
+    );
+  }
   return (
     <View style={{ position: 'absolute', top: 10, right: 10, zIndex: 1,
       width: 44, height: 44, borderRadius: 22,
@@ -217,18 +225,14 @@ export default function QuestScreen() {
           <View style={{ flex: 1 }}>
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 24 }}>
               <View
-                style={[s.tfCard, { height: 507, width: '100%', borderWidth: 1, borderColor: isDark ? 'rgba(255,255,255,0.12)' : colors.borderDefault, backgroundColor: isDark ? 'transparent' : '#F6F6F6' }]}
+                style={[s.tfCard, { height: 507, width: '100%', borderWidth: 1, borderColor: isDark ? 'rgba(255,255,255,0.12)' : 'rgba(255,255,255,0.70)', backgroundColor: 'transparent' }]}
               >
-                {isDark && (
-                  <>
-                    <BlurView intensity={40} tint="dark" style={StyleSheet.absoluteFillObject} />
-                    <LinearGradient
-                      colors={['rgba(255,255,255,0.10)', 'rgba(255,255,255,0.04)']}
-                      start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}
-                      style={StyleSheet.absoluteFillObject}
-                    />
-                  </>
-                )}
+                <BlurView intensity={isDark ? 40 : 55} tint={isDark ? 'dark' : 'light'} style={StyleSheet.absoluteFillObject} />
+                <LinearGradient
+                  colors={isDark ? ['rgba(255,255,255,0.10)', 'rgba(255,255,255,0.04)'] : ['rgba(255,255,255,0.65)', 'rgba(255,255,255,0.30)']}
+                  start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}
+                  style={StyleSheet.absoluteFillObject}
+                />
                 <SoundIcon />
                 <Text style={[Typography.eyebrow, { color: colors.charcoal3, textAlign: 'center' }]}>ТВЕРДЖЕННЯ</Text>
                 <View style={{ flex: 1, justifyContent: 'center' }}>
@@ -294,17 +298,13 @@ export default function QuestScreen() {
         {questStep === 'mc' && (
           <View style={{ flex: 1 }}>
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 24 }}>
-              <View style={[s.mcCard, { width: '100%', height: 507, borderWidth: 1, borderColor: isDark ? 'rgba(255,255,255,0.12)' : colors.borderDefault, backgroundColor: isDark ? 'transparent' : '#F6F6F6' }]}>
-                {isDark && (
-                  <>
-                    <BlurView intensity={40} tint="dark" style={StyleSheet.absoluteFillObject} />
-                    <LinearGradient
-                      colors={['rgba(255,255,255,0.10)', 'rgba(255,255,255,0.04)']}
-                      start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}
-                      style={StyleSheet.absoluteFillObject}
-                    />
-                  </>
-                )}
+              <View style={[s.mcCard, { width: '100%', height: 507, borderWidth: 1, borderColor: isDark ? 'rgba(255,255,255,0.12)' : 'rgba(255,255,255,0.70)', backgroundColor: 'transparent' }]}>
+                <BlurView intensity={isDark ? 40 : 55} tint={isDark ? 'dark' : 'light'} style={StyleSheet.absoluteFillObject} />
+                <LinearGradient
+                  colors={isDark ? ['rgba(255,255,255,0.10)', 'rgba(255,255,255,0.04)'] : ['rgba(255,255,255,0.65)', 'rgba(255,255,255,0.30)']}
+                  start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}
+                  style={StyleSheet.absoluteFillObject}
+                />
                 <SoundIcon />
                 <Text style={[s.mcQuestion, { color: colors.ink }]}>
                   Які числа діляться на 5 без залишку?
@@ -344,19 +344,15 @@ export default function QuestScreen() {
                 <View style={[s.sentenceCard, {
                   ...StyleSheet.absoluteFillObject,
                   borderWidth: 1,
-                  borderColor: isDark ? 'rgba(255,255,255,0.12)' : colors.borderDefault,
-                  backgroundColor: isDark ? 'transparent' : '#F6F6F6',
+                  borderColor: isDark ? 'rgba(255,255,255,0.12)' : 'rgba(255,255,255,0.70)',
+                  backgroundColor: 'transparent',
                 }]}>
-                  {isDark && (
-                    <>
-                      <BlurView intensity={40} tint="dark" style={StyleSheet.absoluteFillObject} />
-                      <LinearGradient
-                        colors={['rgba(255,255,255,0.10)', 'rgba(255,255,255,0.04)']}
-                        start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}
-                        style={StyleSheet.absoluteFillObject}
-                      />
-                    </>
-                  )}
+                  <BlurView intensity={isDark ? 40 : 55} tint={isDark ? 'dark' : 'light'} style={StyleSheet.absoluteFillObject} />
+                  <LinearGradient
+                    colors={isDark ? ['rgba(255,255,255,0.10)', 'rgba(255,255,255,0.04)'] : ['rgba(255,255,255,0.65)', 'rgba(255,255,255,0.30)']}
+                    start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}
+                    style={StyleSheet.absoluteFillObject}
+                  />
                   <SoundIcon />
                   <Text style={[s.sentenceLabel, { color: colors.charcoal3 }]}>Відтвори речення</Text>
 
@@ -408,8 +404,8 @@ export default function QuestScreen() {
                     {
                       ...StyleSheet.absoluteFillObject,
                       borderWidth: 1,
-                      borderColor: isDark ? 'rgba(255,255,255,0.12)' : colors.borderDefault,
-                      backgroundColor: isDark ? 'transparent' : '#F6F6F6',
+                      borderColor: isDark ? 'rgba(255,255,255,0.12)' : 'rgba(255,255,255,0.70)',
+                      backgroundColor: 'transparent',
                       transform: [
                         { perspective: 1200 },
                         { translateY: cardFallY },
@@ -418,16 +414,12 @@ export default function QuestScreen() {
                       opacity: cardFallOpacity,
                     },
                   ]}>
-                    {isDark && (
-                      <>
-                        <BlurView intensity={40} tint="dark" style={StyleSheet.absoluteFillObject} />
-                        <LinearGradient
-                          colors={['rgba(255,255,255,0.10)', 'rgba(255,255,255,0.04)']}
-                          start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}
-                          style={StyleSheet.absoluteFillObject}
-                        />
-                      </>
-                    )}
+                    <BlurView intensity={isDark ? 40 : 55} tint={isDark ? 'dark' : 'light'} style={StyleSheet.absoluteFillObject} />
+                    <LinearGradient
+                      colors={isDark ? ['rgba(255,255,255,0.10)', 'rgba(255,255,255,0.04)'] : ['rgba(255,255,255,0.65)', 'rgba(255,255,255,0.30)']}
+                      start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}
+                      style={StyleSheet.absoluteFillObject}
+                    />
                     <SoundIcon />
                     <Text style={[s.sentenceMemTitle, { color: colors.ink }]}>
                       {`Запам'ятай послідовність слів та відтвори речення.`}
