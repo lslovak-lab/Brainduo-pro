@@ -1,17 +1,22 @@
-import React, { useState, useRef, useEffect } from 'react';
-import {
-  View, Text, Pressable, StyleSheet, Animated, Easing, useWindowDimensions, Image,
-} from 'react-native';
-import { useLocalSearchParams, useRouter } from 'expo-router';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { LinearGradient } from 'expo-linear-gradient';
-import { BlurView } from 'expo-blur';
-import { Ionicons } from '@expo/vector-icons';
-import Svg, { Path } from 'react-native-svg';
 import { Button } from '@/components/Button';
 import { ProgressBar } from '@/components/ProgressBar';
-import { Typography, Radius, Shadows } from '@/lib/theme';
+import { Radius, Shadows, Typography } from '@/lib/theme';
 import { useTheme } from '@/lib/ThemeContext';
+import { Ionicons } from '@expo/vector-icons';
+import { BlurView } from 'expo-blur';
+import { LinearGradient } from 'expo-linear-gradient';
+import { useLocalSearchParams, useRouter } from 'expo-router';
+import React, { useEffect, useRef, useState } from 'react';
+import {
+  Animated, Easing,
+  Image,
+  Pressable, StyleSheet,
+  Text,
+  useWindowDimensions,
+  View,
+} from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import Svg, { Path } from 'react-native-svg';
 
 function SoundIcon() {
   const { colors, isDark } = useTheme();
@@ -123,7 +128,7 @@ export default function QuestScreen() {
       setTfAnswer(null);
       setShowTutorTF(false);
       goNextWithFade();
-    }, 780);
+    }, 400);
   };
 
   const getMcFeedback = (i: number): McFeedback => {
@@ -143,7 +148,7 @@ export default function QuestScreen() {
       setMcChecked(false);
       setMcSelected(new Set());
       goNextWithFade();
-    }, 900);
+    }, 400);
   };
 
   const toggleMc = (i: number) => {
@@ -172,7 +177,7 @@ export default function QuestScreen() {
       Animated.timing(stepFade, { toValue: 0, duration: 130, useNativeDriver: true }).start(() => {
         router.push('/quest/result');
       });
-    }, 1400);
+    }, 500);
   };
 
   useEffect(() => {
@@ -517,7 +522,7 @@ function QuestHeader({
   progress: number;
   stepLabel: string;
 }) {
-  const { colors } = useTheme();
+  const { colors, isDark } = useTheme();
   const { width } = useWindowDimensions();
   const topPad = width <= 480 ? 10 : 59;
   return (
@@ -526,7 +531,39 @@ function QuestHeader({
         <Ionicons name={showClose ? 'close' : 'chevron-back'} size={22} color={colors.ink} />
       </Pressable>
       <View style={{ flex: 1, paddingHorizontal: 16 }}>
-        <ProgressBar value={progress} height={8} />
+        {isDark ? (
+          <View style={{ height: 14, justifyContent: 'center' }}>
+            {/* track */}
+            <View style={{
+              position: 'absolute', left: 0, right: 0,
+              height: 8, backgroundColor: '#27272F', borderRadius: 50,
+            }} />
+            {/* fill + glow */}
+            <View style={{ position: 'absolute', left: 0, width: `${progress * 100}%` as any, height: 14 }}>
+              <View style={{
+                position: 'absolute', left: 0, right: 0, top: 3,
+                height: 8, backgroundColor: '#FB853C', borderRadius: 50, overflow: 'hidden',
+              }}>
+                <LinearGradient
+                  colors={['rgba(243,96,43,0)', '#F94F11', '#FB853C']}
+                  start={{ x: 1, y: 0.54 }} end={{ x: 0, y: 0.54 }}
+                  style={{ position: 'absolute', left: 4, top: -2, right: 0, bottom: -2 }}
+                />
+              </View>
+              {/* glow tip */}
+              <View style={{
+                position: 'absolute', right: -6, top: 0,
+                width: 13, height: 14,
+                backgroundColor: '#B1134B', borderRadius: 6,
+                shadowColor: '#B1134B', shadowOffset: { width: 0, height: 0 },
+                shadowOpacity: 1, shadowRadius: 5,
+              }} />
+
+            </View>
+          </View>
+        ) : (
+          <ProgressBar value={progress} height={8} />
+        )}
       </View>
       <Text style={[Typography.caption, { minWidth: 32, textAlign: 'right' }]}>{stepLabel}</Text>
     </View>
@@ -631,10 +668,13 @@ function OptionBtn({
     }
   };
 
+  const correctColor = isDark ? '#22A854' : colors.sageDeep;
+  const wrongColor   = isDark ? '#E03535' : colors.orangeDeep;
+
   const bgColor =
-    feedbackState === 'correct' ? colors.sageDeep :
-    feedbackState === 'wrong'   ? colors.orangeDeep :
-    feedbackState === 'reveal'  ? 'rgba(143,167,100,0.12)' :
+    feedbackState === 'correct' ? correctColor :
+    feedbackState === 'wrong'   ? wrongColor :
+    feedbackState === 'reveal'  ? (isDark ? 'rgba(34,168,84,0.15)' : 'rgba(143,167,100,0.12)') :
     selected                    ? (isDark ? 'rgba(255,255,255,0.88)' : '#000000') :
     isDark                      ? 'rgba(255,255,255,0.12)' :
     dark                        ? 'rgba(0,0,0,0.15)' :
@@ -643,7 +683,7 @@ function OptionBtn({
   const borderColor =
     feedbackState === 'correct' ? 'transparent' :
     feedbackState === 'wrong'   ? 'transparent' :
-    feedbackState === 'reveal'  ? colors.sageDeep :
+    feedbackState === 'reveal'  ? correctColor :
     selected                    ? 'transparent' :
     isDark                      ? 'rgba(255,255,255,0.20)' :
     dark                        ? 'rgba(0,0,0,0.12)' :
@@ -652,7 +692,7 @@ function OptionBtn({
   const textColor =
     feedbackState === 'correct' ? colors.onDark :
     feedbackState === 'wrong'   ? colors.onDark :
-    feedbackState === 'reveal'  ? colors.sageDeep :
+    feedbackState === 'reveal'  ? correctColor :
     selected                    ? (isDark ? '#000000' : '#FFFFFF') :
     isDark                      ? '#FFFFFF' :
     dark                        ? 'rgba(0,0,0,0.35)' :
@@ -676,7 +716,7 @@ function OptionBtn({
           <Ionicons name="close" size={18} color={colors.onDark} style={{ marginRight: 4 }} />
         )}
         {feedbackState === 'reveal' && (
-          <Ionicons name="checkmark-circle-outline" size={18} color={colors.sageDeep} style={{ marginRight: 4 }} />
+          <Ionicons name="checkmark-circle-outline" size={18} color={correctColor} style={{ marginRight: 4 }} />
         )}
         {isDark && !feedbackState && !selected ? (
           <>
@@ -734,28 +774,31 @@ function McAnswer({
   const onIn  = () => !feedback && Animated.timing(scale, { toValue: 0.97, duration: 60, useNativeDriver: true }).start();
   const onOut = () => !feedback && !selected && Animated.spring(scale, { toValue: 1, useNativeDriver: true, tension: 300, friction: 18 }).start();
 
+  const correctColor = isDark ? '#22A854' : colors.sageDeep;
+  const wrongColor   = isDark ? '#E03535' : colors.orangeDeep;
+
   const checkboxBg =
-    feedback === 'correct-selected' ? colors.sageDeep :
-    feedback === 'wrong-selected'   ? colors.orangeDeep :
+    feedback === 'correct-selected' ? correctColor :
+    feedback === 'wrong-selected'   ? wrongColor :
     selected                        ? colors.ink : 'transparent';
 
   const checkboxBorderColor =
-    feedback === 'correct-selected' ? colors.sageDeep :
-    feedback === 'wrong-selected'   ? colors.orangeDeep :
-    feedback === 'correct-missed'   ? colors.sageDeep :
+    feedback === 'correct-selected' ? correctColor :
+    feedback === 'wrong-selected'   ? wrongColor :
+    feedback === 'correct-missed'   ? correctColor :
     colors.ink;
 
   const rowBg =
-    feedback === 'correct-selected' ? `${colors.sageDeep}18` :
-    feedback === 'correct-missed'   ? `${colors.sageDeep}0D` :
-    feedback === 'wrong-selected'   ? `${colors.orangeDeep}18` :
+    feedback === 'correct-selected' ? `${correctColor}18` :
+    feedback === 'correct-missed'   ? `${correctColor}0D` :
+    feedback === 'wrong-selected'   ? `${wrongColor}18` :
     isDark                          ? 'rgba(255,255,255,0.06)' :
     '#F6F6F6';
 
   const rowBorderColor =
-    feedback === 'correct-selected' ? colors.sageDeep :
-    feedback === 'correct-missed'   ? colors.sageDeep :
-    feedback === 'wrong-selected'   ? colors.orangeDeep :
+    feedback === 'correct-selected' ? correctColor :
+    feedback === 'correct-missed'   ? correctColor :
+    feedback === 'wrong-selected'   ? wrongColor :
     colors.ink;
 
   const rowBorderStyle: any =
@@ -773,13 +816,13 @@ function McAnswer({
         </View>
         <Text style={[s.mcAnswerText, { color: colors.ink, flex: 1 }]}>{text}</Text>
         {feedback === 'correct-selected' && (
-          <Text style={[Typography.caption, { color: colors.sageDeep }]}>правильно</Text>
+          <Text style={[Typography.caption, { color: correctColor }]}>правильно</Text>
         )}
         {feedback === 'wrong-selected' && (
-          <Text style={[Typography.caption, { color: colors.orangeDeep }]}>неправильно</Text>
+          <Text style={[Typography.caption, { color: wrongColor }]}>неправильно</Text>
         )}
         {feedback === 'correct-missed' && (
-          <Text style={[Typography.caption, { color: colors.sageDeep }]}>правильна</Text>
+          <Text style={[Typography.caption, { color: correctColor }]}>правильна</Text>
         )}
       </Pressable>
     </Animated.View>

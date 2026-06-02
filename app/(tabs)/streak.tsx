@@ -126,9 +126,9 @@ export default function StreakScreen() {
 
         {/* Stat cards */}
         <View style={s.statsRow}>
-          <StatCard label="РЕКОРД" value={`${BEST_STREAK}`} icon="trophy-outline" accent={colors.yellow} cardBg={colors.paper} cardBorder={colors.borderSubtle} />
-          <StatCard label="ТИЖДЕНЬ" value={`${WEEK_ACTIVE}/7`} icon="calendar-outline" accent={colors.sageDeep} cardBg={colors.paper} cardBorder={colors.borderSubtle} />
-          <StatCard label="БОНУСИ" value="+240" icon="star-outline" accent={colors.orange} cardBg={colors.paper} cardBorder={colors.borderSubtle} />
+          <StatCard label="РЕКОРД" value={`${BEST_STREAK}`} icon="trophy-outline" accent={colors.yellow} iconColor={isDark ? '#F58A3A' : undefined} cardBg={colors.paper} cardBorder={colors.borderSubtle} />
+          <StatCard label="ТИЖДЕНЬ" value={`${WEEK_ACTIVE}/7`} icon="calendar-outline" accent={colors.sageDeep} iconColor={isDark ? '#F58A3A' : undefined} cardBg={colors.paper} cardBorder={colors.borderSubtle} />
+          <StatCard label="БОНУСИ" value="+240" icon="star-outline" accent={colors.orange} iconColor={isDark ? '#F58A3A' : undefined} cardBg={colors.paper} cardBorder={colors.borderSubtle} />
         </View>
 
         {/* Calendar */}
@@ -238,13 +238,14 @@ function StreakBtn({ onPress }: { onPress: () => void }) {
   );
 }
 
-function StatCard({ label, value, icon, accent, cardBg, cardBorder }: {
-  label: string; value: string; icon: string; accent: string; cardBg: string; cardBorder: string;
+function StatCard({ label, value, icon, accent, iconColor, cardBg, cardBorder }: {
+  label: string; value: string; icon: string; accent: string; iconColor?: string; cardBg: string; cardBorder: string;
 }) {
+  const ic = iconColor ?? accent;
   return (
     <View style={[sc.card, { backgroundColor: cardBg, borderColor: cardBorder }]}>
       <View style={[sc.iconWrap, { backgroundColor: `${accent}22` }]}>
-        <Ionicons name={icon as any} size={18} color={accent} />
+        <Ionicons name={icon as any} size={18} color={ic} />
       </View>
       <Text style={[sc.value, { color: accent }]}>{value}</Text>
       <Text style={[sc.label, { color: accent }]}>{label}</Text>

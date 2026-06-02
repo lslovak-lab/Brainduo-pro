@@ -93,15 +93,15 @@ export default function VoiceQuestScreen() {
       </View>
 
       <Animated.View style={[s.body, { opacity: fadeAnim }]}>
-        <Text style={[Typography.display, { marginTop: 10, textAlign: 'center' }]}>Поясни власними словами</Text>
+        <Text style={[Typography.display, { marginTop: 10, textAlign: 'center', color: isDark ? '#FFFFFF' : colors.ink }]}>Поясни власними словами</Text>
 
         <LinearGradient
           colors={gradients.sage}
           start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}
           style={s.questionCard}
         >
-          <Text style={Typography.eyebrow}>ПИТАННЯ</Text>
-          <Text style={[Typography.h3, { marginTop: 8, lineHeight: 26, textAlign: 'center' }]}>
+          <Text style={[Typography.eyebrow, { color: isDark ? 'rgba(255,255,255,0.60)' : undefined }]}>ПИТАННЯ</Text>
+          <Text style={[Typography.h3, { marginTop: 8, lineHeight: 26, textAlign: 'center', color: isDark ? '#FFFFFF' : colors.ink }]}>
             Чому якісний сон важливий для збереження нових знань?
           </Text>
         </LinearGradient>

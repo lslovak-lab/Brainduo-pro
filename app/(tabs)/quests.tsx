@@ -87,19 +87,20 @@ const ALL_DOTS = [
   makeDots(CENTERS[4], CENTERS[5]),
 ];
 
+
 // ── Screen ────────────────────────────────────────────────────────────────────
 
 export default function LevelsScreen() {
   const router = useRouter();
-  const { colors } = useTheme();
+  const { colors, isDark } = useTheme();
   const { width } = useWindowDimensions();
   const topPad = width <= 480 ? 10 : 59;
   const onTabScroll = useScrollTabBar();
 
   const dotFill = (segIdx: number): string => {
     const state = LEVELS[segIdx].state;
-    if (state === 'done')   return colors.sage;
-    if (state === 'active') return `${colors.orange}60`;
+    if (state === 'done')   return isDark ? '#F58A3A' : colors.sage;
+    if (state === 'active') return isDark ? '#F58A3A60' : `${colors.orange}60`;
     return '#D0D0D0';
   };
 
@@ -177,7 +178,7 @@ function LevelNode({
   isLeft: boolean;
   onPress: () => void;
 }) {
-  const { colors } = useTheme();
+  const { colors, isDark } = useTheme();
 
   const mountAnim  = useRef(new Animated.Value(0)).current;
   const pressScale = useRef(new Animated.Value(1)).current;
@@ -209,13 +210,13 @@ function LevelNode({
   const onOut = () =>               Animated.spring(pressScale, { toValue: 1,    useNativeDriver: true, tension: 300, friction: 20 }).start();
 
   const gradColors: readonly [string, string] =
-    isDone   ? [colors.sage1, colors.sageDeep]        :
-    isActive ? [colors.orangeSoft, colors.orangeDeep] :
+    isDone   ? (isDark ? ['#FFB17A', '#F58A3A'] : [colors.sage1, colors.sageDeep]) :
+    isActive ? (isDark ? ['#FFB17A', '#F58A3A'] : [colors.orangeSoft, colors.orangeDeep]) :
                ['#E2E2E2', '#CACACA'];
 
   const iconName  = isDone ? 'checkmark' : isActive ? 'play' : 'lock-closed';
   const iconSize  = isDone ? 30 : isActive ? 26 : 22;
-  const iconColor = isDone ? colors.ink : isActive ? colors.paper : '#AAAAAA';
+  const iconColor = isDone ? (isDark ? colors.paper : colors.ink) : isActive ? colors.paper : '#AAAAAA';
 
   const circleTop  = center.y - R;
   const circleLeft = center.x - R;
@@ -255,7 +256,7 @@ function LevelNode({
         ]}
       >
         {isActive && (
-          <Animated.View style={[s.glowRing, { backgroundColor: `${colors.orange}38`, opacity: glowAnim }]} />
+          <Animated.View style={[s.glowRing, { backgroundColor: isDark ? '#F58A3A38' : `${colors.orange}38`, opacity: glowAnim }]} />
         )}
 
         {isActive && <View style={[s.whiteRing, { borderColor: colors.paper }]} />}
@@ -267,8 +268,8 @@ function LevelNode({
             end={{ x: 0.8, y: 1 }}
             style={[
               s.circle,
-              isDone   && { shadowColor: colors.sageDeep, shadowOffset: { width: 0, height: 8 }, shadowOpacity: 0.45, shadowRadius: 14, elevation: 8 },
-              isActive && { shadowColor: colors.orange, shadowOffset: { width: 0, height: 10 }, shadowOpacity: 0.55, shadowRadius: 18, elevation: 10 },
+              isDone   && { shadowColor: isDark ? '#D86F1F' : colors.sageDeep, shadowOffset: { width: 0, height: 8 }, shadowOpacity: 0.45, shadowRadius: 14, elevation: 8 },
+              isActive && { shadowColor: isDark ? '#D86F1F' : colors.orange, shadowOffset: { width: 0, height: 10 }, shadowOpacity: 0.55, shadowRadius: 18, elevation: 10 },
               isLocked && s.circleLockedStyle,
             ]}
           >

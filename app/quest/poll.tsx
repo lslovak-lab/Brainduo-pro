@@ -62,7 +62,7 @@ const pb = StyleSheet.create({
 
 export default function PollQuestScreen() {
   const router = useRouter();
-  const { colors, gradients } = useTheme();
+  const { colors, gradients, isDark } = useTheme();
   const { width } = useWindowDimensions();
   const topPad = width <= 480 ? 10 : 59;
   const [voted, setVoted]       = useState(false);
@@ -99,7 +99,7 @@ export default function PollQuestScreen() {
         showsVerticalScrollIndicator={false}
       >
         <Text style={Typography.eyebrow}>КВЕСТ · ОПИТУВАННЯ</Text>
-        <Text style={[Typography.display, { marginTop: 10 }]}>Твоя думка</Text>
+        <Text style={[Typography.display, { marginTop: 10, textAlign: 'center', color: isDark ? '#FFFFFF' : colors.ink }]}>Твоя думка</Text>
 
         <LinearGradient
           colors={gradients.sage}
@@ -110,7 +110,7 @@ export default function PollQuestScreen() {
             <View style={[s.pollIcon, { backgroundColor: colors.bgOverlay }]}>
               <Ionicons name="stats-chart" size={20} color={colors.ink} />
             </View>
-            <Text style={[Typography.h3, { flex: 1, lineHeight: 26 }]}>{QUESTION}</Text>
+            <Text style={[Typography.h3, { flex: 1, lineHeight: 26, textAlign: 'center', color: isDark ? '#FFFFFF' : colors.ink }]}>{QUESTION}</Text>
           </View>
         </LinearGradient>
 

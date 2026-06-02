@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import {
   View, Text, ScrollView, Pressable, StyleSheet, Switch,
   Alert, Animated, Share, Linking, ActionSheetIOS, Platform, useWindowDimensions,
+  Modal, KeyboardAvoidingView, TextInput,
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -197,6 +198,11 @@ export default function SettingsScreen() {
   });
   const [lang, setLang] = useState('Українська');
 
+  const [editVisible, setEditVisible] = useState(false);
+  const [editName,    setEditName]    = useState('Оля Коваленко');
+  const [editHandle,  setEditHandle]  = useState('@olya_kovalenko');
+  const [editBio,     setEditBio]     = useState('Люблю вчитися та розвиватися 🧠');
+
   const flip = (key: keyof typeof toggles) =>
     setToggles(prev => ({ ...prev, [key]: !prev[key] }));
 
@@ -256,7 +262,7 @@ export default function SettingsScreen() {
           <SettingsItemRow
             icon="person-outline"
             label="Редагувати профіль"
-            onPress={() => router.push('/(tabs)/profile')}
+            onPress={() => setEditVisible(true)}
           />
           <SettingsItemRow
             icon="lock-closed-outline"
@@ -410,6 +416,89 @@ export default function SettingsScreen() {
 
         <View style={{ height: 40 }} />
       </ScrollView>
+      {/* ── Edit Profile Modal ───────────────────────────────────────── */}
+      <Modal
+        visible={editVisible}
+        animationType="slide"
+        transparent
+        onRequestClose={() => setEditVisible(false)}
+      >
+        <Pressable style={m.backdrop} onPress={() => setEditVisible(false)} />
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+          style={m.sheetWrap}
+        >
+          <View style={[m.sheet, { backgroundColor: colors.paper }]}>
+            {/* drag handle */}
+            <View style={[m.handle, { backgroundColor: colors.borderSubtle }]} />
+
+            {/* header */}
+            <View style={m.sheetHeader}>
+              <Pressable onPress={() => setEditVisible(false)}>
+                <Text style={[m.cancelTxt, { color: colors.charcoal2 }]}>Скасувати</Text>
+              </Pressable>
+              <Text style={[m.sheetTitle, { color: colors.ink }]}>Редагувати профіль</Text>
+              <Pressable onPress={() => setEditVisible(false)}>
+                <Text style={[m.saveTxt, { color: isDark ? '#F58A3A' : colors.sageDeep }]}>Зберегти</Text>
+              </Pressable>
+            </View>
+
+            {/* avatar */}
+            <View style={m.avatarRow}>
+              <View style={[m.avatar, { backgroundColor: isDark ? '#2C2C3A' : colors.bgMuted }]}>
+                <Text style={m.avatarInitial}>О</Text>
+                <View style={[m.cameraBadge, { backgroundColor: isDark ? '#F58A3A' : colors.sageDeep }]}>
+                  <Ionicons name="camera" size={12} color="#FFF" />
+                </View>
+              </View>
+              <Text style={[m.changePhotoTxt, { color: isDark ? '#F58A3A' : colors.sageDeep }]}>Змінити фото</Text>
+            </View>
+
+            <ScrollView style={{ flex: 1 }} keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
+              {/* name */}
+              <View style={[m.field, { borderBottomColor: colors.divider }]}>
+                <Text style={[m.fieldLabel, { color: colors.charcoal3 }]}>ІМ'Я</Text>
+                <TextInput
+                  style={[m.fieldInput, { color: colors.ink }]}
+                  value={editName}
+                  onChangeText={setEditName}
+                  placeholderTextColor={colors.charcoal3}
+                  returnKeyType="next"
+                />
+              </View>
+
+              {/* handle */}
+              <View style={[m.field, { borderBottomColor: colors.divider }]}>
+                <Text style={[m.fieldLabel, { color: colors.charcoal3 }]}>НІКНЕЙМ</Text>
+                <TextInput
+                  style={[m.fieldInput, { color: colors.ink }]}
+                  value={editHandle}
+                  onChangeText={setEditHandle}
+                  placeholderTextColor={colors.charcoal3}
+                  autoCapitalize="none"
+                  returnKeyType="next"
+                />
+              </View>
+
+              {/* bio */}
+              <View style={[m.field, { borderBottomColor: colors.divider }]}>
+                <Text style={[m.fieldLabel, { color: colors.charcoal3 }]}>БІО</Text>
+                <TextInput
+                  style={[m.fieldInput, { color: colors.ink }]}
+                  value={editBio}
+                  onChangeText={setEditBio}
+                  placeholderTextColor={colors.charcoal3}
+                  multiline
+                  returnKeyType="done"
+                />
+              </View>
+
+              <View style={{ height: 40 }} />
+            </ScrollView>
+          </View>
+        </KeyboardAvoidingView>
+      </Modal>
+
     </SafeAreaView>
   );
 }
@@ -498,5 +587,84 @@ const s = StyleSheet.create({
   shareBtnText: {
     fontFamily: 'Montserrat_600SemiBold',
     fontSize: 15, lineHeight: 19,
+  },
+});
+
+const m = StyleSheet.create({
+  backdrop: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'rgba(0,0,0,0.45)',
+  },
+  sheetWrap: {
+    flex: 1,
+    justifyContent: 'flex-end',
+  },
+  sheet: {
+    borderTopLeftRadius: 24,
+    borderTopRightRadius: 24,
+    maxHeight: '85%',
+    paddingBottom: 34,
+  },
+  handle: {
+    width: 40, height: 4, borderRadius: 2,
+    alignSelf: 'center',
+    marginTop: 12, marginBottom: 4,
+  },
+  sheetHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 20,
+    paddingVertical: 14,
+  },
+  sheetTitle: {
+    fontFamily: 'Montserrat_700Bold',
+    fontSize: 17, lineHeight: 21,
+  },
+  cancelTxt: {
+    fontFamily: 'Montserrat_400Regular',
+    fontSize: 15, lineHeight: 19,
+  },
+  saveTxt: {
+    fontFamily: 'Montserrat_700Bold',
+    fontSize: 15, lineHeight: 19,
+  },
+  avatarRow: {
+    alignItems: 'center',
+    gap: 10,
+    paddingVertical: 16,
+  },
+  avatar: {
+    width: 80, height: 80, borderRadius: 40,
+    alignItems: 'center', justifyContent: 'center',
+  },
+  avatarInitial: {
+    fontFamily: 'Montserrat_800ExtraBold',
+    fontSize: 32, lineHeight: 38, color: '#888',
+  },
+  cameraBadge: {
+    position: 'absolute',
+    bottom: 0, right: 0,
+    width: 24, height: 24, borderRadius: 12,
+    alignItems: 'center', justifyContent: 'center',
+  },
+  changePhotoTxt: {
+    fontFamily: 'Montserrat_600SemiBold',
+    fontSize: 14, lineHeight: 18,
+  },
+  field: {
+    paddingHorizontal: 20,
+    paddingVertical: 14,
+    borderBottomWidth: 1,
+    gap: 4,
+  },
+  fieldLabel: {
+    fontFamily: 'Montserrat_600SemiBold',
+    fontSize: 10, lineHeight: 13, letterSpacing: 1.2,
+  },
+  fieldInput: {
+    fontFamily: 'Montserrat_500Medium',
+    fontSize: 16, lineHeight: 22,
+    paddingVertical: 2,
   },
 });

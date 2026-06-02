@@ -113,9 +113,9 @@ export default function ProfileScreen() {
 
         {/* ── Key stats ribbon ─────────────────────────────────────────────── */}
         <View style={s.statsRibbon}>
-          <StatCard icon="flame"            accent={colors.orange}   num="138"  label="СТРІК ДНІВ" cardBg={colors.paper} cardBorder={colors.borderSubtle} />
-          <StatCard icon="star"             accent={colors.yellow}   num="2.4K" label="БОНУСИ"     cardBg={colors.paper} cardBorder={colors.borderSubtle} />
-          <StatCard icon="checkmark-circle" accent={colors.sageDeep} num="73%"  label="ТОЧНІСТЬ"   cardBg={colors.paper} cardBorder={colors.borderSubtle} />
+          <StatCard icon="flame"            accent={colors.orange}   iconColor={isDark ? '#F58A3A' : undefined} num="138"  label="СТРІК ДНІВ" cardBg={colors.paper} cardBorder={colors.borderSubtle} />
+          <StatCard icon="star"             accent={colors.yellow}   iconColor={isDark ? '#F58A3A' : undefined} num="2.4K" label="БОНУСИ"     cardBg={colors.paper} cardBorder={colors.borderSubtle} />
+          <StatCard icon="checkmark-circle" accent={colors.sageDeep} iconColor={isDark ? '#F58A3A' : undefined} num="73%"  label="ТОЧНІСТЬ"   cardBg={colors.paper} cardBorder={colors.borderSubtle} />
         </View>
 
         {/* ── XP Level ─────────────────────────────────────────────────────── */}
@@ -212,13 +212,14 @@ function SocialStat({ num, label }: { num: string; label: string }) {
   );
 }
 
-function StatCard({ icon, accent, num, label, cardBg, cardBorder }: {
-  icon: string; accent: string; num: string; label: string; cardBg: string; cardBorder: string;
+function StatCard({ icon, accent, iconColor, num, label, cardBg, cardBorder }: {
+  icon: string; accent: string; iconColor?: string; num: string; label: string; cardBg: string; cardBorder: string;
 }) {
+  const ic = iconColor ?? accent;
   return (
     <View style={[s.statCard, { backgroundColor: cardBg, borderColor: cardBorder }]}>
       <View style={[s.statIconWrap, { backgroundColor: `${accent}1A` }]}>
-        <Ionicons name={icon as any} size={16} color={accent} />
+        <Ionicons name={icon as any} size={16} color={ic} />
       </View>
       <Text style={[s.statNum, { color: accent }]}>{num}</Text>
       <Text style={[s.statLabel, { color: accent }]}>{label}</Text>
@@ -521,6 +522,7 @@ const s = StyleSheet.create({
     fontFamily: 'Montserrat_700Bold',
     fontSize: 16, lineHeight: 20, letterSpacing: 0.1,
   },
+
 });
 
 const bc = StyleSheet.create({

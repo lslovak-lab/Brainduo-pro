@@ -7,6 +7,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useScrollTabBar } from '@/lib/useScrollTabBar';
 import {
   Animated,
+  Image,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -67,7 +68,7 @@ const CARDS: CategoryCard[] = [
 
 export default function HomeScreen() {
   const router = useRouter();
-  const { colors } = useTheme();
+  const { colors, isDark } = useTheme();
   const { width } = useWindowDimensions();
   const topPad = width <= 480 ? 10 : 59;
   const onTabScroll = useScrollTabBar();
@@ -138,19 +139,25 @@ export default function HomeScreen() {
           <View style={{ gap: 6 }}>
             <Text style={[s.greeting, { color: colors.ink }]}>Привіт, Олю!</Text>
             <View style={s.streakRow}>
-              <Ionicons name="flame" size={20} color={colors.orange} />
+              <Ionicons name="flame" size={20} color={isDark ? '#F58A3A' : colors.orange} />
               <Text style={[s.streakLabel, { color: colors.charcoal2 }]}>{displayStreak} днів поспіль</Text>
             </View>
           </View>
 
           {/* XP badge */}
-          <Pressable
-            onPress={() => router.push('/(tabs)/streak')}
-            style={[s.xpBadge, { borderColor: `${colors.orange}30` }]}
-          >
-            <Ionicons name="heart" size={20} color={colors.orange} />
-            <Text style={[s.xpNum, { color: colors.ink }]}>{displayXP}</Text>
-          </Pressable>
+          {isDark ? (
+            <Pressable onPress={() => router.push('/(tabs)/streak')}>
+              <Image source={require('@/assets/heart.png')} style={{ width: 90, height: 44 }} resizeMode="contain" />
+            </Pressable>
+          ) : (
+            <Pressable
+              onPress={() => router.push('/(tabs)/streak')}
+              style={[s.xpBadge, { borderColor: `${colors.orange}30` }]}
+            >
+              <Ionicons name="heart" size={20} color={colors.orange} />
+              <Text style={[s.xpNum, { color: colors.ink }]}>{displayXP}</Text>
+            </Pressable>
+          )}
         </Animated.View>
 
         {/* ── Category cards ──────────────────────────────────────────────── */}
@@ -185,7 +192,7 @@ function CategoryCardItem({
   isSelected: boolean;
   onPress: () => void;
 }) {
-  const { colors } = useTheme();
+  const { colors, isDark } = useTheme();
 
   const accent      = colors[card.accentKey];
   const activeColor = colors[card.activeKey];
@@ -251,8 +258,8 @@ function CategoryCardItem({
           </View>
 
           <View style={cc.footer}>
-            <View style={[cc.iconCircle, { backgroundColor: `${accent}22` }]}>
-              <Ionicons name={card.icon as any} size={18} color={accent} />
+            <View style={[cc.iconCircle, { backgroundColor: isDark ? '#F58A3A22' : `${accent}22` }]}>
+              <Ionicons name={card.icon as any} size={18} color={isDark ? '#F58A3A' : accent} />
             </View>
 
             {card.progress && (
@@ -274,7 +281,7 @@ function CategoryCardItem({
           </View>
 
           <View style={[cc.arrowBtn, { backgroundColor: colors.ivory, borderColor: colors.borderSubtle }]}>
-            <Ionicons name="chevron-forward" size={18} color={colors.ink} />
+            <Ionicons name="chevron-forward" size={18} color={isDark ? '#F58A3A' : colors.ink} />
           </View>
         </Pressable>
       </Animated.View>
