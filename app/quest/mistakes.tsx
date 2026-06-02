@@ -87,8 +87,8 @@ export default function MistakesScreen() {
             <Text style={[s.chipText, { color: colors.sageDeep }]}>{mistake.category}</Text>
           </View>
 
-          <Text style={[Typography.eyebrow, { marginTop: 16 }]}>ПИТАННЯ {idx + 1}</Text>
-          <Text style={[Typography.h2, { marginTop: 8, lineHeight: 28 }]}>
+          <Text style={[Typography.eyebrow, { marginTop: 16, color: isDark ? 'rgba(255,255,255,0.55)' : undefined }]}>ПИТАННЯ {idx + 1}</Text>
+          <Text style={[Typography.h2, { marginTop: 8, lineHeight: 28, color: isDark ? '#FFFFFF' : colors.ink }]}>
             {mistake.question}
           </Text>
 
@@ -106,7 +106,7 @@ export default function MistakesScreen() {
               </View>
               <View style={{ flex: 1 }}>
                 <Text style={[Typography.eyebrow, { color: colors.orangeDeep }]}>ВАША ВІДПОВІДЬ</Text>
-                <Text style={[s.answerText, { marginTop: 3, color: colors.ink }]}>{mistake.yourAnswer}</Text>
+                <Text style={[s.answerText, { marginTop: 3, color: isDark ? '#FFFFFF' : colors.ink }]}>{mistake.yourAnswer}</Text>
               </View>
             </View>
 
@@ -122,7 +122,7 @@ export default function MistakesScreen() {
               </View>
               <View style={{ flex: 1 }}>
                 <Text style={[Typography.eyebrow, { color: colors.sageDeep }]}>ПРАВИЛЬНА ВІДПОВІДЬ</Text>
-                <Text style={[s.answerText, { marginTop: 3, color: colors.ink }]}>{mistake.correct}</Text>
+                <Text style={[s.answerText, { marginTop: 3, color: isDark ? '#FFFFFF' : colors.ink }]}>{mistake.correct}</Text>
               </View>
             </View>
           </View>
@@ -139,7 +139,7 @@ export default function MistakesScreen() {
               </View>
               <View style={{ flex: 1 }}>
                 <Text style={[Typography.eyebrow, { color: colors.sageDeep }]}>ПОЯСНЕННЯ</Text>
-                <Text style={[Typography.body, { marginTop: 6, fontSize: 15, lineHeight: 22 }]}>
+                <Text style={[Typography.body, { marginTop: 6, fontSize: 15, lineHeight: 22, color: isDark ? 'rgba(255,255,255,0.85)' : undefined }]}>
                   {mistake.explanation}
                 </Text>
               </View>
@@ -151,19 +151,9 @@ export default function MistakesScreen() {
 
       <View style={s.footer}>
         {!isLast ? (
-          <Button
-            variant="primary"
-            label="Наступна помилка →"
-            fullWidth
-            onPress={() => navigate(idx + 1)}
-          />
+          <MistakesNavBtn label="Наступна помилка →" onPress={() => navigate(idx + 1)} />
         ) : (
-          <Button
-            variant="primary"
-            label="До головної"
-            fullWidth
-            onPress={() => router.replace('/(tabs)')}
-          />
+          <MistakesNavBtn label="До головної" onPress={() => router.replace('/(tabs)')} />
         )}
         {idx > 0 && (
           <Button
@@ -175,6 +165,55 @@ export default function MistakesScreen() {
         )}
       </View>
     </SafeAreaView>
+  );
+}
+
+function MistakesNavBtn({ label, onPress }: { label: string; onPress: () => void }) {
+  const { isDark } = useTheme();
+  const scale       = useRef(new Animated.Value(1)).current;
+  const fillOpacity = useRef(new Animated.Value(0)).current;
+  const textOpacity = useRef(new Animated.Value(0)).current;
+
+  const onIn = () => {
+    Animated.parallel([
+      Animated.spring(scale,       { toValue: 0.94, useNativeDriver: true, tension: 500, friction: 8 }),
+      Animated.timing(fillOpacity, { toValue: 1, duration: 40, useNativeDriver: true }),
+      Animated.timing(textOpacity, { toValue: 1, duration: 40, useNativeDriver: true }),
+    ]).start();
+  };
+
+  const onOut = () => {
+    Animated.parallel([
+      Animated.sequence([
+        Animated.spring(scale, { toValue: 1.05, useNativeDriver: true, tension: 600, friction: 7 }),
+        Animated.spring(scale, { toValue: 1,    useNativeDriver: true, tension: 400, friction: 10 }),
+      ]),
+      Animated.timing(fillOpacity, { toValue: 0, duration: 150, useNativeDriver: true }),
+      Animated.timing(textOpacity, { toValue: 0, duration: 150, useNativeDriver: true }),
+    ]).start();
+  };
+
+  if (!isDark) {
+    return <Button variant="primary" label={label} fullWidth onPress={onPress} />;
+  }
+
+  return (
+    <Animated.View style={{ transform: [{ scale }], width: '100%' }}>
+      <Pressable
+        onPress={onPress}
+        onPressIn={onIn}
+        onPressOut={onOut}
+        style={[s.navBtn, { overflow: 'hidden' }]}
+      >
+        <Animated.View style={[StyleSheet.absoluteFillObject, { backgroundColor: 'rgba(255,255,255,0.88)', opacity: fillOpacity }]} />
+        <Animated.Text style={[s.navBtnText, { color: '#FFFFFF', opacity: textOpacity.interpolate({ inputRange: [0, 1], outputRange: [1, 0] }) }]}>
+          {label}
+        </Animated.Text>
+        <Animated.Text style={[s.navBtnText, { color: '#000000', opacity: textOpacity, position: 'absolute' }]}>
+          {label}
+        </Animated.Text>
+      </Pressable>
+    </Animated.View>
   );
 }
 
@@ -232,5 +271,16 @@ const s = StyleSheet.create({
     width: 32, height: 32, borderRadius: 10,
     alignItems: 'center', justifyContent: 'center',
     marginTop: 2,
+  },
+  navBtn: {
+    height: 56, borderRadius: 999,
+    alignItems: 'center', justifyContent: 'center',
+    backgroundColor: 'rgba(255,255,255,0.15)',
+    borderWidth: 1, borderColor: 'rgba(255,255,255,0.20)',
+    ...Shadows.button,
+  },
+  navBtnText: {
+    fontFamily: 'Montserrat_700Bold',
+    fontSize: 16, lineHeight: 20, letterSpacing: 0.1,
   },
 });

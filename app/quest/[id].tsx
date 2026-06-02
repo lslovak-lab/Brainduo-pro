@@ -81,7 +81,7 @@ export default function QuestScreen() {
   const cardFallY       = useRef(new Animated.Value(0)).current;
   const cardFallRot     = useRef(new Animated.Value(0)).current;
   const cardFallOpacity = useRef(new Animated.Value(1)).current;
-  const submitScale     = useRef(new Animated.Value(1)).current;
+
 
   const stepIndex = STEP_ORDER.indexOf(questStep);
   const progress  = (stepIndex + 1) / STEP_ORDER.length;
@@ -244,6 +244,7 @@ export default function QuestScreen() {
                   <OptionBtn
                     label="Правда"
                     selected={tfAnswer === 'true'}
+                    inactive={tfAnswer === 'false'}
                     feedbackState={tfFeedbackPravda}
                     onPress={() => !tfChecked && setTfAnswer('true')}
                     dark
@@ -251,6 +252,7 @@ export default function QuestScreen() {
                   <OptionBtn
                     label="Хиба"
                     selected={tfAnswer === 'false'}
+                    inactive={tfAnswer === 'true'}
                     feedbackState={tfFeedbackKhyba}
                     onPress={() => !tfChecked && setTfAnswer('false')}
                     dark
@@ -283,10 +285,8 @@ export default function QuestScreen() {
                   <Text style={[s.glassBtnText, { color: colors.ink }]}>Підказка AI-тьютора</Text>
                 </View>
               </Pressable>
-              <Button
-                variant="primary"
+              <QuestDaliBtn
                 label={tfChecked ? 'Перевіряємо…' : 'Далі'}
-                fullWidth
                 pending={tfAnswer === null && !tfChecked}
                 onPress={handleTfSubmit}
               />
@@ -323,10 +323,8 @@ export default function QuestScreen() {
               </View>
             </View>
             <View style={s.footer}>
-              <Button
-                variant="primary"
+              <QuestDaliBtn
                 label={mcChecked ? 'Перевіряємо…' : 'Далі'}
-                fullWidth
                 pending={mcSelected.size === 0 && !mcChecked}
                 onPress={handleMcSubmit}
               />
@@ -447,16 +445,7 @@ export default function QuestScreen() {
             )}
             {sentencePhase === 'answer' && (
               <View style={s.footer}>
-                <Animated.View style={{ transform: [{ scale: submitScale }], width: '100%' }}>
-                  <Pressable
-                    style={[s.sentenceSubmitBtn, { backgroundColor: colors.ink }]}
-                    onPress={handleSentenceSubmit}
-                    onPressIn={() => Animated.timing(submitScale, { toValue: 0.93, duration: 90, useNativeDriver: true }).start()}
-                    onPressOut={() => Animated.spring(submitScale, { toValue: 1, useNativeDriver: true, tension: 280, friction: 4 }).start()}
-                  >
-                    <Text style={[s.sentenceSubmitText, { color: colors.ivory }]}>Відповісти</Text>
-                  </Pressable>
-                </Animated.View>
+                <QuestDaliBtn label="Відповісти" onPress={handleSentenceSubmit} />
               </View>
             )}
           </View>
@@ -464,6 +453,57 @@ export default function QuestScreen() {
 
       </Animated.View>
     </SafeAreaView>
+  );
+}
+
+function QuestDaliBtn({ label, pending, onPress }: { label: string; pending?: boolean; onPress: () => void }) {
+  const { isDark } = useTheme();
+  const scale       = useRef(new Animated.Value(1)).current;
+  const fillOpacity = useRef(new Animated.Value(0)).current;
+  const textOpacity = useRef(new Animated.Value(0)).current;
+
+  const onIn = () => {
+    if (pending) return;
+    Animated.parallel([
+      Animated.spring(scale,       { toValue: 0.94, useNativeDriver: true, tension: 500, friction: 8 }),
+      Animated.timing(fillOpacity, { toValue: 1, duration: 40, useNativeDriver: true }),
+      Animated.timing(textOpacity, { toValue: 1, duration: 40, useNativeDriver: true }),
+    ]).start();
+  };
+
+  const onOut = () => {
+    if (pending) return;
+    Animated.parallel([
+      Animated.sequence([
+        Animated.spring(scale, { toValue: 1.05, useNativeDriver: true, tension: 600, friction: 7 }),
+        Animated.spring(scale, { toValue: 1,    useNativeDriver: true, tension: 400, friction: 10 }),
+      ]),
+      Animated.timing(fillOpacity, { toValue: 0, duration: 150, useNativeDriver: true }),
+      Animated.timing(textOpacity, { toValue: 0, duration: 150, useNativeDriver: true }),
+    ]).start();
+  };
+
+  if (!isDark) {
+    return <Button variant="primary" label={label} fullWidth pending={pending} onPress={onPress} />;
+  }
+
+  return (
+    <Animated.View style={{ transform: [{ scale }], width: '100%' }}>
+      <Pressable
+        onPress={pending ? undefined : onPress}
+        onPressIn={onIn}
+        onPressOut={onOut}
+        style={[s.daliBtn, { backgroundColor: pending ? 'rgba(255,255,255,0.08)' : 'rgba(255,255,255,0.15)', overflow: 'hidden' }]}
+      >
+        <Animated.View style={[StyleSheet.absoluteFillObject, { backgroundColor: 'rgba(255,255,255,0.88)', opacity: fillOpacity }]} />
+        <Animated.Text style={[s.daliBtnText, { color: '#FFFFFF', opacity: textOpacity.interpolate({ inputRange: [0, 1], outputRange: [1, 0] }) }]}>
+          {label}
+        </Animated.Text>
+        <Animated.Text style={[s.daliBtnText, { color: '#000000', opacity: textOpacity, position: 'absolute' }]}>
+          {label}
+        </Animated.Text>
+      </Pressable>
+    </Animated.View>
   );
 }
 
@@ -519,17 +559,30 @@ function TutorHint({ visible, text }: { visible: boolean; text: string }) {
 // ── OptionBtn (True/False) ────────────────────────────────────────────────────
 
 function OptionBtn({
-  label, selected, feedbackState, onPress, dark = false,
+  label, selected, inactive = false, feedbackState, onPress, dark = false,
 }: {
   label: string;
   selected: boolean;
+  inactive?: boolean;
   feedbackState: TFFeedback;
   onPress: () => void;
   dark?: boolean;
 }) {
-  const { colors } = useTheme();
-  const scale = useRef(new Animated.Value(1)).current;
-  const shake = useRef(new Animated.Value(0)).current;
+  const { colors, isDark } = useTheme();
+  const scale       = useRef(new Animated.Value(1)).current;
+  const shake       = useRef(new Animated.Value(0)).current;
+  const fillOpacity = useRef(new Animated.Value(0)).current;
+  const textOpacity = useRef(new Animated.Value(0)).current;
+  const dimOpacity  = useRef(new Animated.Value(1)).current;
+
+  useEffect(() => {
+    if (!isDark || feedbackState) return;
+    Animated.timing(dimOpacity, {
+      toValue: inactive ? 0.35 : 1,
+      duration: 200,
+      useNativeDriver: true,
+    }).start();
+  }, [inactive, isDark, feedbackState]);
 
   useEffect(() => {
     if (feedbackState === 'wrong') {
@@ -549,14 +602,41 @@ function OptionBtn({
     }
   }, [feedbackState]);
 
-  const onIn  = () => !feedbackState && Animated.spring(scale, { toValue: 0.97, useNativeDriver: true, tension: 300, friction: 20 }).start();
-  const onOut = () => !feedbackState && Animated.spring(scale, { toValue: 1,    useNativeDriver: true, tension: 300, friction: 20 }).start();
+  const onIn = () => {
+    if (feedbackState) return;
+    if (isDark) {
+      Animated.parallel([
+        Animated.spring(scale,       { toValue: 0.94, useNativeDriver: true, tension: 500, friction: 8 }),
+        Animated.timing(fillOpacity, { toValue: 1, duration: 40, useNativeDriver: true }),
+        Animated.timing(textOpacity, { toValue: 1, duration: 40, useNativeDriver: true }),
+      ]).start();
+    } else {
+      Animated.spring(scale, { toValue: 0.97, useNativeDriver: true, tension: 300, friction: 20 }).start();
+    }
+  };
+
+  const onOut = () => {
+    if (feedbackState) return;
+    if (isDark) {
+      Animated.parallel([
+        Animated.sequence([
+          Animated.spring(scale, { toValue: 1.05, useNativeDriver: true, tension: 600, friction: 7 }),
+          Animated.spring(scale, { toValue: 1,    useNativeDriver: true, tension: 400, friction: 10 }),
+        ]),
+        Animated.timing(fillOpacity, { toValue: 0, duration: 150, useNativeDriver: true }),
+        Animated.timing(textOpacity, { toValue: 0, duration: 150, useNativeDriver: true }),
+      ]).start();
+    } else {
+      Animated.spring(scale, { toValue: 1, useNativeDriver: true, tension: 300, friction: 20 }).start();
+    }
+  };
 
   const bgColor =
     feedbackState === 'correct' ? colors.sageDeep :
     feedbackState === 'wrong'   ? colors.orangeDeep :
     feedbackState === 'reveal'  ? 'rgba(143,167,100,0.12)' :
-    selected                    ? '#000000' :
+    selected                    ? (isDark ? 'rgba(255,255,255,0.88)' : '#000000') :
+    isDark                      ? 'rgba(255,255,255,0.12)' :
     dark                        ? 'rgba(0,0,0,0.15)' :
     colors.bgMuted;
 
@@ -565,6 +645,7 @@ function OptionBtn({
     feedbackState === 'wrong'   ? 'transparent' :
     feedbackState === 'reveal'  ? colors.sageDeep :
     selected                    ? 'transparent' :
+    isDark                      ? 'rgba(255,255,255,0.20)' :
     dark                        ? 'rgba(0,0,0,0.12)' :
     colors.borderSubtle;
 
@@ -572,18 +653,22 @@ function OptionBtn({
     feedbackState === 'correct' ? colors.onDark :
     feedbackState === 'wrong'   ? colors.onDark :
     feedbackState === 'reveal'  ? colors.sageDeep :
-    selected                    ? '#FFFFFF' :
+    selected                    ? (isDark ? '#000000' : '#FFFFFF') :
+    isDark                      ? '#FFFFFF' :
     dark                        ? 'rgba(0,0,0,0.35)' :
     colors.charcoal;
 
   return (
-    <Animated.View style={{ flex: 1, transform: [{ scale }, { translateX: shake }] }}>
+    <Animated.View style={{ flex: 1, transform: [{ scale }, { translateX: shake }], opacity: dimOpacity }}>
       <Pressable
         onPress={onPress}
         onPressIn={onIn}
         onPressOut={onOut}
-        style={[s.optBtn, { backgroundColor: bgColor, borderColor }, feedbackState === 'correct' && Shadows.button]}
+        style={[s.optBtn, { backgroundColor: bgColor, borderColor, overflow: 'hidden' }, feedbackState === 'correct' && Shadows.button]}
       >
+        {isDark && !feedbackState && !selected && (
+          <Animated.View style={[StyleSheet.absoluteFillObject, { backgroundColor: 'rgba(255,255,255,0.88)', opacity: fillOpacity }]} />
+        )}
         {feedbackState === 'correct' && (
           <Ionicons name="checkmark" size={18} color={colors.onDark} style={{ marginRight: 4 }} />
         )}
@@ -593,7 +678,18 @@ function OptionBtn({
         {feedbackState === 'reveal' && (
           <Ionicons name="checkmark-circle-outline" size={18} color={colors.sageDeep} style={{ marginRight: 4 }} />
         )}
-        <Text style={[s.optLabel, { color: textColor }]}>{label}</Text>
+        {isDark && !feedbackState && !selected ? (
+          <>
+            <Animated.Text style={[s.optLabel, { color: '#FFFFFF', opacity: textOpacity.interpolate({ inputRange: [0, 1], outputRange: [1, 0] }) }]}>
+              {label}
+            </Animated.Text>
+            <Animated.Text style={[s.optLabel, { color: '#000000', opacity: textOpacity, position: 'absolute' }]}>
+              {label}
+            </Animated.Text>
+          </>
+        ) : (
+          <Text style={[s.optLabel, { color: textColor }]}>{label}</Text>
+        )}
       </Pressable>
     </Animated.View>
   );
@@ -821,6 +917,16 @@ const s = StyleSheet.create({
     shadowOpacity: 0.22, shadowRadius: 14, elevation: 7,
   },
   glassBtnText: {
+    fontFamily: 'Montserrat_700Bold',
+    fontSize: 16, lineHeight: 20, letterSpacing: 0.1,
+  },
+  daliBtn: {
+    height: 56, borderRadius: 999,
+    alignItems: 'center', justifyContent: 'center',
+    borderWidth: 1, borderColor: 'rgba(255,255,255,0.20)',
+    ...Shadows.button,
+  },
+  daliBtnText: {
     fontFamily: 'Montserrat_700Bold',
     fontSize: 16, lineHeight: 20, letterSpacing: 0.1,
   },

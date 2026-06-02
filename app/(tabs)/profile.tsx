@@ -46,7 +46,7 @@ const earnedCount = BADGES.filter(b => b.earned).length;
 
 export default function ProfileScreen() {
   const router = useRouter();
-  const { colors, gradients } = useTheme();
+  const { colors, gradients, isDark } = useTheme();
   const { width } = useWindowDimensions();
   const topPad = width <= 480 ? 10 : 59;
   const onTabScroll = useScrollTabBar();
@@ -94,18 +94,20 @@ export default function ProfileScreen() {
         </View>
 
         {/* Add friend — glass button */}
-        <Pressable style={s.glassBtn}>
-          <BlurView intensity={55} tint="light" style={StyleSheet.absoluteFillObject} />
+        <Pressable style={[s.glassBtn, { borderColor: isDark ? 'rgba(255,255,255,0.18)' : 'rgba(255,255,255,0.70)' }]}>
+          <BlurView intensity={55} tint={isDark ? 'dark' : 'light'} style={StyleSheet.absoluteFillObject} />
           <LinearGradient
-            colors={['rgba(183,203,132,0.40)', 'rgba(183,203,132,0.15)']}
+            colors={isDark ? ['rgba(255,255,255,0.10)', 'rgba(255,255,255,0.04)'] : ['rgba(183,203,132,0.40)', 'rgba(183,203,132,0.15)']}
             start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}
             style={[StyleSheet.absoluteFillObject, { opacity: 0.85 }]}
           />
-          <LinearGradient
-            colors={['rgba(255,255,255,0.55)', 'rgba(255,255,255,0.0)']}
-            start={{ x: 0.5, y: 0 }} end={{ x: 0.5, y: 1 }}
-            style={StyleSheet.absoluteFillObject}
-          />
+          {!isDark && (
+            <LinearGradient
+              colors={['rgba(255,255,255,0.55)', 'rgba(255,255,255,0.0)']}
+              start={{ x: 0.5, y: 0 }} end={{ x: 0.5, y: 1 }}
+              style={StyleSheet.absoluteFillObject}
+            />
+          )}
           <Text style={[s.glassBtnText, { color: colors.ink }]}>+ Додати друга</Text>
         </Pressable>
 

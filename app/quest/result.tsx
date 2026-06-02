@@ -19,7 +19,7 @@ const TARGET   = CIRC - (ACCURACY / 100) * CIRC;
 
 export default function QuestResultScreen() {
   const router = useRouter();
-  const { colors } = useTheme();
+  const { colors, isDark } = useTheme();
   const { width } = useWindowDimensions();
   const topPad = width <= 480 ? 10 : 59;
 
@@ -101,10 +101,10 @@ export default function QuestResultScreen() {
 
         <ScrollView style={s.scroll} contentContainerStyle={s.content} showsVerticalScrollIndicator={false}>
           <Animated.View style={{ opacity: fadeAnim, transform: [{ scale: scaleAnim }] }}>
-            <Text style={[Typography.display, { textAlign: 'center' }]}>
+            <Text style={[Typography.display, { textAlign: 'center', color: isDark ? '#FFFFFF' : colors.ink }]}>
               {ACCURACY >= 80 ? 'Відмінна робота!' : ACCURACY >= 60 ? 'Майже ідеально!' : 'Є куди рости!'}
             </Text>
-            <Text style={[Typography.body, { marginTop: 6, textAlign: 'center' }]}>
+            <Text style={[Typography.body, { marginTop: 6, textAlign: 'center', color: isDark ? 'rgba(255,255,255,0.80)' : colors.ink }]}>
               {ACCURACY >= 80 ? 'Ти чудово впоралась із завданням.' : 'Проаналізуй помилки та спробуй ще раз.'}
             </Text>
           </Animated.View>
@@ -173,20 +173,7 @@ export default function QuestResultScreen() {
         </ScrollView>
 
         <Animated.View style={{ opacity: statsAnim, paddingHorizontal: 24, paddingBottom: 24, gap: 10 }}>
-          <Pressable style={[s.glassBtn, { borderColor: 'rgba(255,255,255,0.70)' }]} onPress={() => router.push('/quest/mistakes')}>
-            <BlurView intensity={55} tint="light" style={StyleSheet.absoluteFillObject} />
-            <LinearGradient
-              colors={['rgba(245,138,58,0.18)', 'rgba(245,138,58,0.06)']}
-              start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}
-              style={StyleSheet.absoluteFillObject}
-            />
-            <LinearGradient
-              colors={['rgba(255,255,255,0.55)', 'rgba(255,255,255,0)']}
-              start={{ x: 0.5, y: 0 }} end={{ x: 0.5, y: 1 }}
-              style={StyleSheet.absoluteFillObject}
-            />
-            <Text style={[s.glassBtnText, { color: colors.ink }]}>Переглянути помилки</Text>
-          </Pressable>
+          <ReviewBtn onPress={() => router.push('/quest/mistakes')} />
           <Button
             variant="primary"
             label="До головної"
@@ -196,6 +183,70 @@ export default function QuestResultScreen() {
         </Animated.View>
       </SafeAreaView>
     </View>
+  );
+}
+
+function ReviewBtn({ onPress }: { onPress: () => void }) {
+  const { colors, isDark } = useTheme();
+  const scale       = useRef(new Animated.Value(1)).current;
+  const fillOpacity = useRef(new Animated.Value(0)).current;
+  const textOpacity = useRef(new Animated.Value(0)).current;
+
+  const onIn = () => {
+    Animated.parallel([
+      Animated.spring(scale,       { toValue: 0.94, useNativeDriver: true, tension: 500, friction: 8 }),
+      Animated.timing(fillOpacity, { toValue: 1, duration: 40, useNativeDriver: true }),
+      Animated.timing(textOpacity, { toValue: 1, duration: 40, useNativeDriver: true }),
+    ]).start();
+  };
+
+  const onOut = () => {
+    Animated.parallel([
+      Animated.sequence([
+        Animated.spring(scale, { toValue: 1.05, useNativeDriver: true, tension: 600, friction: 7 }),
+        Animated.spring(scale, { toValue: 1,    useNativeDriver: true, tension: 400, friction: 10 }),
+      ]),
+      Animated.timing(fillOpacity, { toValue: 0, duration: 150, useNativeDriver: true }),
+      Animated.timing(textOpacity, { toValue: 0, duration: 150, useNativeDriver: true }),
+    ]).start();
+  };
+
+  if (!isDark) {
+    return (
+      <Pressable style={[s.glassBtn, { borderColor: 'rgba(255,255,255,0.70)' }]} onPress={onPress}>
+        <BlurView intensity={55} tint="light" style={StyleSheet.absoluteFillObject} />
+        <LinearGradient
+          colors={['rgba(245,138,58,0.18)', 'rgba(245,138,58,0.06)']}
+          start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}
+          style={StyleSheet.absoluteFillObject}
+        />
+        <LinearGradient
+          colors={['rgba(255,255,255,0.55)', 'rgba(255,255,255,0)']}
+          start={{ x: 0.5, y: 0 }} end={{ x: 0.5, y: 1 }}
+          style={StyleSheet.absoluteFillObject}
+        />
+        <Text style={[s.glassBtnText, { color: colors.ink }]}>Переглянути помилки</Text>
+      </Pressable>
+    );
+  }
+
+  return (
+    <Animated.View style={{ transform: [{ scale }] }}>
+      <Pressable
+        onPress={onPress}
+        onPressIn={onIn}
+        onPressOut={onOut}
+        style={[s.glassBtn, { backgroundColor: 'rgba(255,255,255,0.15)', borderColor: 'rgba(255,255,255,0.20)', overflow: 'hidden' }]}
+      >
+        <Animated.View style={[StyleSheet.absoluteFillObject, { backgroundColor: 'rgba(255,255,255,0.88)', opacity: fillOpacity }]} />
+        <Animated.Text style={[s.glassBtnText, { color: '#FFFFFF', opacity: textOpacity.interpolate({ inputRange: [0, 1], outputRange: [1, 0] }) }]}>
+          Переглянути помилки
+        </Animated.Text>
+        <Animated.Text style={[s.glassBtnText, { color: '#000000', opacity: textOpacity, position: 'absolute' }]}>
+          Переглянути помилки
+        </Animated.Text>
+      </Pressable>
+    </Animated.View>
   );
 }
 

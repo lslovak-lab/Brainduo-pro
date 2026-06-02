@@ -36,7 +36,7 @@ const APRIL_DAYS: { num: string; state: DayState }[] = [
 
 export default function StreakScreen() {
   const router = useRouter();
-  const { colors, gradients } = useTheme();
+  const { colors, gradients, isDark } = useTheme();
   const { width } = useWindowDimensions();
   const topPad = width <= 480 ? 10 : 59;
 
@@ -159,11 +159,11 @@ export default function StreakScreen() {
           end={{ x: 1, y: 1 }}
           style={[s.goalCard, { marginTop: 12 }]}
         >
-          <Text style={[Typography.eyebrow, { color: 'rgba(0,0,0,0.55)' }]}>ЦІЛЬ СЕРІЇ ДНІВ</Text>
+          <Text style={[Typography.eyebrow, { color: isDark ? '#FFFFFF' : 'rgba(0,0,0,0.55)' }]}>ЦІЛЬ СЕРІЇ ДНІВ</Text>
           <View style={[s.rowBetween, { marginTop: 8 }]}>
             <View>
-              <Text style={Typography.h2}>150 днів</Text>
-              <Text style={[Typography.bodySm, { marginTop: 4 }]}>Лишилось 12 днів</Text>
+              <Text style={[Typography.h2, { color: isDark ? '#FFFFFF' : colors.ink }]}>150 днів</Text>
+              <Text style={[Typography.bodySm, { marginTop: 4, color: isDark ? 'rgba(255,255,255,0.80)' : colors.ink }]}>Лишилось 12 днів</Text>
             </View>
             <Text style={[s.pct, { color: colors.ink }]}>92%</Text>
           </View>
@@ -173,17 +173,68 @@ export default function StreakScreen() {
         </LinearGradient>
 
         <View style={{ marginTop: 32 }}>
-          <Button
-            variant="primary"
-            label="Продовжити стрік"
-            fullWidth
-            onPress={() => router.push('/quest/tf')}
-          />
+          {isDark ? (
+            <StreakBtn onPress={() => router.push('/quest/tf')} />
+          ) : (
+            <Button
+              variant="primary"
+              label="Продовжити стрік"
+              fullWidth
+              onPress={() => router.push('/quest/tf')}
+            />
+          )}
         </View>
 
         <View style={{ height: 128 }} />
       </ScrollView>
     </SafeAreaView>
+  );
+}
+
+function StreakBtn({ onPress }: { onPress: () => void }) {
+  const scale      = useRef(new Animated.Value(1)).current;
+  const fillOpacity = useRef(new Animated.Value(0)).current;
+  const textOpacity = useRef(new Animated.Value(0)).current;
+
+  const onIn = () => {
+    Animated.parallel([
+      Animated.spring(scale,       { toValue: 0.94, useNativeDriver: true, tension: 500, friction: 8 }),
+      Animated.timing(fillOpacity, { toValue: 1, duration: 40, useNativeDriver: true }),
+      Animated.timing(textOpacity, { toValue: 1, duration: 40, useNativeDriver: true }),
+    ]).start();
+  };
+
+  const onOut = () => {
+    Animated.parallel([
+      Animated.sequence([
+        Animated.spring(scale, { toValue: 1.05, useNativeDriver: true, tension: 600, friction: 7 }),
+        Animated.spring(scale, { toValue: 1,    useNativeDriver: true, tension: 400, friction: 10 }),
+      ]),
+      Animated.timing(fillOpacity, { toValue: 0, duration: 150, useNativeDriver: true }),
+      Animated.timing(textOpacity, { toValue: 0, duration: 150, useNativeDriver: true }),
+    ]).start();
+  };
+
+  return (
+    <Animated.View style={{ transform: [{ scale }] }}>
+      <Pressable
+        onPress={onPress}
+        onPressIn={onIn}
+        onPressOut={onOut}
+        style={[sc.streakBtn, { backgroundColor: 'rgba(255,255,255,0.15)', overflow: 'hidden' }]}
+      >
+        {/* animated white fill on press */}
+        <Animated.View style={[StyleSheet.absoluteFillObject, { backgroundColor: 'rgba(255,255,255,0.88)', opacity: fillOpacity }]} />
+        {/* white label (default) */}
+        <Animated.Text style={[sc.streakBtnText, { color: '#FFFFFF', opacity: textOpacity.interpolate({ inputRange: [0, 1], outputRange: [1, 0] }) }]}>
+          Продовжити стрік
+        </Animated.Text>
+        {/* black label (active) */}
+        <Animated.Text style={[sc.streakBtnText, { color: '#000000', opacity: textOpacity, position: 'absolute' }]}>
+          Продовжити стрік
+        </Animated.Text>
+      </Pressable>
+    </Animated.View>
   );
 }
 
@@ -298,5 +349,15 @@ const sc = StyleSheet.create({
     fontFamily: 'Montserrat_600SemiBold',
     fontSize: 9, lineHeight: 11, letterSpacing: 1.4,
     textTransform: 'uppercase',
+  },
+  streakBtn: {
+    height: 56, borderRadius: 999,
+    alignItems: 'center', justifyContent: 'center',
+    borderWidth: 1, borderColor: 'rgba(255,255,255,0.20)',
+    ...Shadows.button,
+  },
+  streakBtnText: {
+    fontFamily: 'Montserrat_700Bold',
+    fontSize: 16, lineHeight: 20, letterSpacing: 0.1,
   },
 });

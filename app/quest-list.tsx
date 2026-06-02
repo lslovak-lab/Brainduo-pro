@@ -82,7 +82,7 @@ export default function QuestListScreen() {
   const router   = useRouter();
   const { width } = useWindowDimensions();
   const topPad = width <= 480 ? 10 : 59;
-  const { colors } = useTheme();
+  const { colors, isDark } = useTheme();
   const [seg, setSeg]         = useState<Segment>('today');
   const [calModal, setCalModal] = useState(false);
 
@@ -100,8 +100,8 @@ export default function QuestListScreen() {
           <Ionicons name="chevron-back" size={22} color={colors.ink} />
         </Pressable>
         <View style={{ marginTop: 16 }}>
-          <Text style={[s.title, { color: colors.ink }]}>Челенджі</Text>
-          <Text style={[Typography.body, { marginTop: 4 }]}>
+          <Text style={[s.title, { color: isDark ? '#FFFFFF' : colors.ink, textAlign: 'center' }]}>Челенджі</Text>
+          <Text style={[Typography.body, { marginTop: 4, color: isDark ? 'rgba(255,255,255,0.80)' : colors.ink, textAlign: 'center' }]}>
             Від 5 до 30 хвилин — обирай під свій настрій.
           </Text>
         </View>
