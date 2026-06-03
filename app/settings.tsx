@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import {
   View, Text, ScrollView, Pressable, StyleSheet, Switch,
   Alert, Animated, Share, Linking, ActionSheetIOS, Platform, useWindowDimensions,
-  Modal, KeyboardAvoidingView, TextInput,
+  KeyboardAvoidingView, TextInput,
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -203,6 +203,19 @@ export default function SettingsScreen() {
   const [editHandle,  setEditHandle]  = useState('@olya_kovalenko');
   const [editBio,     setEditBio]     = useState('Люблю вчитися та розвиватися 🧠');
 
+  const slideAnim = useRef(new Animated.Value(700)).current;
+
+  const openSheet = () => {
+    setEditVisible(true);
+    Animated.spring(slideAnim, { toValue: 0, useNativeDriver: true, tension: 80, friction: 16 }).start();
+  };
+
+  const closeSheet = () => {
+    Animated.timing(slideAnim, { toValue: 700, duration: 240, useNativeDriver: true }).start(() => {
+      setEditVisible(false);
+    });
+  };
+
   const flip = (key: keyof typeof toggles) =>
     setToggles(prev => ({ ...prev, [key]: !prev[key] }));
 
@@ -262,7 +275,7 @@ export default function SettingsScreen() {
           <SettingsItemRow
             icon="person-outline"
             label="Редагувати профіль"
-            onPress={() => setEditVisible(true)}
+            onPress={openSheet}
           />
           <SettingsItemRow
             icon="lock-closed-outline"
@@ -416,88 +429,92 @@ export default function SettingsScreen() {
 
         <View style={{ height: 40 }} />
       </ScrollView>
-      {/* ── Edit Profile Modal ───────────────────────────────────────── */}
-      <Modal
-        visible={editVisible}
-        animationType="slide"
-        transparent
-        onRequestClose={() => setEditVisible(false)}
-      >
-        <Pressable style={m.backdrop} onPress={() => setEditVisible(false)} />
-        <KeyboardAvoidingView
-          behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-          style={m.sheetWrap}
-        >
-          <View style={[m.sheet, { backgroundColor: colors.paper }]}>
-            {/* drag handle */}
-            <View style={[m.handle, { backgroundColor: colors.borderSubtle }]} />
+      {/* ── Edit Profile Sheet ───────────────────────────────────────── */}
+      {editVisible && (
+        <View style={[StyleSheet.absoluteFillObject, { zIndex: 999 }]}>
+          {/* dark backdrop — tap to dismiss */}
+          <Pressable
+            style={[StyleSheet.absoluteFillObject, { backgroundColor: 'rgba(0,0,0,0.45)' }]}
+            onPress={closeSheet}
+          />
 
-            {/* header */}
-            <View style={m.sheetHeader}>
-              <Pressable onPress={() => setEditVisible(false)}>
-                <Text style={[m.cancelTxt, { color: colors.charcoal2 }]}>Скасувати</Text>
-              </Pressable>
-              <Text style={[m.sheetTitle, { color: colors.ink }]}>Редагувати профіль</Text>
-              <Pressable onPress={() => setEditVisible(false)}>
-                <Text style={[m.saveTxt, { color: isDark ? '#F58A3A' : colors.sageDeep }]}>Зберегти</Text>
-              </Pressable>
-            </View>
+          {/* sheet slides up from bottom */}
+          <KeyboardAvoidingView
+            behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+            style={{ position: 'absolute', bottom: 0, left: 0, right: 0 }}
+            pointerEvents="box-none"
+          >
+            <Animated.View style={[m.sheet, { backgroundColor: colors.paper, transform: [{ translateY: slideAnim }] }]}>
+              {/* drag handle */}
+              <View style={[m.handle, { backgroundColor: colors.borderSubtle }]} />
 
-            {/* avatar */}
-            <View style={m.avatarRow}>
-              <View style={[m.avatar, { backgroundColor: isDark ? '#2C2C3A' : colors.bgMuted }]}>
-                <Text style={m.avatarInitial}>О</Text>
-                <View style={[m.cameraBadge, { backgroundColor: isDark ? '#F58A3A' : colors.sageDeep }]}>
-                  <Ionicons name="camera" size={12} color="#FFF" />
+              {/* header */}
+              <View style={m.sheetHeader}>
+                <Pressable onPress={closeSheet}>
+                  <Text style={[m.cancelTxt, { color: colors.charcoal2 }]}>Скасувати</Text>
+                </Pressable>
+                <Text style={[m.sheetTitle, { color: colors.ink }]}>Редагувати профіль</Text>
+                <Pressable onPress={closeSheet}>
+                  <Text style={[m.saveTxt, { color: isDark ? '#F58A3A' : colors.sageDeep }]}>Зберегти</Text>
+                </Pressable>
+              </View>
+
+              {/* avatar */}
+              <View style={m.avatarRow}>
+                <View style={[m.avatar, { backgroundColor: isDark ? '#2C2C3A' : colors.bgMuted }]}>
+                  <Text style={m.avatarInitial}>О</Text>
+                  <View style={[m.cameraBadge, { backgroundColor: isDark ? '#F58A3A' : colors.sageDeep }]}>
+                    <Ionicons name="camera" size={12} color="#FFF" />
+                  </View>
                 </View>
-              </View>
-              <Text style={[m.changePhotoTxt, { color: isDark ? '#F58A3A' : colors.sageDeep }]}>Змінити фото</Text>
-            </View>
-
-            <ScrollView style={{ flex: 1 }} keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
-              {/* name */}
-              <View style={[m.field, { borderBottomColor: colors.divider }]}>
-                <Text style={[m.fieldLabel, { color: colors.charcoal3 }]}>ІМ'Я</Text>
-                <TextInput
-                  style={[m.fieldInput, { color: colors.ink }]}
-                  value={editName}
-                  onChangeText={setEditName}
-                  placeholderTextColor={colors.charcoal3}
-                  returnKeyType="next"
-                />
+                <Text style={[m.changePhotoTxt, { color: isDark ? '#F58A3A' : colors.sageDeep }]}>Змінити фото</Text>
               </View>
 
-              {/* handle */}
-              <View style={[m.field, { borderBottomColor: colors.divider }]}>
-                <Text style={[m.fieldLabel, { color: colors.charcoal3 }]}>НІКНЕЙМ</Text>
-                <TextInput
-                  style={[m.fieldInput, { color: colors.ink }]}
-                  value={editHandle}
-                  onChangeText={setEditHandle}
-                  placeholderTextColor={colors.charcoal3}
-                  autoCapitalize="none"
-                  returnKeyType="next"
-                />
-              </View>
+              <ScrollView style={{ flex: 1 }} keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
+                {/* name */}
+                <View style={[m.field, { borderBottomColor: colors.divider }]}>
+                  <Text style={[m.fieldLabel, { color: colors.charcoal3 }]}>ІМ'Я</Text>
+                  <TextInput
+                    style={[m.fieldInput, { color: colors.ink }]}
+                    value={editName}
+                    onChangeText={setEditName}
+                    placeholderTextColor={colors.charcoal3}
+                    returnKeyType="next"
+                  />
+                </View>
 
-              {/* bio */}
-              <View style={[m.field, { borderBottomColor: colors.divider }]}>
-                <Text style={[m.fieldLabel, { color: colors.charcoal3 }]}>БІО</Text>
-                <TextInput
-                  style={[m.fieldInput, { color: colors.ink }]}
-                  value={editBio}
-                  onChangeText={setEditBio}
-                  placeholderTextColor={colors.charcoal3}
-                  multiline
-                  returnKeyType="done"
-                />
-              </View>
+                {/* handle */}
+                <View style={[m.field, { borderBottomColor: colors.divider }]}>
+                  <Text style={[m.fieldLabel, { color: colors.charcoal3 }]}>НІКНЕЙМ</Text>
+                  <TextInput
+                    style={[m.fieldInput, { color: colors.ink }]}
+                    value={editHandle}
+                    onChangeText={setEditHandle}
+                    placeholderTextColor={colors.charcoal3}
+                    autoCapitalize="none"
+                    returnKeyType="next"
+                  />
+                </View>
 
-              <View style={{ height: 40 }} />
-            </ScrollView>
-          </View>
-        </KeyboardAvoidingView>
-      </Modal>
+                {/* bio */}
+                <View style={[m.field, { borderBottomColor: colors.divider }]}>
+                  <Text style={[m.fieldLabel, { color: colors.charcoal3 }]}>БІО</Text>
+                  <TextInput
+                    style={[m.fieldInput, { color: colors.ink }]}
+                    value={editBio}
+                    onChangeText={setEditBio}
+                    placeholderTextColor={colors.charcoal3}
+                    multiline
+                    returnKeyType="done"
+                  />
+                </View>
+
+                <View style={{ height: 40 }} />
+              </ScrollView>
+            </Animated.View>
+          </KeyboardAvoidingView>
+        </View>
+      )}
 
     </SafeAreaView>
   );
@@ -591,18 +608,10 @@ const s = StyleSheet.create({
 });
 
 const m = StyleSheet.create({
-  backdrop: {
-    ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'rgba(0,0,0,0.45)',
-  },
-  sheetWrap: {
-    flex: 1,
-    justifyContent: 'flex-end',
-  },
   sheet: {
     borderTopLeftRadius: 24,
     borderTopRightRadius: 24,
-    maxHeight: '85%',
+    maxHeight: 780,
     paddingBottom: 34,
   },
   handle: {
