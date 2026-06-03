@@ -164,7 +164,7 @@ export default function TabLayout() {
   return (
     <Tabs
       tabBar={(props) => <CustomTabBar {...props} />}
-      screenOptions={{ headerShown: false }}
+      screenOptions={{ headerShown: false, animation: 'fade' }}
     >
       <Tabs.Screen name="index"       options={{ title: 'Головна' }} />
       <Tabs.Screen name="quests"      options={{ title: 'Квести'  }} />
