@@ -76,13 +76,21 @@ export default function HomeScreen() {
   const [displayXP, setDisplayXP]       = useState(0);
   const [displayStreak, setDisplayStreak] = useState(0);
 
-  const flamePulse = useRef(new Animated.Value(1)).current;
-  const flameGlow  = useRef(new Animated.Value(0.3)).current;
-  const headerFade = useRef(new Animated.Value(0)).current;
+  const flamePulse    = useRef(new Animated.Value(1)).current;
+  const flameGlow     = useRef(new Animated.Value(0.3)).current;
+  const headerFade    = useRef(new Animated.Value(0)).current;
+  const screenOpacity = useRef(new Animated.Value(0)).current;
+  const screenSlide   = useRef(new Animated.Value(20)).current;
 
   useFocusEffect(
     useCallback(() => {
       setSelectedId(null);
+      screenOpacity.setValue(0);
+      screenSlide.setValue(20);
+      Animated.parallel([
+        Animated.timing(screenOpacity, { toValue: 1, duration: 260, useNativeDriver: true }),
+        Animated.spring(screenSlide,   { toValue: 0, useNativeDriver: true, tension: 100, friction: 16 }),
+      ]).start();
     }, [])
   );
 
@@ -127,6 +135,7 @@ export default function HomeScreen() {
 
   return (
     <SafeAreaView style={[s.screen, { backgroundColor: colors.ivory }]} edges={['top']}>
+      <Animated.View style={{ flex: 1, opacity: screenOpacity, transform: [{ translateY: screenSlide }] }}>
       <ScrollView
         style={s.scroll}
         contentContainerStyle={[s.content, { paddingTop: topPad }]}
@@ -175,6 +184,7 @@ export default function HomeScreen() {
 
         <View style={{ height: 128 }} />
       </ScrollView>
+      </Animated.View>
     </SafeAreaView>
   );
 }

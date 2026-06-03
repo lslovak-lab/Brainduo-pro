@@ -2,8 +2,8 @@ import { useTheme } from '@/lib/ThemeContext';
 import { Radius } from '@/lib/theme';
 import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
-import { useRouter } from 'expo-router';
-import React, { useEffect, useRef } from 'react';
+import { useFocusEffect, useRouter } from 'expo-router';
+import React, { useCallback, useEffect, useRef } from 'react';
 import { useScrollTabBar } from '@/lib/useScrollTabBar';
 import {
   Animated,
@@ -97,6 +97,20 @@ export default function LevelsScreen() {
   const topPad = width <= 480 ? 10 : 59;
   const onTabScroll = useScrollTabBar();
 
+  const screenOpacity = useRef(new Animated.Value(0)).current;
+  const screenSlide   = useRef(new Animated.Value(20)).current;
+
+  useFocusEffect(
+    useCallback(() => {
+      screenOpacity.setValue(0);
+      screenSlide.setValue(20);
+      Animated.parallel([
+        Animated.timing(screenOpacity, { toValue: 1, duration: 260, useNativeDriver: true }),
+        Animated.spring(screenSlide,   { toValue: 0, useNativeDriver: true, tension: 100, friction: 16 }),
+      ]).start();
+    }, [])
+  );
+
   const dotFill = (segIdx: number): string => {
     const state = LEVELS[segIdx].state;
     if (state === 'done')   return isDark ? '#F58A3A' : colors.sage;
@@ -106,6 +120,7 @@ export default function LevelsScreen() {
 
   return (
     <SafeAreaView style={[s.screen, { backgroundColor: colors.ivory }]} edges={['top']}>
+      <Animated.View style={{ flex: 1, opacity: screenOpacity, transform: [{ translateY: screenSlide }] }}>
       <View style={[s.header, { paddingTop: topPad }]}>
         <View style={[s.pill, { borderColor: `${colors.yellow}55`, backgroundColor: `${colors.yellow}14` }]}>
           <Ionicons name="flash" size={14} color={colors.yellow} />
@@ -159,6 +174,7 @@ export default function LevelsScreen() {
 
         <View style={{ height: 128 }} />
       </ScrollView>
+      </Animated.View>
     </SafeAreaView>
   );
 }

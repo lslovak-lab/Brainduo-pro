@@ -2,7 +2,8 @@ import { Radius, Shadows } from '@/lib/theme';
 import { useTheme } from '@/lib/ThemeContext';
 import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
-import React, { useRef, useState } from 'react';
+import { useFocusEffect } from 'expo-router';
+import React, { useCallback, useRef, useState } from 'react';
 import { useScrollTabBar } from '@/lib/useScrollTabBar';
 import {
   Animated,
@@ -104,7 +105,20 @@ export default function LeaderboardScreen() {
   const topPad = width <= 480 ? 10 : 59;
   const onTabScroll = useScrollTabBar();
   const [period, setPeriod] = useState<Period>('week');
-  const fadeAnim = useRef(new Animated.Value(1)).current;
+  const fadeAnim      = useRef(new Animated.Value(1)).current;
+  const screenOpacity = useRef(new Animated.Value(0)).current;
+  const screenSlide   = useRef(new Animated.Value(20)).current;
+
+  useFocusEffect(
+    useCallback(() => {
+      screenOpacity.setValue(0);
+      screenSlide.setValue(20);
+      Animated.parallel([
+        Animated.timing(screenOpacity, { toValue: 1, duration: 260, useNativeDriver: true }),
+        Animated.spring(screenSlide,   { toValue: 0, useNativeDriver: true, tension: 100, friction: 16 }),
+      ]).start();
+    }, [])
+  );
 
   const GOLD = colors.orange;
 
@@ -125,6 +139,7 @@ export default function LeaderboardScreen() {
 
   return (
     <SafeAreaView style={[s.screen, { backgroundColor: colors.ivory }]} edges={['top']}>
+      <Animated.View style={{ flex: 1, opacity: screenOpacity, transform: [{ translateY: screenSlide }] }}>
       {/* Header */}
       <View style={[s.header, { paddingTop: topPad }]}>
         <View style={{ flex: 1 }}>
@@ -175,6 +190,7 @@ export default function LeaderboardScreen() {
 
         <View style={{ height: 128 }} />
       </Animated.ScrollView>
+      </Animated.View>
     </SafeAreaView>
   );
 }

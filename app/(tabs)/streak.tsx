@@ -5,7 +5,7 @@ import { Radius, Shadows, Typography } from '@/lib/theme';
 import { useTheme } from '@/lib/ThemeContext';
 import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
-import { useRouter } from 'expo-router';
+import { useFocusEffect, useRouter } from 'expo-router';
 import { useTabBarCtx } from '@/lib/TabBarContext';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import {
@@ -45,6 +45,19 @@ export default function StreakScreen() {
   const prevScrollY   = useRef(0);
   const scrollY       = useRef(new Animated.Value(0)).current;
   const shadowOpacity = scrollY.interpolate({ inputRange: [0, 24], outputRange: [0, 1], extrapolate: 'clamp' });
+  const screenOpacity = useRef(new Animated.Value(0)).current;
+  const screenSlide   = useRef(new Animated.Value(20)).current;
+
+  useFocusEffect(
+    useCallback(() => {
+      screenOpacity.setValue(0);
+      screenSlide.setValue(20);
+      Animated.parallel([
+        Animated.timing(screenOpacity, { toValue: 1, duration: 260, useNativeDriver: true }),
+        Animated.spring(screenSlide,   { toValue: 0, useNativeDriver: true, tension: 100, friction: 16 }),
+      ]).start();
+    }, [])
+  );
 
   const handleScroll = useCallback((e: any) => {
     const y = e.nativeEvent.contentOffset.y;
@@ -89,6 +102,7 @@ export default function StreakScreen() {
 
   return (
     <SafeAreaView style={[s.screen, { backgroundColor: colors.ivory }]} edges={['top']}>
+      <Animated.View style={{ flex: 1, opacity: screenOpacity, transform: [{ translateY: screenSlide }] }}>
       <Animated.View style={[s.topnav, { paddingTop: topPad, shadowColor: '#000', shadowOffset: { width: 0, height: 4 }, shadowRadius: 12, shadowOpacity: shadowOpacity as any, elevation: 4 }]}>
         <Pressable style={s.iconBtn} onPress={() => router.push('/(tabs)')}>
           <Ionicons name="chevron-back" size={22} color={colors.ink} />
@@ -187,6 +201,7 @@ export default function StreakScreen() {
 
         <View style={{ height: 128 }} />
       </ScrollView>
+      </Animated.View>
     </SafeAreaView>
   );
 }

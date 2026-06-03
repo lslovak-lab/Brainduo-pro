@@ -6,8 +6,8 @@ import { useTheme } from '@/lib/ThemeContext';
 import { Ionicons } from '@expo/vector-icons';
 import { BlurView } from 'expo-blur';
 import { LinearGradient } from 'expo-linear-gradient';
-import { useRouter } from 'expo-router';
-import React, { useEffect, useRef } from 'react';
+import { useFocusEffect, useRouter } from 'expo-router';
+import React, { useCallback, useEffect, useRef } from 'react';
 import { useScrollTabBar } from '@/lib/useScrollTabBar';
 import {
   Alert,
@@ -51,6 +51,20 @@ export default function ProfileScreen() {
   const topPad = width <= 480 ? 10 : 59;
   const onTabScroll = useScrollTabBar();
 
+  const screenOpacity = useRef(new Animated.Value(0)).current;
+  const screenSlide   = useRef(new Animated.Value(20)).current;
+
+  useFocusEffect(
+    useCallback(() => {
+      screenOpacity.setValue(0);
+      screenSlide.setValue(20);
+      Animated.parallel([
+        Animated.timing(screenOpacity, { toValue: 1, duration: 260, useNativeDriver: true }),
+        Animated.spring(screenSlide,   { toValue: 0, useNativeDriver: true, tension: 100, friction: 16 }),
+      ]).start();
+    }, [])
+  );
+
   const SKILLS = [
     { label: 'Увага',        pct: 81, accent: colors.orange   },
     { label: 'Логіка',       pct: 78, accent: colors.sageDeep },
@@ -60,6 +74,7 @@ export default function ProfileScreen() {
 
   return (
     <SafeAreaView style={[s.screen, { backgroundColor: colors.ivory }]} edges={['top']}>
+      <Animated.View style={{ flex: 1, opacity: screenOpacity, transform: [{ translateY: screenSlide }] }}>
       <View style={[s.topRow, { paddingTop: topPad }]}>
         <Text style={[Typography.eyebrow, { color: colors.charcoal3 }]}>ПРОФІЛЬ</Text>
         <Pressable style={[s.iconBtn, { backgroundColor: colors.bgOverlay }]} onPress={() => router.push('/settings')}>
@@ -191,6 +206,7 @@ export default function ProfileScreen() {
 
         <View style={{ height: 128 }} />
       </ScrollView>
+      </Animated.View>
     </SafeAreaView>
   );
 }
