@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { View, Text, ScrollView, Pressable, StyleSheet, Animated, Easing, useWindowDimensions } from 'react-native';
-import { useRouter } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
 import { BlurView } from 'expo-blur';
@@ -19,6 +19,8 @@ const TARGET   = CIRC - (ACCURACY / 100) * CIRC;
 
 export default function QuestResultScreen() {
   const router = useRouter();
+  const { time } = useLocalSearchParams<{ time?: string }>();
+  const displayTime = typeof time === 'string' ? time : '—';
   const { colors, isDark } = useTheme();
   const { width } = useWindowDimensions();
   const topPad = width <= 480 ? 10 : 59;
@@ -146,7 +148,7 @@ export default function QuestResultScreen() {
           {/* Stats */}
           <Animated.View style={[s.statsGrid, { opacity: statsAnim, transform: [{ translateY: statsAnim.interpolate({ inputRange: [0, 1], outputRange: [20, 0] }) }] }]}>
             <StatBox num="2"    sub="помилки" accent={colors.orangeDeep} icon="close-circle-outline" />
-            <StatBox num="3:42" sub="час"     accent={colors.charcoal}   icon="time-outline"          />
+            <StatBox num={displayTime} sub="час" accent={colors.charcoal} icon="time-outline" />
             <StatBox num={`+${displayBonus}`} sub="бонуси" accent={colors.orange} icon="star-outline" />
           </Animated.View>
 

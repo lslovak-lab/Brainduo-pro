@@ -82,6 +82,12 @@ export default function QuestScreen() {
   const [sentencePhase,   setSentencePhase]   = useState<'memorize' | 'answer'>('memorize');
   const [sentenceChecked, setSentenceChecked] = useState(false);
 
+  const questStartTime = useRef(Date.now()).current;
+  const getElapsedTime = () => {
+    const secs = Math.floor((Date.now() - questStartTime) / 1000);
+    return `${Math.floor(secs / 60)}:${(secs % 60).toString().padStart(2, '0')}`;
+  };
+
   const stepFade        = useRef(new Animated.Value(1)).current;
   const cardFallY       = useRef(new Animated.Value(0)).current;
   const cardFallRot     = useRef(new Animated.Value(0)).current;
@@ -99,7 +105,7 @@ export default function QuestScreen() {
         setQuestStep(next);
         Animated.timing(stepFade, { toValue: 1, duration: 220, useNativeDriver: true }).start();
       } else {
-        router.push('/quest/result');
+        router.push(`/quest/result?time=${getElapsedTime()}` as any);
       }
     });
   };
@@ -175,7 +181,7 @@ export default function QuestScreen() {
     setSentenceChecked(true);
     setTimeout(() => {
       Animated.timing(stepFade, { toValue: 0, duration: 130, useNativeDriver: true }).start(() => {
-        router.push('/quest/result');
+        router.push(`/quest/result?time=${getElapsedTime()}` as any);
       });
     }, 500);
   };
